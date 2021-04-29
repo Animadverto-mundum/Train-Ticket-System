@@ -1,0 +1,7 @@
+/.IDEA
+/.MACOSX
+*.swp
+*.pyc
+*.exe
+*.un~
+*~
