@@ -1,5 +1,6 @@
-/.IDEA
-/.MACOSX
+*/.IDEA/*
+*/__pycache__/*
+*/.MACOSX/*
 *.swp
 *.pyc
 *.exe
