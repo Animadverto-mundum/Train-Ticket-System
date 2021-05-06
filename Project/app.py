@@ -1,12 +1,22 @@
-from flask import Flask
+from flask import Flask, request, json, Response
+from flask_sqlalchemy import SQLAlchemy
+import config
 
-app = Flask(__name__)
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(config)  # 配置文件
+    return app
 
 
+app = create_app()
+
+
+# 此处为路由表
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def index():
+    return 'Hello flask!'
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
