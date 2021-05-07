@@ -74,6 +74,6 @@ class TicketsSold(db.Model):
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID', ondelete='CASCADE'), nullable=False)
     seat = db.Column(db.Integer, nullable=False)
 
-
-db.init_app(app)
-db.create_all()
+with app.app_context():
+    db.init_app(app)
+    db.create_all()
