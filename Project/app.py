@@ -1,5 +1,6 @@
 from flask import Flask, request, json, Response
 from flask_sqlalchemy import SQLAlchemy
+from exts import db
 import config
 
 
@@ -10,7 +11,6 @@ def create_app():
 
 
 app = create_app()
-
 
 # 此处为路由表
 @app.route('/')

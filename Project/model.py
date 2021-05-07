@@ -1,7 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import app
-db = SQLAlchemy()
-
+from exts import db
+from app import app, create_app
 
 class UserStaff(db.Model):
     __tablename__ = 'staff'
@@ -74,6 +72,8 @@ class TicketsSold(db.Model):
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID', ondelete='CASCADE'), nullable=False)
     seat = db.Column(db.Integer, nullable=False)
 
-
-db.init_app(app)
-db.create_all()
+if __name__ == '__main__':
+    app = create_app()
+    with app.app_context():
+        db.init_app(app)
+        db.create_all(app)
