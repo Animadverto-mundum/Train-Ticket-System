@@ -1,14 +1,9 @@
 from flask import Blueprint, request, redirect, render_template, url_for
 from model import *
-from model import db, User
 
-login_app = Blueprint('Login_app', __name__, static_folder='./static', template_folder='templates')
+auth_app = Blueprint('auth_app', __name__, static_folder='static', template_folder='templates', url_prefix='/auth')
 
-@login_app.route('/hello')
-def index():
-    return 'Hello flask!'
-
-@login_app.route('/', methods=['GET', 'POST'])
+@auth_app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -20,7 +15,7 @@ def register():
         return redirect(url_for('/login'))
     return render_template('register.html')
 
-@login_app.route('/login', methods=['GET', 'POST'])
+@auth_app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']

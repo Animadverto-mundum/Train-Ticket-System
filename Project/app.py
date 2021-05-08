@@ -1,7 +1,7 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from flask_sqlalchemy import SQLAlchemy
 from model import db, User
-from Login.Login import login_app
+from Auth.Auth import auth_app
 import config
 
 
@@ -13,11 +13,16 @@ def create_app():
 
 
 app = create_app()
-app.register_blueprint(login_app)
 
-# 此处为路由表
+# init blueprint
+app.register_blueprint(auth_app)
 
+app.add_url_rule('/', endpoint='auth_app.register')
 
+# route
+@app.route('/hello')
+def hello():
+    return 'Hello flask!'
 
 if __name__ == '__main__':
     app.run(debug=True)
