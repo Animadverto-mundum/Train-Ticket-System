@@ -2,8 +2,8 @@ from flask import Flask, request, json, Response, redirect, url_for, session, re
 from flask_sqlalchemy import SQLAlchemy
 from model import db, User
 from Auth.Auth import auth_app
-import config
 
+import config
 
 def create_app():
     app = Flask(__name__)
@@ -18,6 +18,7 @@ app = create_app()
 app.register_blueprint(auth_app)
 
 app.add_url_rule('/', endpoint='manage_login')
+
 
 # route
 @app.route('/hello')
@@ -83,6 +84,7 @@ def manage_user_form():
 @app.route('/manage_user_table')
 def manage_user_table():
     return render_template('manage_user_table.html')
+
 
 
 if __name__ == '__main__':
