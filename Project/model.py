@@ -1,14 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
-from app import app, create_app
-
 db = SQLAlchemy()
-
 
 class UserStaff(db.Model):
     __tablename__ = 'staff'
     staff_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_name = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     department_type_number = db.Column(db.Integer, nullable=False)
 
 
@@ -16,7 +13,7 @@ class User(db.Model):
     __tablename__ = 'user'
     user_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_name = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     user_type_number = db.Column(db.Integer, nullable=False)
 
 
@@ -73,9 +70,4 @@ class TicketsSold(db.Model):
     tickets_sold_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     fare_ID = db.Column(db.Integer, db.ForeignKey('fare_information.fare_ID', ondelete='CASCADE'), nullable=False)
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID', ondelete='CASCADE'), nullable=False)
-    seat = db.Column(db.Integer, nullabsle=False)
-
-
-app = create_app()
-db.init_app(app)
-db.create_all(app)
+    seat = db.Column(db.Integer, nullable=False)
