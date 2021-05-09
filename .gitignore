@@ -7,3 +7,4 @@
 *.un~
 *~
 */config.py
+*.DS_Store
