@@ -1,8 +1,9 @@
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
-from model import *
+from Project.model import *
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 auth_app = Blueprint('auth_app', __name__, static_folder='static', template_folder='templates', url_prefix='/auth')
+
 
 @auth_app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -15,7 +16,7 @@ def register():
             error = 'Username is required.'
         elif password is None:
             error = 'Password is required.'
-        elif User.query.filter(User.user_name==username).first() is not None:
+        elif User.query.filter(User.user_name == username).first() is not None:
             error = 'User {} is already registered.'.format(username)
 
         if error is None:
@@ -28,6 +29,7 @@ def register():
 
     return render_template('register.html')
 
+
 @auth_app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -38,7 +40,7 @@ def login():
 
         if user is None:
             error = 'Incorrect username'
-        elif not check_password_hash(user.password ,password):
+        elif not check_password_hash(user.password, password):
             error = 'Incorrect password'
 
         if error is None:
@@ -50,6 +52,7 @@ def login():
 
     return render_template('login.html')
 
+
 @auth_app.before_app_request
 def load_logged_in_user():
     user_ID = session.get('user_ID')
@@ -57,6 +60,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = User.query.filter(User.user_ID == user_ID).first()
+
 
 @auth_app.route('logout')
 def logout():

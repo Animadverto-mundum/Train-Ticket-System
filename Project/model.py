@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy()
+
 
 class UserStaff(db.Model):
     __tablename__ = 'staff'
@@ -34,13 +36,13 @@ class Line(db.Model):
     line_distance = db.Column(db.Integer, nullable=False)
 
 
-class Train(db.Model):
+class Train(db.Model):  # 具体车表
     __tablename__ = 'train'
     train_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     type_number = db.Column(db.Integer, db.ForeignKey('vehicles.type_number', ondelete='CASCADE'), nullable=False)
 
 
-class Vehicles(db.Model):
+class Vehicles(db.Model):  # 车类型表
     __tablename__ = 'vehicles'
     type_number = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     first_class_seats = db.Column(db.Integer, nullable=False)
@@ -71,3 +73,26 @@ class TicketsSold(db.Model):
     fare_ID = db.Column(db.Integer, db.ForeignKey('fare_information.fare_ID', ondelete='CASCADE'), nullable=False)
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID', ondelete='CASCADE'), nullable=False)
     seat = db.Column(db.Integer, nullable=False)
+
+
+# 拓展功能用数据库
+# 原始数据（具体到为一车次的在某个时间的人数）
+class RawData(db.Model):
+    __tablename__ = 'raw_data'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    time = db.Column(db.DateTime, nullable=True)
+    train_number_ID = db.Column(db.Integer, db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
+                                nullable=False)
+    value = db.Column(db.Integer, nullable=False)
+
+
+# 预测数据表
+class PredictData(db.Model):
+    __tablename__ = 'predict_data'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    time = db.Column(db.DateTime, nullable=True)
+    train_number_ID = db.Column(db.Integer, db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
+                                nullable=False)
+    yhat = db.Column(db.Float, nullable=False)
+    yhat_lower = db.Column(db.Float, nullable=True)
+    yhat_upper = db.Column(db.Float, nullable=True)

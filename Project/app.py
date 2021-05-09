@@ -19,14 +19,17 @@ app.register_blueprint(auth_app)
 
 app.add_url_rule('/', endpoint='index')
 
+
 # route
 @app.route('/hello')
 def hello():
     return 'Hello flask!'
 
+
 @app.route('/index')
 def index():
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
