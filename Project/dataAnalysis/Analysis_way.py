@@ -7,13 +7,6 @@ import joblib
 import time
 from statsmodels.tsa.stattools import adfuller
 
-# v1：用于数据预测和生成数据趋势
-# 输入：一个表，一列为时间，一列为为某个传感器类型下某个传感器的某段时间的数据
-# 输出:该传感器对应的趋势值（分为日内趋势、年内趋势、总趋势）、预测值
-# 输出的格式均为字典，索引为时间，跟着个列表，若为趋势值，列表的元素为['trend', 'trend_lower', 'trend_upper']，代表趋势、趋势的下限和趋势的上限
-# 若为预测值，列表的元素为['yhat', 'yhat_lower', 'yhat_upper']，代表预测值、预测值的下限和预测值的上限
-import config
-
 
 def dataPreview(sensor_data, periods):  # 数据预测,periods为预测间隔
     m = createFbprophet(sensor_data)
