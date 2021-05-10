@@ -15,14 +15,12 @@ from statsmodels.tsa.stattools import adfuller
 import config
 
 
-def dataPreview(sensor_data, periods):  # 数据预测
+def dataPreview(sensor_data, periods):  # 数据预测,periods为预测间隔
     m = createFbprophet(sensor_data)
     forecast_list = list()
-
     future = m.make_future_dataframe(periods=50, freq=periods)
     forecast = m.predict(future)
     forecast = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
-
     forecast = forecast.rename(columns={'ds': '时间'})
     forecast = forecast.iloc[-periods:]
     forecast = forecast.reset_index(drop=True)
@@ -51,37 +49,9 @@ def dataTrend(sensor_data):  # 数据总趋势
     return forecast_list
 
 
-def dailySeasonality(sensor_data, name='daily'):  # 数据日内趋势，日内趋势需要一整天的数据
-    time_list = []
-    data_daily_season_list = []
-    m = createFbprophet(sensor_data)
-    start = pd.to_datetime('2017-01-01 0000')
-    period = m.seasonalities[name]['period']
-    end = start + pd.Timedelta(days=period)
-    plot_points = 200
-    days = pd.to_datetime(np.linspace(start.value, end.value, plot_points))
-    df_y = Prophet.plot.seasonality_plot_df(m, days)
-    seas = m.predict_seasonal_components(df_y)
-    for da in df_y['ds'].dt.to_pydatetime():
-        time_list.append(da.strftime("%H:%M:%S"))
-    data_daily_season = pd.DataFrame(data=time_list, columns=['时间'])
-    data_daily_season['数据'] = seas[name]
-    data_daily_season.drop(data_daily_season.tail(1).index, inplace=True)
-    data_daily_season = data_daily_season.reset_index(drop=True)
-    for i in range(0, len(data_daily_season)):
-        part = data_daily_season.loc[i].T.to_dict()
-        data_daily_season_list.append(part)
-    print(data_daily_season_list)
-    return data_daily_season_list
-
-
 def yearlySeasonality(sensor_data, yearly_start=0):  # 数据年内趋势，可能有误。年内趋势需要一整年的数据
     data_yearly_season_list = []
-    sensor_data['时间'] = pd.to_datetime(sensor_data['时间'], format='%Y-%m-%d %H:%M:%S')  # 4位年用Y，2位年用y
-    data = sensor_data.rename(columns={'时间': 'ds', sensor_data.columns[1]: 'y'})
-    data['ds'] = pd.to_datetime(data['ds'], unit='s')
-    m = Prophet.Prophet(yearly_seasonality=True)
-    m.fit(data)
+    m=createFbprophet(sensor_data,yearly_seasonality=True)
     time_list = []
     days = (pd.date_range(start='2017-01-01', periods=365) +
             pd.Timedelta(days=yearly_start))
@@ -100,19 +70,37 @@ def yearlySeasonality(sensor_data, yearly_start=0):  # 数据年内趋势，可�
     return data_yearly_season_list
 
 
-def createFbprophet(sensor_data):  # 创建预测对象
+def createFbprophet(sensor_data,yearly_seasonality=False):  # 创建预测对象
     sensor_data['时间'] = pd.to_datetime(sensor_data['时间'], format='%Y-%m-%d %H:%M:%S')  # 4位年用Y，2位年用y
     data = sensor_data.rename(columns={'时间': 'ds', sensor_data.columns[1]: 'y'})
     data['ds'] = pd.to_datetime(data['ds'], unit='s')
-    m = Prophet.Prophet()
+    # 添加节假日
+    holidays = pd.DataFrame({
+        'holiday': '节假日',
+        'ds': pd.to_datetime(
+            ['2020-01-01', '2020-01-04', '2020-01-05', '2020-01-11', '2020-01-12', '2020-01-18', '2020-01-24',
+             '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30', '2020-01-31',
+             '2020-02-01', '2020-02-02', '2020-02-08', '2020-02-09', '2020-02-15', '2020-02-16', '2020-02-22',
+             '2020-02-23', '2020-02-29', '2020-03-01', '2020-03-07', '2020-03-08', '2020-03-14', '2020-03-15',
+             '2020-03-21', '2020-03-22', '2020-03-28', '2020-03-29', '2020-04-04', '2020-04-05', '2020-04-06',
+             '2020-04-11', '2020-04-12', '2020-04-18', '2020-04-19', '2020-04-25', '2020-05-01', '2020-05-02',
+             '2020-05-03', '2020-05-05', '2020-05-10', '2020-05-16', '2020-05-17', '2020-05-23', '2020-05-24',
+             '2020-05-30', '2020-05-31', '2020-06-06', '2020-06-07', '2020-06-13', '2020-06-14', '2020-06-20',
+             '2020-06-21', '2020-06-25', '2020-06-26', '2020-06-27', '2020-07-04', '2020-07-05', '2020-07-11',
+             '2020-07-12', '2020-07-18', '2020-07-19', '2020-07-25', '2020-07-26', '2020-08-01', '2020-08-02',
+             '2020-08-08', '2020-08-09', '2020-08-15', '2020-08-16', '2020-08-22', '2020-08-23', '2020-08-29',
+             '2020-08-30', '2020-09-05', '2020-09-06', '2020-09-12', '2020-09-13', '2020-09-19', '2020-09-20',
+             '2020-09-26', '2020-10-01', '2020-10-02', '2020-10-03', '2020-10-04', '2020-10-05', '2020-10-06',
+             '2020-10-07', '2020-10-08', '2020-10-11', '2020-10-17', '2020-10-18', '2020-10-24', '2020-10-25',
+             '2020-10-31', '2020-11-01', '2020-11-07', '2020-11-08', '2020-11-14', '2020-11-15', '2020-11-21',
+             '2020-11-22', '2020-11-28', '2020-11-29', '2020-12-05', '2020-12-06', '2020-12-12', '2020-12-13',
+             '2020-12-19', '2020-12-20', '2020-12-26', '2020-12-27']),
+        'lower_window': -1,
+        'upper_window': 0,
+    })
+    m = Prophet.Prophet(holidays=holidays,yearly_seasonality=yearly_seasonality)
     m.fit(data)
     return m
-
-
-
-# v1：计算数据的平稳性
-# 输入：这里的data应该是限定了时间范围和传感器型号后，数据库执行查询命令，返给我的一个表格，一列是时间，一列是传感器值
-# 输出：输出的话是数据的稳定状态，是string格式。将string直接存入数据库中。前端提取数据库中最新的string
 
 
 def testStationarity(data):

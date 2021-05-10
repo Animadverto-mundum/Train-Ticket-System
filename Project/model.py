@@ -112,7 +112,6 @@ def preProcessData(mapper, connection, target, periods):
     data_dic = {'时间': time_list, '数值': value_list}
     data_df = pd.DataFrame(data=data_dic)  # 构造dataframe
     preview_list = dataPreview(data_df[['时间', '数值']], periods)
-
     for p in preview_list:
         predict_data = PredictData(time=p['时间'], yhat=p['yhat'], yhat_lower=p['yhat_lower'],
                                    yhat_upper=p['yhat_upper'], train_number_ID=sensor)
