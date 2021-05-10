@@ -1,3 +1,4 @@
+import pandas
 from sqlalchemy import event
 
 from Project.model import *
@@ -59,3 +60,16 @@ def initPredict():
     return "预测数据初始化完毕"
 
 
+@db_app.route('/InitData')
+def InitData():
+    print("进来了")
+    df = pandas.read_excel('D:/code_work/Train-Ticket-System/Project/dataAnalysis/2020年数据.xlsx')
+    for sensor_name in list(df)[1:]:
+        id = sensor_name
+        for index, row in df.iterrows():
+            time = row['时间']
+            value = float(row[sensor_name])
+            new_data = RawData(time=time, value=value, train_number_ID=id)
+            db.session.add(new_data)
+        db.session.commit()
+    return "数据初始化成功"

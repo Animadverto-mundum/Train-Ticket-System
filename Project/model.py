@@ -84,7 +84,7 @@ class RawData(db.Model):
     time = db.Column(db.DateTime, nullable=True)
     # train_number_ID = db.Column(db.Integer, db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
     #                             nullable=False)
-    train_number_ID = db.Column(db.Integer, nullable=False)
+    train_number_ID = db.Column(db.Float, nullable=False)
     value = db.Column(db.Integer, nullable=False)
 
 
