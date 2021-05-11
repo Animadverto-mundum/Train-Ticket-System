@@ -8,3 +8,6 @@
 *~
 */config.py
 *.DS_Store
+venv
+.vscode
+.idea
