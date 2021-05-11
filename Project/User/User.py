@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash  # 避
 
 user_bp = Blueprint('user_bp', __name__, static_folder='static', template_folder='templates', url_prefix='/user')
 
+
 @user_bp.route('/auth', methods=['GET', 'POST'])
 def user_auth():
     if request.method == 'POST':
@@ -39,11 +40,12 @@ def user_auth():
                 reg_error = 'User {} is already registered.'.format(reg_username)
 
             if reg_error is None:
-                reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1), user_type_number=1)
+                reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
+                                user_type_number=1)
                 db.session.add(reg_user)
                 db.session.commit()
                 session.clear()
-                session['user_ID'] = User.query.filter(User.user_name==reg_username).first().user_ID
+                session['user_ID'] = User.query.filter(User.user_name == reg_username).first().user_ID
                 return redirect(url_for('user_index'))
 
             flash(reg_error, 'register')
@@ -59,23 +61,22 @@ def load_logged_in_user():
     else:
         g.user = User.query.filter(User.user_ID == user_ID).first()
 
+
 @user_bp.route('/index')
 def user_index():
     return render_template('user_index.html')
 
 
-
 @user_bp.route('/user_buyTicket', methods=['GET', 'POST'])
 def user_buyticket():
-
     return render_template('user_buyTicket.html')
+
 
 @user_bp.route('/user_checkTicket', methods=['GET', 'POST'])
 def user_checkticket():
-
     return render_template('user_checkTicket.html')
+
 
 @user_bp.route('/user_refundTicket', methods=['GET', 'POST'])
 def user_refundticket():
-
     return render_template('user_refundTicket.html')
