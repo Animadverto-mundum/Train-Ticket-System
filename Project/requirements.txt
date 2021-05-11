@@ -3,3 +3,8 @@ Flask-Migrate
 Flask-Script
 flask-sqlalchemy
 fbprophet
+pandas
+numpy
+sklearn
+joblib
+statsmodels
