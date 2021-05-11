@@ -1,7 +1,7 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from flask_sqlalchemy import SQLAlchemy
 from model import db, User
-from Auth.Auth import auth_app
+from Manager.manager import manage_bp
 from dataAnalysis.InitData import db_app
 import config
 
@@ -16,9 +16,9 @@ def create_app():
 app = create_app()
 
 # init blueprint
-app.register_blueprint(auth_app)
+app.register_blueprint(manage_bp)
 app.register_blueprint(db_app)
-app.add_url_rule('/', endpoint='manage_index')
+# app.add_url_rule('/', endpoint='manage_index')
 # app.add_url_rule('/', endpoint='analysis')
 
 
@@ -26,16 +26,6 @@ app.add_url_rule('/', endpoint='manage_index')
 @app.route('/hello')
 def hello():
     return 'Hello flask!'
-
-
-@app.route('/manage_index')
-def manage_index():
-    return render_template('manage_index.html')
-
-
-@app.route('/manage_login')
-def manage_login():
-    return render_template('manage_login_register.html')
 
 
 @app.route('/manage_route_form')
