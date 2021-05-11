@@ -4,7 +4,7 @@ from . import manager_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 @manager_bp.route('/auth', methods=['GET', 'POST'])
-def manage_auth():
+def manager_auth():
     if request.method == 'POST':
         if request.form['submit'] == 'Sign In':
             login_username = request.form['login_username']
@@ -56,11 +56,7 @@ def load_logged_in_user():
     if user_ID is None:
         g.user = None
     else:
-        g.user = UserStaff.query.filter(UserStaff.staff_ID == staff_ID).first()
-
-# @manager_bp.route('/index')
-# def manage_index():
-#     return render_template('manage_index.html')
+        g.user = UserStaff.query.filter(UserStaff.staff_ID == user_ID).first()
 
 # @auth_app.route('logout')
 # def logout():
