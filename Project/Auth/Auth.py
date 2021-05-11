@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
-from Project.model import *
+from model import *
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 auth_app = Blueprint('auth_app', __name__, static_folder='static', template_folder='templates', url_prefix='/auth')

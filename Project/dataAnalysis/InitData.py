@@ -1,9 +1,9 @@
 import pandas
 from sqlalchemy import event
 
-from Project.model import *
+from model import *
 from flask import Blueprint
-from Project.dataAnalysis.Analysis_way import *
+from dataAnalysis.Analysis_way import *
 
 db_app = Blueprint('db_app', __name__, static_folder='static', template_folder='templates', url_prefix='/db')
 

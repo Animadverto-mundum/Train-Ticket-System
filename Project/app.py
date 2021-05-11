@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from model import db, User
 from Auth.Auth import auth_app
 from dataAnalysis.InitData import db_app
+from User.User import user_app
 import config
 
 
@@ -18,6 +19,7 @@ app = create_app()
 # init blueprint
 app.register_blueprint(auth_app)
 app.register_blueprint(db_app)
+app.register_blueprint(user_app)
 app.add_url_rule('/', endpoint='manage_login')
 app.add_url_rule('/', endpoint='analysis')
 
@@ -87,6 +89,32 @@ def manage_user_form():
 def manage_user_table():
     return render_template('manage_user_table.html')
 
+### 用户
+@app.route('/user_index')
+def user_index():
+    return render_template('user_index.html')
+
+@app.route('/user_register')
+def user_register():
+    return render_template('user_register.html')
+
+@app.route('/user_login')
+def user_login():
+    return render_template('user_login.html')
+
+@app.route('/user_checkTicket')
+def user_checkTicket():
+    return render_template('user_checkTicket.html')
+
+@app.route('/user_buyTicket')
+def user_buyTicket():
+    return render_template('user_buyTicket.html')
+
+@app.route('/user_refundTicket')
+def user_refundTicket():
+    return render_template('user_refundTicket.html')
+
+###
 
 if __name__ == '__main__':
     app.run(debug=True)

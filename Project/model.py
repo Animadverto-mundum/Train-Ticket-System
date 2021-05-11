@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from Project.dataAnalysis.Analysis_way import *
+from dataAnalysis.Analysis_way import *
 
 db = SQLAlchemy()
 
