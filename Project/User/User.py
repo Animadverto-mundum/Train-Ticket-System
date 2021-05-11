@@ -39,7 +39,7 @@ def user_auth():
                 reg_error = 'User {} is already registered.'.format(reg_username)
 
             if reg_error is None:
-                reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1), department_type_number=1)
+                reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1), user_type_number=1)
                 db.session.add(reg_user)
                 db.session.commit()
                 session.clear()
