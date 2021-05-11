@@ -37,7 +37,7 @@ def manage_index():
 
 @app.route('/manage_login')
 def manage_login():
-    return render_template('manage_login_register.html')
+    return render_template('user_login_register.html')
 
 
 @app.route('/manage_route_form')
