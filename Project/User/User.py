@@ -7,6 +7,7 @@ user_bp = Blueprint('user_bp', __name__, static_folder='static', template_folder
 
 @user_bp.route('/auth', methods=['GET', 'POST'])
 def user_auth():
+    print(request)
     if request.method == 'POST':
         if request.form['submit'] == 'Sign In':
             login_username = request.form['login_username']

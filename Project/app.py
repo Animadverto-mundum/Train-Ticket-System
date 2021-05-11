@@ -16,6 +16,9 @@ def create_app():
 
 app = create_app()
 
+# 设置显示中文
+app.config['JSON_AS_ASCII'] = False
+
 # init blueprint
 app.register_blueprint(db_app)
 app.register_blueprint(user_bp)
