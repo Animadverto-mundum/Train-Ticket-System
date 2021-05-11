@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
-from ..model import UserStaff
+from model import db, UserStaff
 from . import manager_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
@@ -20,7 +20,7 @@ def manage_auth():
             if login_error is None:
                 session.clear()
                 session['user_ID'] = login_user.staff_ID
-                return redirect(url_for('manager_bp.manage_index'))
+                return redirect(url_for('manager_bp.manager_index'))
 
             flash(login_error, 'login')
 
@@ -43,7 +43,7 @@ def manage_auth():
                 db.session.commit()
                 session.clear()
                 session['user_ID'] = UserStaff.query.filter(UserStaff.user_name==reg_username).first().staff_ID
-                return redirect(url_for('manager_bp.manage_index'))
+                return redirect(url_for('manager_bp.manager_index'))
 
             flash(reg_error, 'register')
 
@@ -56,7 +56,7 @@ def load_logged_in_user():
     if user_ID is None:
         g.user = None
     else:
-        g.user = User.query.filter(User.user_ID == user_ID).first()
+        g.user = UserStaff.query.filter(UserStaff.staff_ID == staff_ID).first()
 
 # @manager_bp.route('/index')
 # def manage_index():
