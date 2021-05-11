@@ -11,7 +11,7 @@ def user_auth():
             login_username = request.form['login_username']
             login_password = request.form['login_password']
             login_error = None
-            login_user = UserStaff.query.filter(UserStaff.user_name == login_username).first()
+            login_user = User.query.filter(User.user_name == login_username).first()
 
             if login_user is None:
                 login_error = 'Incorrect username'
@@ -35,15 +35,15 @@ def user_auth():
                 reg_error = 'Inconsistent password.'
             elif reg_username is None:
                 reg_error = 'Username is required.'
-            elif UserStaff.query.filter(UserStaff.user_name == reg_username).first() is not None:
+            elif User.query.filter(User.user_name == reg_username).first() is not None:
                 reg_error = 'User {} is already registered.'.format(reg_username)
 
             if reg_error is None:
-                reg_user = UserStaff(user_name=reg_username, password=generate_password_hash(reg_password1), department_type_number=1)
+                reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1), department_type_number=1)
                 db.session.add(reg_user)
                 db.session.commit()
                 session.clear()
-                session['user_ID'] = UserStaff.query.filter(UserStaff.user_name==reg_username).first().staff_ID
+                session['user_ID'] = User.query.filter(User.user_name==reg_username).first().staff_ID
                 return redirect(url_for('user_index'))
 
             flash(reg_error, 'register')
