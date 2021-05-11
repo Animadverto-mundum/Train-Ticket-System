@@ -1,9 +1,8 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from flask_sqlalchemy import SQLAlchemy
 from model import db, User
-from Auth.Auth import auth_app
 from dataAnalysis.InitData import db_app
-from User.User import user_app
+from User.User import user_bp
 import config
 
 
