@@ -1,23 +1,25 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from flask_sqlalchemy import SQLAlchemy
-from model import db, User
-from Manager.manager import manage_bp
-from dataAnalysis.InitData import db_app
-import config
+from . import db, User
+# from dataAnalysis.InitData import db_app
+# import config
+from . import config
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config)  # 配置文件
-    db.init_app(app)
+    # db.init_app(app)
     return app
 
 
 app = create_app()
 
 # init blueprint
-app.register_blueprint(manage_bp)
-app.register_blueprint(db_app)
+from .Manager import manager_bp
+app.register_blueprint(manager_bp)
+
+# app.register_blueprint(db_app)
 # app.add_url_rule('/', endpoint='manage_index')
 # app.add_url_rule('/', endpoint='analysis')
 
