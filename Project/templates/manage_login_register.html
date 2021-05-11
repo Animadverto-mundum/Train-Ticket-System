@@ -22,6 +22,7 @@
     <link href="../static/build/css/custom.min.css" rel="stylesheet">
   </head>
 
+  
   <body class="login">
     <div>
       <a class="hiddenanchor" id="signup"></a>
@@ -30,16 +31,21 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form name="login" method="POST">
               <h1>Login Form</h1>
+
+              {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+              {% endfor %}
+
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username" name="login_username" id="login_username" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" name="login_password" id="login_password" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="/manage_index">Log in</a>
+                <input type='submit' name="submit" value="Sign In">
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
@@ -64,19 +70,24 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
+            <form name="register" method="POST">
               <h1>Create Account</h1>
+
+              {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+              {% endfor %}
+
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username" name="register_username" required="" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="password" class="form-control" placeholder="Password" name="register_password1" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password Again" name="register_password2" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <input type='submit' name="submit" value="Sign Up">
               </div>
 
               <div class="clearfix"></div>

@@ -18,8 +18,8 @@ app = create_app()
 # init blueprint
 app.register_blueprint(auth_app)
 app.register_blueprint(db_app)
-app.add_url_rule('/', endpoint='manage_login')
-app.add_url_rule('/', endpoint='analysis')
+app.add_url_rule('/', endpoint='manage_index')
+# app.add_url_rule('/', endpoint='analysis')
 
 
 # route
