@@ -20,7 +20,7 @@ def user_auth():
 
             if login_error is None:
                 session.clear()
-                session['user_ID'] = login_user.staff_ID
+                session['user_ID'] = login_user.user_ID
                 return redirect(url_for('user_bp.user_index'))
 
             flash(login_error, 'login')
@@ -43,7 +43,7 @@ def user_auth():
                 db.session.add(reg_user)
                 db.session.commit()
                 session.clear()
-                session['user_ID'] = User.query.filter(User.user_name==reg_username).first().staff_ID
+                session['user_ID'] = User.query.filter(User.user_name==reg_username).first().user_ID
                 return redirect(url_for('user_index'))
 
             flash(reg_error, 'register')
