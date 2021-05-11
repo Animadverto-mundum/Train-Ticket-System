@@ -40,9 +40,9 @@ def testData():
 # 数据预测测试
 @db_app.route('/InitPredict')
 def initPredict():
-    sensor = 72
-    periods = '5min'
-
+    sensor = 'A1'
+    periods = 50
+    freq = "2H"
     data_list = RawData.query.filter(RawData.train_number_ID == sensor).order_by(RawData.time.desc()).all()
     time_list = []
     value_list = []
@@ -51,8 +51,9 @@ def initPredict():
         value_list.append(data.value)
     data_dic = {'时间': time_list, '数值': value_list}
     data_df = pd.DataFrame(data=data_dic)  # 构造dataframe
-    preview_list = dataPreview(data_df[['时间', '数值']], periods)
+    preview_list = dataPreview(data_df[['时间', '数值']], periods=periods, freq=freq)
     for p in preview_list:
+        print(p)
         predict_data = PredictData(time=p['时间'], yhat=p['yhat'], yhat_lower=p['yhat_lower'],
                                    yhat_upper=p['yhat_upper'], train_number_ID=sensor)
         db.session.add(predict_data)
@@ -73,3 +74,21 @@ def InitData():
             db.session.add(new_data)
         db.session.commit()
     return "数据初始化成功"
+
+
+@db_app.route('/Trend')
+def Trend():
+    print("进来了")
+    sensor = 'A1'
+    periods = '2H'
+
+    data_list = RawData.query.filter(RawData.train_number_ID == sensor).order_by(RawData.time.desc()).all()
+    time_list = []
+    value_list = []
+    for data in data_list:
+        time_list.append(data.time)
+        value_list.append(data.value)
+    data_dic = {'时间': time_list, '数值': value_list}
+    data_df = pd.DataFrame(data=data_dic)  # 构造dataframe
+    preview_list = dataTrend(data_df[['时间', '数值']])
+    # print(preview_list)
