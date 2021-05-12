@@ -17,11 +17,6 @@ app = create_app()
 from Manager import manager_bp
 app.register_blueprint(manager_bp)
 
-# app.register_blueprint(db_app)
-# app.add_url_rule('/', endpoint='manage_index')
-# app.add_url_rule('/', endpoint='analysis')
-
-
 # route
 @app.route('/hello')
 def hello():
