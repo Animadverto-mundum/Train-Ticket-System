@@ -52,7 +52,7 @@ class Vehicles(db.Model):  # 车类型表
 
 class TrainNumber(db.Model):  # 车次表
     __tablename__ = 'train_number'
-    train_number_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    train_number_ID = db.Column(db.String(20), primary_key=True, autoincrement=True, nullable=False)
     train_ID = db.Column(db.Integer, db.ForeignKey('train.train_ID', ondelete='CASCADE'), nullable=False)
     line_ID = db.Column(db.Integer, db.ForeignKey('line.line_ID', ondelete='CASCADE'), nullable=False)
     departure_time = db.Column(db.Time, nullable=False)
