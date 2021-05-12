@@ -51,7 +51,7 @@ def user_auth():
 
             flash(reg_error, 'register')
 
-    return render_template('user_login_register.html')
+    return render_template('user_login.html')
 
 
 @user_bp.before_app_request
@@ -63,7 +63,7 @@ def load_logged_in_user():
         g.user = User.query.filter(User.user_ID == user_ID).first()
 
 
-@user_bp.route('/index')
+@user_bp.route('/user_index')
 def user_index():
     return render_template('user_index.html')
 
