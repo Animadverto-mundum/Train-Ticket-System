@@ -46,8 +46,8 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                {% if g.user %}
-                  <h2>{{ g.user.user_name }}</h2>
+                {% if g.manager_user %}
+                  <h2>{{ g.manager_user.user_name }}</h2>
                 {% endif %}
               </div>
             </div>
@@ -87,7 +87,7 @@
                   <li><a><i class="fa fa-bar-chart-o"></i> User <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.user_view') }}">View User</a></li>
-                      <li><a href="{{ url_for('manager_bp.user_edit') }}">Edit User</a></li>
+                      <li><a href="{{ url_for('manager_bp.user_add') }}">Add User</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -168,7 +168,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="static/images/img.jpg" alt="">{% if g.user %}{{ g.user.user_name }}{% endif %}  
+                    <img src="static/images/img.jpg" alt="">{% if g.manager_user %}{{ g.manager_user.user_name }}{% endif %}  
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -308,6 +308,7 @@
                           <th>number</th>
                           <th>Name</th>
                           <th>Identity</th>
+                          <th>operation</th>
                         </tr>
                       </thead>
 
@@ -315,11 +316,15 @@
                         {% for user in users %}
                         <tr>
                           <th>{{ loop.index }}</th>
-                          <th><a href="{{ url_for('manager_bp.user_edit_single') }}?id={{ user.user_ID }}">{{ user.user_name }}</a></th>
+                          <th>{{ user.user_name }}</th>
                           {% if user.user_type_number is equalto 1 %}
                             <th>student</th>{% else %}
                             <th>no student</th>
                           {% endif %}
+                          <th>
+                            <a href="{{ url_for('manager_bp.user_delete') }}?id={{ user.user_ID }}">Delete | </a>
+                            <a href="{{ url_for('manager_bp.user_edit_single') }}?id={{ user.user_ID }}">Edit</a>
+                          </th>
                         </tr>{% endfor %}
                       </tbody>
 
