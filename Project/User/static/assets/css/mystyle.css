@@ -34,6 +34,16 @@ form button {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.regsterAccount{
+    display: inline;
+    float: left;
+}
+
+.forgetPassword{
+    display: inline;
+    float: right;
+}
 .z{
     color: #FFFFFF;
 
