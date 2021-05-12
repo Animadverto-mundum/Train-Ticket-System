@@ -3,3 +3,9 @@ Flask-Migrate
 Flask-Script
 flask-sqlalchemy
 fbprophet
+
+werkzeug
+pandas
+sqlalchemy
+numpy
+joblib

@@ -33,9 +33,7 @@ def dataTrend(sensor_data):  # 数据总趋势
     forecast_list = []
     future = m.make_future_dataframe(periods=0)
     forecast = m.predict(future)
-    print(forecast.columns)
-    m.plot_components(forecast)
-    plt.show()
+    pic=m.plot_components(forecast)
     forecast = forecast[['ds', 'trend', 'trend_lower', 'trend_upper']]
     forecast = forecast.rename(columns={'ds': '时间'})
     forecast = forecast.reset_index(drop=True)
@@ -48,7 +46,7 @@ def dataTrend(sensor_data):  # 数据总趋势
         part = forecast.loc[i].T.to_dict()
         forecast_list.append(part)
 
-    return forecast_list
+    return forecast_list,pic
 
 
 def yearlySeasonality(sensor_data, yearly_start=0):  # 数据年内趋势，可能有误。年内趋势需要一整年的数据
