@@ -7,10 +7,12 @@ from werkzeug.security import check_password_hash, generate_password_hash  # 避
 
 @user_bp.route('/login', methods=['GET', 'POST'])
 def user_login():
-    print(request)
+    # print(request)
     if request.method == 'POST':
+        print("请求正确")
         login_username = request.form['user']
         login_password = request.form['password']
+        print(login_password,login_username)
         login_error = None
         login_user = User.query.filter(User.user_name == login_username).first()
 
@@ -19,7 +21,7 @@ def user_login():
         elif not check_password_hash(login_user.password, login_password):
             print("密码错误")
             login_error = 'Incorrect password'
-
+        print(login_error)
         if login_error is None:
             print("顺利执行")
             session.clear()

@@ -2,6 +2,8 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import *
 from flask import jsonify
 import datetime
+from DataAnalysis\
+    .Analysis_way import *
 analysis_bp = Blueprint('analysis_bp', __name__, static_folder='static', template_folder='templates',
                         url_prefix='/analysis')
 
@@ -24,7 +26,8 @@ def Predict():
             sensor = request.form['train_number_ID']
             begin_time=datetime.datetime.strptime(request.form['begin_time'],"%Y%m%d")
             end_time=datetime.datetime.strptime(request.form['end_time'],"%Y%m%d")
-            data_list = RawData.query.filter((RawData.train_number_ID == sensor)&(begin_time<=PredictData.time)&(PredictData.time<=end_time)).order_by(RawData.time.desc()).all()
+            print(begin_time,end_time,"开始和介绍")
+            data_list = RawData.query.filter((RawData.train_number_ID == sensor)).order_by(RawData.time.desc()).all()
             data_df = createdataframe(data_list)
             trend_list,pic = dataTrend(data_df[['时间', '数值']])
             plt.show()
