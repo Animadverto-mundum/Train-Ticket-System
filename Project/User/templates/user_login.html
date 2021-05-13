@@ -94,9 +94,12 @@
 <div class="login">
     <h1>Login</h1>
     <form action="" method="post">
-
         <input type="text" name="user" placeholder="用户名" required="required">
         <input type="password" name="password" placeholder="密  码" required="required">
+
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
 
         <button type="submit">登录</button>
         <div class="regsterAccount">
