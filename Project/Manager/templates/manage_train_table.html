@@ -46,9 +46,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                {% if g.manager_user %}
-                  <h2>{{ g.manager_user.user_name }}</h2>
-                {% endif %}
+                  <h2>{{ user_name }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -168,7 +166,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="static/images/img.jpg" alt="">{% if g.manager_user %}{{ g.manager_user.user_name }}{% endif %}
+                    <img src="static/images/img.jpg" alt="">{{ user_name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -259,14 +257,12 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                {% if g.manager_user %}
                 <h3>  
-                  {{ g.manager_user.user_name }}
+                  {{ user_name }}
                   <small>
                     You are now viewing Trains!
                   </small>
                 </h3>
-                {% endif %}
               </div>
 
               <div class="title_right">
@@ -287,7 +283,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Trains Table <small>{{ g.manager_user.user_name }}</small></h2>
+                    <h2>Trains Table <small>{{ user_name }}</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
