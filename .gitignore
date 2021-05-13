@@ -12,3 +12,4 @@ venv
 .vscode
 .idea
 temp.md
+test*

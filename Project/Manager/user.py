@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, flash, url_for
 from . import manager_bp
-from model import db, User
+from model import db, User, TicketsSold, FareInformation, TrainNumber
 from .manager_auth import login_required
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
@@ -11,7 +11,7 @@ def user_view():
     users = User.query.filter().all()
     return render_template('manage_user_table.html', users=users)
 
-@manager_bp.route('user_add', methods=['POST','GET'])
+@manager_bp.route('/user_add', methods=['POST','GET'])
 @login_required
 def user_add():
     '''增加新的普通用户'''
@@ -40,7 +40,7 @@ def user_add():
 
     return render_template('manage_user_form.html', user=None)
 
-@manager_bp.route('user_edit_single', methods=['GET','POST'])
+@manager_bp.route('/user_edit_single', methods=['GET','POST'])
 @login_required
 def user_edit_single():
     '''对单个的普通用户进行修改'''
@@ -74,7 +74,7 @@ def user_edit_single():
     return render_template('manage_user_form.html', user=user)
 
 
-@manager_bp.route('user_delete', methods=["GET"])
+@manager_bp.route('/user_delete', methods=["GET"])
 @login_required
 def user_delete():
     '''删除单个普通用户'''
@@ -85,3 +85,16 @@ def user_delete():
     db.session.commit()
 
     return redirect(url_for('manager_bp.user_view'))
+
+@manager_bp.route('/user_view_single', methods=["GET"])
+@login_required
+def user_view_single():
+    user_id = request.args.get('id')
+    user = User.query.filter(User.user_ID==user_id).first() # 查找当前查看的用户
+    # 查询该用户的购票信息
+    tickets = db.session.query(TicketsSold.seat, FareInformation.money, TrainNumber.train_ID, TrainNumber.departure_time, TrainNumber.arrival_time).filter(
+        TicketsSold.user_ID==user.user_ID,
+        TicketsSold.fare_ID==FareInformation.fare_ID, 
+        FareInformation.train_number_id==TrainNumber.train_number_ID)
+
+    return render_template('manage_user_viewsingle.html', user=user, tickets=tickets)
