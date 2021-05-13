@@ -3,28 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
-    <link rel="stylesheet" href="
-static/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="
-static/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="
-static/assets/css/slicknav.css">
-    <link rel="stylesheet" href="
-static/assets/css/animate.min.css">
-    <link rel="stylesheet" href="
-static/assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="
-static/assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="
-static/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="
-static/assets/css/slick.css">
-    <link rel="stylesheet" href="
-static/assets/css/nice-select.css">
-    <link rel="stylesheet" href="
-static/assets/css/style.css">
-    <link rel="stylesheet" href="
-static/assets/css/mystyle.css">
+    <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/assets/css/slicknav.css">
+    <link rel="stylesheet" href="static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="static/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="static/assets/css/slick.css">
+    <link rel="stylesheet" href="static/assets/css/nice-select.css">
+    <link rel="stylesheet" href="static/assets/css/style.css">
+    <link rel="stylesheet" href="static/assets/css/login_style.css">
+>>>>>>> 4209d8895980f4d79dc60faaaf53da99cc77e4f7
 
 
 </head>
@@ -71,9 +61,9 @@ static/assets/css/mystyle.css">
                                     <nav>
                                         <ul id="navigation">
                                             <li><a href="user_index.html">首页</a></li>
-                                            <li><a href="user_checkTicket.html">查询</a></li>
-                                            <li><a href="user_buyTicket.html">购票</a></li>
-                                            <li><a href="user_register.html">退票</a></li>
+                                            <li><a href="user_checkTicket.html">车票查询</a></li>
+                                            <li><a href="user_buyTicket.html">购买车票</a></li>
+                                            <li><a href="user_register.html">办理退票</a></li>
                                             <!--<li><a href="blog.html">Blog</a>-->
                                                 <!--<ul class="submenu">
                                                     <li><a href="blog.html">Blog</a></li>
@@ -106,8 +96,11 @@ static/assets/css/mystyle.css">
     <h1>Login</h1>
     <form action="" method="post">
         <input type="text" name="user" placeholder="用户名" required="required">
-        <input type="password" name="password" placeholder="密  码" required="required">
+        <input type="password" name="password" placeholder="输入密码" required="required">
         <button type="submit">登录</button>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
         <div class="regsterAccount">
             <a href="user_register.html">注册账号</a>
         </div>

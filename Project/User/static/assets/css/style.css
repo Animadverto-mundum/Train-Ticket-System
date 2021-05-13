@@ -4954,7 +4954,7 @@ hero-btn {
 }
 
 .single-post-area .navigation-top .social-icons li:last-child {
-    margin: 0;
+    margin: 0
 }
 
 .single-post-area .navigation-top .social-icons li i, .single-post-area .navigation-top .social-icons li span {
@@ -5694,6 +5694,14 @@ b, sup, sub, u, del {
 
 .button-area {
     background: #fff
+}
+
+.information-input{
+    background: #fff;
+}
+
+.button-group-area{
+    position: center;
 }
 
 .button-area .border-top-generic {
@@ -6753,7 +6761,10 @@ b, sup, sub, u, del {
 
 .section-top-border {
     padding: 50px 0;
-    border-top: 1px dotted #eee
+    border-top: 1px dotted #eee;
+
+
+
 }
 
 .mb-30 {
@@ -6767,3 +6778,5 @@ b, sup, sub, u, del {
 .switch-wrap {
     margin-bottom: 10px
 }
+
+
