@@ -30,13 +30,12 @@ def user_login():
 
 @user_bp.route('/register', methods=['GET', 'POST'])
 def user_register():
-    print(request)
+    print(request.values)
     if request.method == 'POST':
-        reg_username = request.form['user']
-        reg_password1 = request.form['password']
-        reg_password2 = reg_password1
-        # reg_password2 = request.form['register_password2']
-        user_type=request.form["browser"]
+        reg_username = request.form.get('user')
+        reg_password1 = request.form.get('password1')
+        reg_password2 = request.form.get('password2')
+        user_type=request.form.get('browser')
 
         reg_error = None
 
@@ -57,6 +56,10 @@ def user_register():
             return redirect(url_for('user_bp.user_index'))
 
         flash(reg_error, 'register')
+
+    if request.method=='GET':
+
+        return render_template('user_register.html')
 
     return render_template('user_register.html')
 
