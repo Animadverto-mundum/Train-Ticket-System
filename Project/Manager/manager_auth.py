@@ -1,3 +1,4 @@
+import functools
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
 from model import db, UserStaff
 from . import manager_bp
@@ -54,11 +55,16 @@ def manager_auth():
 def load_logged_in_user():
     user_ID = session.get('user_ID')
     if user_ID is None:
-        g.user = None
+        g.manager_user = None
     else:
-        g.user = UserStaff.query.filter(UserStaff.staff_ID == user_ID).first()
+        g.manager_user = UserStaff.query.filter(UserStaff.staff_ID == user_ID).first()
 
-# @auth_app.route('logout')
-# def logout():
-#     session.clear()
-#     return redirect(url_for('index'))
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.manager_user is None:
+            return redirect(url_for('manager_bp.manager_auth'))
+        
+        return view(**kwargs)
+    
+    return wrapped_view

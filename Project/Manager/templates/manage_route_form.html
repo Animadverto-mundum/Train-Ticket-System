@@ -55,8 +55,8 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                {% if g.user %}
-                  <h2>{{ g.user.user_name }}</h2>
+                {% if g.manager_user %}
+                  <h2>{{ g.manager_user.user_name }}</h2>
                 {% endif %}
               </div>
             </div>
@@ -96,7 +96,7 @@
                   <li><a><i class="fa fa-bar-chart-o"></i> User <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.user_view') }}">View User</a></li>
-                      <li><a href="{{ url_for('manager_bp.user_edit') }}">Edit User</a></li>
+                      <li><a href="{{ url_for('manager_bp.user_add') }}">Add User</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -177,7 +177,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="static/images/img.jpg" alt="">{% if g.user %}{{ g.user.user_name }}{% endif %}
+                    <img src="static/images/img.jpg" alt="">{% if g.manager_user %}{{ g.manager_user.user_name }}{% endif %}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
