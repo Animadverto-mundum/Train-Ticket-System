@@ -80,32 +80,3 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@user_bp.route('/user_buyTicket', methods=['GET', 'POST'])
-def user_buyticket():
-    return render_template('user_buyTicket.html')
-
-
-@user_bp.route('/user_checkTicket', methods=['GET', 'POST'])
-def user_checkticket():
-    return render_template('user_checkTicket.html')
-
-
-@user_bp.route('/user_refundTicket', methods=['GET', 'POST'])
-def user_refundticket():
-    return render_template('user_refundTicket.html')
