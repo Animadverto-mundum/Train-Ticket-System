@@ -18,10 +18,10 @@ from Manager import manager_bp
 app.register_blueprint(manager_bp)
 
 # route
-@app.route('/hello')
+@app.route('/')
 def hello():
-    return 'Hello flask!'
+    return "<a href='/manager/auth'> Manager </a><br><br> <a href='/user/login'> User </a>"
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5050)
