@@ -21,7 +21,11 @@ def manager_auth():
             if login_error is None:
                 session.clear()
                 session['user_ID'] = login_user.staff_ID
-                return redirect(url_for('manager_bp.manager_index'))
+                
+                respond =  redirect(url_for('manager_bp.manager_index'))
+                respond.set_cookie('user_name', login_username)
+                respond.set_cookie('user_type', str(login_user.department_type_number))
+                return respond
 
             flash(login_error, 'login')
 
@@ -39,12 +43,16 @@ def manager_auth():
                 reg_error = 'User {} is already registered.'.format(reg_username)
 
             if reg_error is None:
-                reg_user = UserStaff(user_name=reg_username, password=generate_password_hash(reg_password1), department_type_number=1)
+                reg_user = UserStaff(user_name=reg_username, password=generate_password_hash(reg_password1), department_type_number=0)
                 db.session.add(reg_user)
                 db.session.commit()
                 session.clear()
                 session['user_ID'] = UserStaff.query.filter(UserStaff.user_name==reg_username).first().staff_ID
-                return redirect(url_for('manager_bp.manager_index'))
+                
+                respond =  redirect(url_for('manager_bp.manager_index'))
+                respond.set_cookie('user_name', reg_user.user_name)
+                respond.set_cookie('user_type', str(reg_user.department_type_number))
+                return respond
 
             flash(reg_error, 'register')
 
