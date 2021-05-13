@@ -89,6 +89,7 @@ def user_delete():
 @manager_bp.route('/user_view_single', methods=["GET"])
 @login_required
 def user_view_single():
+    '''查看单个用户的购票信息'''
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID==user_id).first() # 查找当前查看的用户
     # 查询该用户的购票信息
