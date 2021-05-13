@@ -5,7 +5,7 @@ from . import user_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 
-@user_bp.route('/login', methods=['GET', 'POST'])
+@user_bp.route('/', methods=['GET', 'POST'])
 def user_login():
     # print(request)
     if request.method == 'POST':
@@ -32,29 +32,31 @@ def user_login():
 def user_register():
     print(request)
     if request.method == 'POST':
-        if request.form['submit'] == 'Sign Up':
-            reg_username = request.form['register_username']
-            reg_password1 = request.form['register_password1']
-            reg_password2 = request.form['register_password2']
-            reg_error = None
+        reg_username = request.form['user']
+        reg_password1 = request.form['password']
+        reg_password2 = reg_password1
+        # reg_password2 = request.form['register_password2']
+        user_type=request.form["browser"]
 
-            if reg_password1 != reg_password2:
-                reg_error = 'Inconsistent password.'
-            elif reg_username is None:
-                reg_error = 'Username is required.'
-            elif User.query.filter(User.user_name == reg_username).first() is not None:
-                reg_error = 'User {} is already registered.'.format(reg_username)
+        reg_error = None
 
-            if reg_error is None:
-                reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
-                                user_type_number=1)
-                db.session.add(reg_user)
-                db.session.commit()
-                session.clear()
-                session['user_ID'] = User.query.filter(User.user_name == reg_username).first().user_ID
-                return redirect(url_for('user_bp.user_index'))
+        if reg_password1 != reg_password2:
+            reg_error = 'Inconsistent password.'
+        elif reg_username is None:
+            reg_error = 'Username is required.'
+        elif User.query.filter(User.user_name == reg_username).first() is not None:
+            reg_error = 'User {} is already registered.'.format(reg_username)
 
-            flash(reg_error, 'register')
+        if reg_error is None:
+            reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
+                            user_type_number=1)
+            db.session.add(reg_user)
+            db.session.commit()
+            session.clear()
+            session['user_ID'] = User.query.filter(User.user_name == reg_username).first().user_ID
+            return redirect(url_for('user_bp.user_index'))
+
+        flash(reg_error, 'register')
 
     return render_template('user_register.html')
 

@@ -3,8 +3,11 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import *
 from flask import jsonify
 import datetime
-from DataAnalysis\
-    .Analysis_way import *
+from DataAnalysis.Analysis_way import *
+import base64
+from PIL import Image
+from io import BytesIO
+
 analysis_bp = Blueprint('analysis_bp', __name__, static_folder='static', template_folder='templates',
                         url_prefix='/analysis')
 
@@ -19,8 +22,15 @@ def Predict():
             data_list = RawData.query.filter(RawData.train_number_ID == sensor).order_by(RawData.time.desc()).all()
             data_df=createdataframe(data_list)
             predict_list,pic = dataPreview(data_df[['时间', '数值']], periods=periods, freq=freq)
-            plt.show()
-            return jsonify({"predict_list":predict_list})
+            buffer = BytesIO()
+            plt.savefig(buffer, format='png')
+            pic = np.asarray(Image.open(buffer))
+            pic=base64.b64encode(pic).decode()
+            render_args = {
+                'predict_list': predict_list,
+                'pic': pic,
+            }
+            return render_template("manger_predict.html",**render_args)
 
         elif request.form['type']=='trend':
             sensor = request.form['train_number_ID']
@@ -35,11 +45,20 @@ def Predict():
                 data_list = RawData.query.filter((RawData.train_number_ID == sensor)&(begin_time<=RawData.time)&(RawData.time<=end_time)).order_by(RawData.time.desc()).all()
                 data_df = createdataframe(data_list)
                 trend_list,pic = dataTrend(data_df[['时间', '数值']])
-                plt.show()
-                return jsonify({"trend_list":trend_list})
+                buffer = BytesIO()
+                plt.savefig(buffer, format='png')
+                pic = np.asarray(Image.open(buffer))
+                pic = base64.b64encode(pic).decode()
+                render_args = {
+                    'predict_list': trend_list,
+                    'pic': pic,
+                }
+                return render_template("manger_predict.html",**render_args)
 
             flash(error,'predict')
+
     return render_template('manger_predict.html')
+
 
 def createdataframe(data_list):
     time_list = []
