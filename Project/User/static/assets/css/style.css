@@ -5696,6 +5696,14 @@ b, sup, sub, u, del {
     background: #fff
 }
 
+.information-input{
+    background: #fff;
+}
+
+.button-group-area{
+    position: center;
+}
+
 .button-area .border-top-generic {
     padding: 70px 15px;
     border-top: 1px dotted #eee
@@ -6753,7 +6761,10 @@ b, sup, sub, u, del {
 
 .section-top-border {
     padding: 50px 0;
-    border-top: 1px dotted #eee
+    border-top: 1px dotted #eee;
+
+
+
 }
 
 .mb-30 {
@@ -6767,3 +6778,5 @@ b, sup, sub, u, del {
 .switch-wrap {
     margin-bottom: 10px
 }
+
+
