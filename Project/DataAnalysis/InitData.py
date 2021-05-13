@@ -4,7 +4,7 @@ from sqlalchemy import event
 from model import *
 from flask import Blueprint
 from DataAnalysis.Analysis_way import *
-
+import datetime
 db_app = Blueprint('db_app', __name__, static_folder='static', template_folder='templates', url_prefix='/db')
 
 
@@ -82,7 +82,6 @@ def Trend():
     print("进来了")
     sensor = 'A1'
     periods = '2H'
-
     data_list = RawData.query.filter(RawData.train_number_ID == sensor).order_by(RawData.time.desc()).all()
     time_list = []
     value_list = []

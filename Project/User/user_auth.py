@@ -9,21 +9,16 @@ from werkzeug.security import check_password_hash, generate_password_hash  # 避
 def user_login():
     # print(request)
     if request.method == 'POST':
-        print("请求正确")
         login_username = request.form['user']
         login_password = request.form['password']
-        print(login_password,login_username)
         login_error = None
         login_user = User.query.filter(User.user_name == login_username).first()
 
         if login_user is None:
             login_error = 'Incorrect username'
         elif not check_password_hash(login_user.password, login_password):
-            print("密码错误")
             login_error = 'Incorrect password'
-        print(login_error)
         if login_error is None:
-            print("顺利执行")
             session.clear()
             session['user_ID'] = login_user.user_ID
             return redirect(url_for('user_bp.user_index'))
