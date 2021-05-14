@@ -4,12 +4,14 @@ from model import db, User
 from .manager_auth import login_required
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
+
 @manager_bp.route('/user_view')
 @login_required
 def user_view():
     '''查看所有普通用户'''
     users = User.query.filter().all()
     return render_template('manage_user_table.html', users=users)
+
 
 @manager_bp.route('user_add', methods=['POST','GET'])
 @login_required
@@ -39,6 +41,7 @@ def user_add():
         flash(error)
 
     return render_template('manage_user_form.html', user=None)
+
 
 @manager_bp.route('user_edit_single', methods=['GET','POST'])
 @login_required
