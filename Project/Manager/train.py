@@ -5,7 +5,10 @@ from model import db, TrainNumber, Line
 @manager_bp.route('/train_view')
 def train_view():
     if not access_check(request, 0):
-        return redirect(url_for('manager_bp.manager_index'))
+        response = redirect(url_for('manager_bp.manager_index'))
+        response.delete_cookie('user_name')
+        response.delete_cookie('user_type')
+        return response
     trains = db.session.query(TrainNumber).filter().all()
     lists = db.session.query(Line).filter().all()
     dict = {item.line_ID: item.line_name for item in lists}
