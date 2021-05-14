@@ -17,7 +17,9 @@ class User(db.Model):
     user_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_name = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
-    user_type_number = db.Column(db.Integer, nullable=False)
+    user_type_number = db.Column(db.String(20), nullable=False) # 将用户类型修改为字符串
+    read_name = db.Column(db.String(20),nullable=False) # 增加真实姓名和身份证号
+    id_num = db.Column(db.String(40),nullable=False)
 
 
 class Site(db.Model):

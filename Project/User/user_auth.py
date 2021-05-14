@@ -3,6 +3,7 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import db, User
 from . import user_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
+import cv2
 
 
 @user_bp.route('/', methods=['GET', 'POST'])
@@ -35,20 +36,22 @@ def user_register():
         reg_username = request.form.get('user')
         reg_password1 = request.form.get('password1')
         reg_password2 = request.form.get('password2')
-        user_type=request.form.get('browser')
+        user_type = request.form.get('browser')
+        real_name = request.form.get('real_name')
+        id_num = request.form.get('id_num')
 
         reg_error = None
 
         if reg_password1 != reg_password2:
             reg_error = 'Inconsistent password.'
-        elif reg_username is None:
-            reg_error = 'Username is required.'
+        elif len(id_num) != 18:
+            reg_error = 'Please enter a valid ID number!'
         elif User.query.filter(User.user_name == reg_username).first() is not None:
             reg_error = 'User {} is already registered.'.format(reg_username)
 
         if reg_error is None:
             reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
-                            user_type_number=1)
+                            user_type_number=user_type,real_name=real_name,id_num=id_num)
             db.session.add(reg_user)
             db.session.commit()
             session.clear()
