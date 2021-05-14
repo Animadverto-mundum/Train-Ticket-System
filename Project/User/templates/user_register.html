@@ -107,11 +107,13 @@
                 <option value="学生">
                 <option value="退役军人/现役军人">
             </datalist>
+        <font color="white">点击注册后请对视摄像头采集人脸信息！</font>
             <!--<input type="submit">-->
             <button type="submit">注册</button>
+             <font color="red"  size="5">
             {% for message in get_flashed_messages() %}
-            <div class="flash">{{ message }}</div>
-            {% endfor %}
+            <div class="flash">{{ message }} </div>
+            {% endfor %}</font>
         </form>
         <!--input type="password" name="password2" placeholder="确认密码" required="required">-->
         <!--<button type="submit">注册</button>-->

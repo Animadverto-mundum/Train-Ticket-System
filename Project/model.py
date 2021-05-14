@@ -20,7 +20,7 @@ class User(db.Model):
     user_type_number = db.Column(db.String(20), nullable=False) # 将用户类型修改为字符串
     read_name = db.Column(db.String(20),nullable=False) # 增加真实姓名和身份证号
     id_num = db.Column(db.String(40),nullable=False)
-
+    user_pic = db.Column(db.String(400),nullable=False) # 存储用户用户照片信息的Base64编码
 
 class Site(db.Model):
     __tablename__ = 'site'

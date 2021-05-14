@@ -3,7 +3,7 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import db, User
 from . import user_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
-import cv2
+import cv2,base64
 
 
 @user_bp.route('/', methods=['GET', 'POST'])
@@ -50,8 +50,10 @@ def user_register():
             reg_error = 'User {} is already registered.'.format(reg_username)
 
         if reg_error is None:
+            path='register.png'
+            img=pic_get(path)
             reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
-                            user_type_number=user_type,real_name=real_name,id_num=id_num)
+                            user_type_number=user_type,real_name=real_name,id_num=id_num,user_pic=img)
             db.session.add(reg_user)
             db.session.commit()
             session.clear()
@@ -63,7 +65,7 @@ def user_register():
     if request.method=='GET':
 
         return render_template('user_register.html')
-
+    print("报错了")
     return render_template('user_register.html')
 
 
@@ -85,3 +87,13 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+def pic_get(path):
+    cap = cv2.VideoCapture(0)
+    ret, frame = cap.read()
+    cv2.imwrite(path, frame)
+    with open(path, 'rb') as img_f:
+        img_stream = img_f.read()
+        img_stream = base64.b64encode(img_stream).decode()
+        return img_stream
