@@ -535,7 +535,7 @@ pre code {
 
 @media (min-width: 992px) {
     .container {
-        max-width: 960px
+        /*max-width: 960px*/
     }
 }
 
@@ -554,10 +554,10 @@ pre code {
 }
 
 .row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    /*-ms-flex-wrap: wrap;*/
+    /*flex-wrap: wrap;*/
     margin-right: -15px;
     margin-left: -15px
 }
@@ -1059,7 +1059,8 @@ pre code {
     .col-md-8 {
         -ms-flex: 0 0 66.666667%;
         flex: 0 0 66.666667%;
-        max-width: 66.666667%
+        width: 100%;
+        /*max-width: 66.666667%*/
     }
 
     .col-md-9 {
@@ -1266,12 +1267,14 @@ pre code {
         -ms-flex: 0 0 58.333333%;
         flex: 0 0 58.333333%;
         max-width: 58.333333%
+
     }
 
     .col-lg-8 {
         -ms-flex: 0 0 66.666667%;
         flex: 0 0 66.666667%;
-        max-width: 66.666667%
+        width: 100%;
+        /*max-width: 66.666667%*/
     }
 
     .col-lg-9 {
