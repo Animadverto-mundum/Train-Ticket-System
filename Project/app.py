@@ -1,5 +1,4 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
-from flask_sqlalchemy import SQLAlchemy
 from model import db, User
 from DataAnalysis.InitData import db_app
 from User import user_bp
@@ -25,7 +24,6 @@ app.register_blueprint(user_bp)
 app.register_blueprint(analysis_bp)
 # app.add_url_rule('/', endpoint='manage_login')
 # app.add_url_rule('/', endpoint='analysis')
-
 
 
 if __name__ == '__main__':

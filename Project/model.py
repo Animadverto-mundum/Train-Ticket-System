@@ -55,13 +55,16 @@ class TrainNumber(db.Model):  # 车次表
     train_number_ID = db.Column(db.String(20), primary_key=True, nullable=False)
     train_ID = db.Column(db.Integer, db.ForeignKey('train.train_ID', ondelete='CASCADE'), nullable=False)
     line_ID = db.Column(db.Integer, db.ForeignKey('line.line_ID', ondelete='CASCADE'), nullable=False)
-    departure_time = db.Column(db.Time, nullable=False)
+    departure_time = db.Column(db.Time,primary_key=True,nullable=False)
     arrival_time = db.Column(db.Time, nullable=False)
+    first_tickets_remain_num = db.Column(db.Integer, nullable=False)
+    second_tickets_remain_num = db.Column(db.Integer, nullable=False)
 
 
 class FareInformation(db.Model):  # 票价信息
     __tablename__ = 'fare_information'
     fare_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    departure_time = db.Column(db.Time,db.ForeignKey('train_number.departure_time'), nullable=False)
     train_number_id = db.Column(db.String(20), db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
                                 nullable=False)
     seat_type = db.Column(db.Integer, nullable=False)

@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f528016b-c8af-4260-8324-efe6d1254606" name="Default Changelist" comment="" />
+    <list default="true" id="f528016b-c8af-4260-8324-efe6d1254606" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/user_checkbuyTicket.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buyticket.py" beforeDir="false" afterPath="$PROJECT_DIR$/buyticket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkticket.py" beforeDir="false" afterPath="$PROJECT_DIR$/checkticket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/refundticket.py" beforeDir="false" afterPath="$PROJECT_DIR$/refundticket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app.py" beforeDir="false" afterPath="$PROJECT_DIR$/../app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config.py" beforeDir="false" afterPath="$PROJECT_DIR$/../config.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +45,7 @@
       <option name="presentableId" value="Default" />
       <updated>1620819624214</updated>
       <workItem from="1620819625595" duration="23000" />
+      <workItem from="1620918179051" duration="11000" />
     </task>
     <servers />
   </component>
@@ -51,5 +62,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

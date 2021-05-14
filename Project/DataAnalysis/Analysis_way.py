@@ -5,7 +5,7 @@ import pandas as pd
 from fbprophet.plot import plot_yearly, seasonality_plot_df, set_y_as_percent
 import joblib
 import time
-# from statsmodels.tsa.stattools import adfuller
+from statsmodels.tsa.stattools import adfuller
 from fbprophet import Prophet
 from matplotlib import pyplot as plt
 from statsmodels.tsa.stattools import adfuller
@@ -17,7 +17,7 @@ def dataPreview(sensor_data, periods,freq):  # 数据预测,periods为预测间�
     future = m.make_future_dataframe(periods=periods, freq=freq)
     forecast = m.predict(future)
     pic=m.plot(forecast)
-    forecast = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
+    forecast = round(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']])
     forecast = forecast.rename(columns={'ds': '时间'})
     print(forecast)
     forecast = forecast.iloc[-50:]
@@ -25,7 +25,7 @@ def dataPreview(sensor_data, periods,freq):  # 数据预测,periods为预测间�
     for i in range(0, len(forecast)):
         part = forecast.loc[i].T.to_dict()
         forecast_list.append(part)
-    # print(forecast_list)
+    print(forecast_list)
     return forecast_list,pic
 
 
