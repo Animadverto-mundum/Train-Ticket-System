@@ -9,23 +9,33 @@ db_app = Blueprint('db_app', __name__, static_folder='static', template_folder='
 
 
 # 从数据库提取数据+存入数据库
-# @event.listens_for(RawData, 'after_insert')
-# def preProcessData(mapper, connection, target, periods):
-#     data_list = RawData.query.filter(RawData.train_number_ID == target).order_by(RawData.time.desc()).all()
-#     time_list = []
-#     value_list = []
-#     sensor = data_list[0].train_number_ID
-#     for data in data_list:
-#         time_list.append(data.time)
-#         value_list.append(data.value)
-#     data_dic = {'时间': time_list, '数值': value_list}
-#     data_df = pd.DataFrame(data=data_dic)  # 构造dataframe
-#     preview_list = dataPreview(data_df[['时间', '数值']], periods)
-#     for p in preview_list:
-#         predict_data = PredictData(time=p['时间'], yhat=p['yhat'], yhat_lower=p['yhat_lower'],
-#                                    yhat_upper=p['yhat_upper'], train_number_ID=sensor)
-#         db.session.add(predict_data)
-#     db.session.commit()
+@event.listens_for(TicketsSold, 'after_insert')
+def modify_raw_data(mapper, connection, target, periods):
+    sold=TicketsSold.query(TicketsSold.fare_ID).filter().order_by(TicketsSold.tickets_sold_ID.desc()).first()
+    train_id=FareInformation.query(FareInformation.train_number_id,FareInformation.departure_time).filter(FareInformation.fare_ID==sold.fare_ID).first()
+
+    data_updata=TrainNumber.query(TrainNumber.train_ID,TrainNumber.departure_time,TrainNumber.train_number_ID,TrainNumber.first_tickets_remain_num,TrainNumber.second_tickets_remain_num)\
+        .filter(TrainNumber.train_number_ID==train_id.train_number_ID,TrainNumber.departure_time==train_id.departure_time).all()
+
+    train_type=Train.query(Train.type_number).filter(data_updata.train_ID==Train.train_ID).first()
+
+    seats=Vehicles.query(Vehicles.first_class_seats,Vehicles.second_class_seats).filter(train_type.type_number==Train.type_number).first()
+    
+    time_list = []
+    value_list = []
+    train_list = []
+    for data in data_updata:
+        time_list.append(data.departure_time)
+        train_list.append(data.train_number_ID)
+        value=seats.first_class_seats+seats.second_class_seats-(data.first_tickets_remain_num+data.second_tickets_remain_num)
+        value_list.append(value)
+    preview_list = {'时间': time_list, '数值': value_list,'车次':train_list}
+
+    for p in preview_list:
+        predict_data = PredictData(time=p['时间'], train_number_ID=p['车次'], value=p['数值'])
+        db.session.add(predict_data)
+
+    db.session.commit()
 
 
 # 数据测试
