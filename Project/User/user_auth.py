@@ -3,7 +3,7 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import db, User
 from . import user_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
-import cv2,base64
+from .face_function import *
 
 
 @user_bp.route('/', methods=['GET', 'POST'])
@@ -14,11 +14,14 @@ def user_login():
         login_password = request.form['password']
         login_error = None
         login_user = User.query.filter(User.user_name == login_username).first()
+        pic_save("login_temp.png")
 
         if login_user is None:
-            login_error = 'Incorrect username'
+            login_error = 'User does not exist!'
         elif not check_password_hash(login_user.password, login_password):
             login_error = 'Incorrect password'
+        elif pic_Compared("login_temp.png",str(login_username)+".png")=='false':
+            login_error = "Face matching failed!"
         if login_error is None:
             session.clear()
             session['user_ID'] = login_user.user_ID
@@ -50,10 +53,10 @@ def user_register():
             reg_error = 'User {} is already registered.'.format(reg_username)
 
         if reg_error is None:
-            path='register.png'
-            img=pic_get(path)
+            path=reg_username+'.png'
+            pic_save(path)
             reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
-                            user_type_number=user_type,real_name=real_name,id_num=id_num,user_pic=img)
+                            user_type_number=user_type,real_name=real_name,id_num=id_num)
             db.session.add(reg_user)
             db.session.commit()
             session.clear()
@@ -89,11 +92,5 @@ def login_required(view):
     return wrapped_view
 
 
-def pic_get(path):
-    cap = cv2.VideoCapture(0)
-    ret, frame = cap.read()
-    cv2.imwrite(path, frame)
-    with open(path, 'rb') as img_f:
-        img_stream = img_f.read()
-        img_stream = base64.b64encode(img_stream).decode()
-        return img_stream
+
+

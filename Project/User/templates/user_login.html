@@ -96,16 +96,18 @@
     <form action="" method="post">
         <input type="text" name="user" placeholder="用户名" required="required">
         <input type="password" name="password" placeholder="输入密码" required="required">
+        <font color="white">点击登录后请对视摄像头采集人脸信息！</font>
         <button type="submit">登录</button>
+
+        <font color="red"  size="5">
         {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-        {% endfor %}
+        <div  class="flash">{{ message }}</div>
+        {% endfor %}</font>
+
         <div class="regsterAccount">
             <a href="{{ url_for("user_bp.user_register")}}">注册账号</a>
         </div>
-        <div class="forgetPassword">
-            <a href="contact.html">忘记密码</a>
-        </div>
+
 
 
     </form>
