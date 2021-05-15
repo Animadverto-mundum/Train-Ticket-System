@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-# from DataAnalysis.Analysis_way import *
 
 db = SQLAlchemy()
 
@@ -84,7 +83,7 @@ class TicketsSold(db.Model):
 # 拓展功能用数据库
 # 原始数据（具体到为一车次的在某个时间的人数）
 class RawData(db.Model):
-    __tablename__ = 'raw_data'
+    __tablename__ = ''
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     time = db.Column(db.DateTime, nullable=True)
     # train_number_ID = db.Column(db.Integer, db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
-from model import *
+from model import db,TrainNumber,FareInformation,Line
 from . import user_bp
 
 

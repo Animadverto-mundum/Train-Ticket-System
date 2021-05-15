@@ -26,9 +26,7 @@ def user_login():
             session.clear()
             session['user_ID'] = login_user.user_ID
             return redirect(url_for('user_bp.user_index'))
-
         flash(login_error, 'login')
-
     return render_template('user_login.html')
 
 
