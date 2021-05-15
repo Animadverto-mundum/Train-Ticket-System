@@ -294,7 +294,6 @@
                   <div class="x_content">
 
                     <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
-
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
@@ -341,7 +340,7 @@
                               <td class=" ">{{ row[0].departure_time }}</td>
                               <td class=" ">{{ row[0].arrival_time }}</td>
                               <td class="a-right a-right ">{{ row[3].money }}</td>
-                              <td class=" last"><a href="#">View</a>
+                              <td class=" last"><a href="{{ url_for('manager_bp.ticket_delete') }}?delete_tickets_sold_ID={{ row[2].tickets_sold_ID }}">Delete</a>
                               </td>
                             </tr>
                           {% endfor %}
