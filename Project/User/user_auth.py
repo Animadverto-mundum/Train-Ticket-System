@@ -49,6 +49,8 @@ def user_register():
             reg_error = 'Please enter a valid ID number!'
         elif User.query.filter(User.user_name == reg_username).first() is not None:
             reg_error = 'User {} is already registered.'.format(reg_username)
+        elif User.query.filter(User.id_num == id_num).first() is not None:
+            reg_error = 'The ID number has been registered!'
 
         if reg_error is None:
             path=reg_username+'.png'
@@ -64,7 +66,6 @@ def user_register():
         flash(reg_error, 'register')
 
     if request.method=='GET':
-
         return render_template('user_register.html')
     print("报错了")
     return render_template('user_register.html')
@@ -84,9 +85,7 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('user_bp.user_login'))
-
         return view(**kwargs)
-
     return wrapped_view
 
 

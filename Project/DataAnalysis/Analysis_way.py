@@ -100,3 +100,5 @@ def testStationarity(data):
     else:
         report = '数据稳定'
     return report
+
+

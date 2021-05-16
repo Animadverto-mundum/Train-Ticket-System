@@ -8,9 +8,9 @@ import datetime
 db_app = Blueprint('db_app', __name__, static_folder='static', template_folder='templates', url_prefix='/db')
 
 
-# 从数据库提取数据+存入数据库
+# # 从数据库提取数据+存入数据库
 @event.listens_for(TicketsSold, 'after_insert')
-def modify_raw_data(mapper, connection, target, periods):
+def modify_raw_data():
     sold=TicketsSold.query(TicketsSold.fare_ID).filter().order_by(TicketsSold.tickets_sold_ID.desc()).first()
     train_id=FareInformation.query(FareInformation.train_number_id,FareInformation.departure_time).filter(FareInformation.fare_ID==sold.fare_ID).first()
 
@@ -20,7 +20,7 @@ def modify_raw_data(mapper, connection, target, periods):
     train_type=Train.query(Train.type_number).filter(data_updata.train_ID==Train.train_ID).first()
 
     seats=Vehicles.query(Vehicles.first_class_seats,Vehicles.second_class_seats).filter(train_type.type_number==Train.type_number).first()
-    
+
     time_list = []
     value_list = []
     train_list = []
@@ -34,7 +34,6 @@ def modify_raw_data(mapper, connection, target, periods):
     for p in preview_list:
         predict_data = PredictData(time=p['时间'], train_number_ID=p['车次'], value=p['数值'])
         db.session.add(predict_data)
-
     db.session.commit()
 
 
@@ -77,10 +76,10 @@ def InitData():
     df = pandas.read_csv('D:/code_work/Train-Ticket-System/Project/DataAnalysis/数据.csv')
     print(df)
     for sensor_name in list(df)[1:]:
-        id = 'A1'
+        id = 'D521'
         for index, row in df.iterrows():
             time = row['Time']
-            value = float(row[sensor_name])
+            value = row[sensor_name]
             new_data = RawData(time=time, value=value, train_number_ID=id)
             db.session.add(new_data)
         db.session.commit()

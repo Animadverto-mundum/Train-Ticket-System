@@ -30,7 +30,7 @@ def Predict():
             }
             return render_template("manger_predict.html",**render_args)
 
-        elif request.form['type']=='trend':
+        elif request.form['type']=='trend' or request.form['type']=='describe':
             sensor = request.form['train_number_ID']
             begin_time = datetime.datetime.strptime(request.form['begin_time'],"%Y%m%d")
             end_time = datetime.datetime.strptime(request.form['end_time'],"%Y%m%d")
@@ -38,28 +38,36 @@ def Predict():
             error = None
             if begin_time>datetime.datetime.now() or end_time>datetime.datetime.now():
                 error = "The input time cannot be later than the current time!"
-                print("时间错误1")
             elif begin_time>end_time:
                 error = "The start time must be earlier than the end time!"
-                print("时间错误2")
             if error is None:
                 data_list = RawData.query.filter((RawData.train_number_ID == sensor) & (begin_time <= RawData.time) & (
                             RawData.time <= end_time)).order_by(RawData.time.desc()).all()
                 data_df = createdataframe(data_list)
                 if data_df.empty:
                     error = "There is no data in the database for this train during this time period!"
-                    print("数据错误")
-                else:
+                elif request.form['type']=='trend':
                     trend_list,pic = dataTrend(data_df[['时间', '数值']])
                     plt.savefig('./temp2.png', format='png')
                     img_stream = tran_pic('./temp2.png')
                     render_args = {
+                        'trend_list':trend_list,
                         'pic': img_stream,
+                    }
+                    return render_template("manger_predict.html",**render_args)
+
+                elif request.form['type']=='describe':
+                    describe_list=data_df.describe().to_dict()
+                    print(describe_list)
+                    render_args = {
+                        'describe_list': describe_list,
+
                     }
                     return render_template("manger_predict.html",**render_args)
 
             if error is not None:
                 flash(error,'trend')
+
 
     return render_template('manger_predict.html')
 

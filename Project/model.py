@@ -25,8 +25,8 @@ class Site(db.Model):
     __tablename__ = 'site'
     site_name = db.Column(db.String(20), primary_key=True, nullable=False)
     site_capacity_level = db.Column(db.Integer, nullable=False)
-    opening_time = db.Column(db.Time, nullable=False)
-    closing_time = db.Column(db.Time, nullable=False)
+    opening_time = db.Column(db.DateTime, nullable=False)
+    closing_time = db.Column(db.DateTime, nullable=False)
 
 
 class Line(db.Model):
@@ -56,8 +56,8 @@ class TrainNumber(db.Model):  # 车次表
     train_number_ID = db.Column(db.String(20), primary_key=True, nullable=False)
     train_ID = db.Column(db.Integer, db.ForeignKey('train.train_ID', ondelete='CASCADE'), nullable=False)
     line_ID = db.Column(db.Integer, db.ForeignKey('line.line_ID', ondelete='CASCADE'), nullable=False)
-    departure_time = db.Column(db.Time,primary_key=True,nullable=False)
-    arrival_time = db.Column(db.Time, nullable=False)
+    departure_time = db.Column(db.DateTime,primary_key=True,nullable=False)
+    arrival_time = db.Column(db.DateTime, nullable=False)
     first_tickets_remain_num = db.Column(db.Integer, nullable=False)
     second_tickets_remain_num = db.Column(db.Integer, nullable=False)
 
@@ -65,7 +65,7 @@ class TrainNumber(db.Model):  # 车次表
 class FareInformation(db.Model):  # 票价信息
     __tablename__ = 'fare_information'
     fare_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    departure_time = db.Column(db.Time, nullable=False)
+    departure_time = db.Column(db.DateTime, nullable=False)
     train_number_id = db.Column(db.String(20), db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
                                 nullable=False)
     seat_type = db.Column(db.Integer, nullable=False)
@@ -83,13 +83,13 @@ class TicketsSold(db.Model):
 # 拓展功能用数据库
 # 原始数据（具体到为一车次的在某个时间的人数）
 class RawData(db.Model):
-    __tablename__ = ''
+    __tablename__ = 'raw_data'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     time = db.Column(db.DateTime, nullable=True)
     # train_number_ID = db.Column(db.Integer, db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
     #                             nullable=False)
     train_number_ID = db.Column(db.String(28), nullable=False)
-    value = db.Column(db.Float, nullable=False)
+    value = db.Column(db.Integer, nullable=False)
 
 
 # 预测数据表
