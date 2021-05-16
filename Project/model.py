@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+# from dataAnalysis.Analysis_way import *
 
 db = SQLAlchemy()
 
@@ -16,17 +17,15 @@ class User(db.Model):
     user_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_name = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
-    user_type_number = db.Column(db.String(20), nullable=False) # 将用户类型修改为字符串
-    real_name = db.Column(db.String(20),nullable=False) # 增加真实姓名和身份证号
-    id_num = db.Column(db.String(40),nullable=False)
-    # user_pic = db.Column(db.Text,nullable=False) # 存储用户用户照片信息的Base64编码
+    user_type_number = db.Column(db.Integer, nullable=False)
+
 
 class Site(db.Model):
     __tablename__ = 'site'
     site_name = db.Column(db.String(20), primary_key=True, nullable=False)
     site_capacity_level = db.Column(db.Integer, nullable=False)
-    opening_time = db.Column(db.DateTime, nullable=False)
-    closing_time = db.Column(db.DateTime, nullable=False)
+    opening_time = db.Column(db.Time, nullable=False)
+    closing_time = db.Column(db.Time, nullable=False)
 
 
 class Line(db.Model):
@@ -56,16 +55,13 @@ class TrainNumber(db.Model):  # 车次表
     train_number_ID = db.Column(db.String(20), primary_key=True, nullable=False)
     train_ID = db.Column(db.Integer, db.ForeignKey('train.train_ID', ondelete='CASCADE'), nullable=False)
     line_ID = db.Column(db.Integer, db.ForeignKey('line.line_ID', ondelete='CASCADE'), nullable=False)
-    departure_time = db.Column(db.DateTime,primary_key=True,nullable=False)
-    arrival_time = db.Column(db.DateTime, nullable=False)
-    first_tickets_remain_num = db.Column(db.Integer, nullable=False)
-    second_tickets_remain_num = db.Column(db.Integer, nullable=False)
+    departure_time = db.Column(db.Time, nullable=False)
+    arrival_time = db.Column(db.Time, nullable=False)
 
 
 class FareInformation(db.Model):  # 票价信息
     __tablename__ = 'fare_information'
     fare_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    departure_time = db.Column(db.DateTime, nullable=False)
     train_number_id = db.Column(db.String(20), db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
                                 nullable=False)
     seat_type = db.Column(db.Integer, nullable=False)
@@ -78,6 +74,7 @@ class TicketsSold(db.Model):
     fare_ID = db.Column(db.Integer, db.ForeignKey('fare_information.fare_ID', ondelete='CASCADE'), nullable=False)
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID', ondelete='CASCADE'), nullable=False)
     seat = db.Column(db.Integer, nullable=False)
+    departure_date = db.Column(db.Date, nullable=False)
 
 
 # 拓展功能用数据库
@@ -89,7 +86,7 @@ class RawData(db.Model):
     # train_number_ID = db.Column(db.Integer, db.ForeignKey('train_number.train_number_ID', ondelete='CASCADE'),
     #                             nullable=False)
     train_number_ID = db.Column(db.String(28), nullable=False)
-    value = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.Float, nullable=False)
 
 
 # 预测数据表
