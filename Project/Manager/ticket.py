@@ -66,7 +66,8 @@ def ticket_add():
             .filter(TicketsSold.seat==seat).all()):
             continue
         break
-    new_ticket = TicketsSold(fare_ID=fare_info.fare_ID, user_ID=user_operating.user_ID, seat=seat)
+    new_ticket = TicketsSold(fare_ID=fare_info.fare_ID, user_ID=user_operating.user_ID,\
+         seat=seat, departure_date=request.form.get("train_departure_date"))
     db.session.add(new_ticket)
     db.session.commit()
     return redirect(url_for('manager_bp.ticket_view'))
