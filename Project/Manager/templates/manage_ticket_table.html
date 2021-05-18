@@ -301,13 +301,14 @@
                             <th>
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
-                            <th class="column-title">ticket_sold_ID </th>
-                            <th class="column-title">train_number_ID </th>
+                            <th class="column-title">ticketID </th>
+                            <th class="column-title">trainNumID </th>
                             <th class="column-title">line_name </th>
                             <th class="column-title">user_ID </th>
                             <th class="column-title">user_name </th>
                             <th class="column-title">seat_type </th>
                             <th class="column-title">seat </th>
+                            <th class="column-title">departure_date </th>
                             <th class="column-title">departure_time </th>
                             <th class="column-title">arrival_time </th>
                             <th class="column-title">money </th>          
@@ -337,6 +338,7 @@
                               <td class=" ">{{ row[4].user_name }}</td>
                               <td class=" ">{{ row[3].seat_type }}</td>
                               <td class=" ">{{ row[2].seat }}</td>
+                              <td class=" ">{{ row[2].departure_date }}</td>
                               <td class=" ">{{ row[0].departure_time }}</td>
                               <td class=" ">{{ row[0].arrival_time }}</td>
                               <td class="a-right a-right ">{{ row[3].money }}</td>

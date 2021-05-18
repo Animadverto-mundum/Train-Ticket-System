@@ -307,13 +307,19 @@
                   </div>
                   <div class="x_content">
                     <br />
+                    {% for message in get_flashed_messages() %}
+                      <h2><small>
+                        <div class="flash">{{ message }}</div>
+                      </small></h2>
+                      <br>
+                    {% endfor %}
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{ url_for('manager_bp.ticket_add') }}" method="POST">
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">User Certificate Type</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="user_certificate_type">
                             <option>user_name</option>
-                            <option>user_id</option>
+                            <option {{form_data['user_certificate_type']}}>user_id</option>
                           </select>
                         </div>
                       </div>
@@ -322,22 +328,30 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_certificate">User Certificate <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="user_certificate" required="required" class="form-control col-md-7 col-xs-12" required="required">
+                          <input type="text" name="user_certificate" value="{{form_data['user_certificate']}}" required="required" class="form-control col-md-7 col-xs-12" required="required">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Train Number <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="train_number_ID" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" name="train_number_ID" value="{{form_data['train_number_ID']}}" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Train Departure Date <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="date" name="train_departure_date" value="{{form_data['train_departure_date']}}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Seat Type</label>
-                        <div class="">
-                          <label>
-                            <input type="checkbox" name="seat_type" class="js-switch" checked /> Advanced Class
-                          </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" name="seat_type">
+                            <option value = 1>Class 1</option>
+                            <option value = 2 {{form_data['seat_type']}}>Class 2</option>
+                          </select>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -345,6 +359,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button class="btn btn-primary" type="button" onclick="javascrtpt:window.location.href='{{url_for('manager_bp.ticket_view')}}'">Cancel</button>
 						              <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="button" class="btn btn-success" onclick="get()">Check</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
@@ -1339,6 +1354,35 @@
     <script src="static/vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="static/build/js/custom.min.js"></script>
-	
+    <script>
+      function httpPost(URL, PARAMS) {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+        
+        for (var x in PARAMS) {
+          var opt = document.createElement("textarea");
+          opt.name = x;
+          opt.value = PARAMS[x];
+          temp.appendChild(opt);
+        }
+        
+        document.body.appendChild(temp);
+        temp.submit();
+        
+        return temp;
+      }
+      function get() {
+        var params = {
+          "user_certificate_type": document.getElementsByName("user_certificate_type")[0].value,
+          "user_certificate": document.getElementsByName("user_certificate")[0].value,
+          "train_number_ID": document.getElementsByName("train_number_ID")[0].value,
+          "train_departure_date": document.getElementsByName("train_departure_date")[0].value,
+          "seat_type": document.getElementsByName("seat_type")[0].value,
+        };
+        httpPost("{{url_for('manager_bp.ticket_query')}}", params);
+      }
+    </script>
   </body>
 </html>
