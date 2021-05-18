@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from model import Line, TrainNumber, db
+from model import Line, TrainNumber, db, Train, Line
 
 from . import access_check, manager_bp
 
@@ -24,7 +24,19 @@ def train_view():
 
 @manager_bp.route('/train_edit')
 def train_edit():
-    return render_template('manage_train_form.html')
+    if not access_check(request, 0):
+        response = redirect(url_for('manager_bp.manager_index'))
+        response.delete_cookie('user_name')
+        response.delete_cookie('user_type')
+        return response
+    train_list = db.session.query(Train).all()
+    line_list = db.session.query(Line).all()
+    render_args = {
+        'train_list': train_list,
+        'line_list': line_list,
+        'user_name': request.cookies.get('user_name')
+    }
+    return render_template('manage_train_form.html', **render_args)
 
 @manager_bp.route('/train_add', methods=['POST'])
 def train_add():
@@ -36,7 +48,7 @@ def train_add():
     
     train_number_ID = request.form.get('train_number_ID')
     train_ID = request.form.get('train_ID')
-    line_ID = request.form.get('line_ID')
+    line_ID = request.form.get('line_ID').split('-')[0]
     departure_time = request.form.get('departure_time') + ':00'
     arrival_time = request.form.get('arrival_time') + ':00'
     new_train = TrainNumber(train_number_ID=train_number_ID.strip(), train_ID=int(train_ID),\
