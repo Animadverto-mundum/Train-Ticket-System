@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, flash, url_for
 from . import manager_bp
-from model import db, User, TicketsSold, FareInformation, TrainNumber
+from model import db, User, TicketsSold, FareInformation, Line, TrainNumber
 from .manager_auth import login_required
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
@@ -93,7 +93,8 @@ def user_view_single():
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID==user_id).first() # 查找当前查看的用户
     # 查询该用户的购票信息
-    tickets = db.session.query(TicketsSold.seat, FareInformation.money, TrainNumber.train_ID, TrainNumber.departure_time, TrainNumber.arrival_time).filter(
+    tickets = db.session.query(TicketsSold.seat, TrainNumber.train_number_ID, Line.line_name, FareInformation.money, FareInformation.seat_type, TrainNumber.departure_time, TrainNumber.arrival_time, TicketsSold.departure_date).filter(
+        Line.line_ID==TrainNumber.line_ID,
         TicketsSold.user_ID==user.user_ID,
         TicketsSold.fare_ID==FareInformation.fare_ID, 
         FareInformation.train_number_id==TrainNumber.train_number_ID)
