@@ -30,7 +30,7 @@ def user_add():
         # 处理错误
         if password1 != password2:
             error = 'password inconsistent'
-        elif User.query.filter(User.user_name==new_username).first() is not None:
+        elif User.query.filter(User.user_name == new_username).first() is not None:
             error = f'User {new_username} already exist.'
         # 没有错误，对数据库进行更新
         if error is None:
@@ -43,13 +43,13 @@ def user_add():
     return render_template('manage_user_form.html', user=None)
 
 
-@manager_bp.route('user_edit_single', methods=['GET','POST'])
+@manager_bp.route('user_edit_single', methods=['GET', 'POST'])
 @login_required
 def user_edit_single():
     '''对单个的普通用户进行修改'''
     error = None
     user_id = request.args.get('id')
-    user = User.query.filter(User.user_ID==user_id).first() # 查找当前修改的用户
+    user = User.query.filter(User.user_ID == user_id).first()  # 查找当前修改的用户
     if request.method == 'POST':
         # 获取表单数据
         new_username = request.form['user_name']
@@ -62,16 +62,16 @@ def user_edit_single():
         # 处理错误
         if password1 != password2:
             error = 'password inconsistent'
-        elif User.query.filter(User.user_name==new_username).first() is not None:
+        elif User.query.filter(User.user_name == new_username).first() is not None:
             error = f'User {new_username} already exist.'
         # 没有错误，对数据库进行更新
         if error is None:
-            new_user = User.query.filter(User.user_name==user.user_name).update({
-                "user_name":new_username, 
-                "password":generate_password_hash(password1), 
-                "user_type_number":identity})
+            new_user = User.query.filter(User.user_name == user.user_name).update({
+                "user_name": new_username,
+                "password": generate_password_hash(password1),
+                "user_type_number": identity})
             db.session.commit()
-            return redirect(url_for('manager_bp.user_view')) # 重定向到普通用户查看页面
+            return redirect(url_for('manager_bp.user_view'))  # 重定向到普通用户查看页面
         # 将错误放在flash中
         flash(error)
     return render_template('manage_user_form.html', user=user)
@@ -82,9 +82,7 @@ def user_edit_single():
 def user_delete():
     '''删除单个普通用户'''
     user_id = request.args.get('id')
-    user = User.query.filter(User.user_ID==user_id).first() # 查找当前删除的普通用户
-
+    user = User.query.filter(User.user_ID == user_id).first()  # 查找当前删除的普通用户
     db.session.delete(user)
     db.session.commit()
-
     return redirect(url_for('manager_bp.user_view'))

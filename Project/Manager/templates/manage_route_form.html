@@ -67,7 +67,7 @@
                   <li><a><i class="fa fa-home"></i> Route <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.route_view') }}">View Route</a></li>
-                      <li><a href="{{ url_for('manager_bp.route_edit') }}">Edit Route</a></li>
+                      <li><a href="{{ url_for('manager_bp.route_add') }}">Edit Route</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Station <span class="fa fa-chevron-down"></span></a>
@@ -163,37 +163,59 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="route_name"> route_name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="route_name"> route_name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="route_name" name="route_name" required="required" class="form-control col-md-7 col-xs-12">
+                          {% if route %}
+                            <input type="text" id="route_name" name="route_name" required="required" class="form-control col-md-7 col-xs-12" value={{route.line_name}}>
+                          {% else %}
+                            <input type="text" id="route_name" name="route_name" required="required" class="form-control col-md-7 col-xs-12">
+                          {% endif %}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departure"> Departure <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="departure" name="departure" required="required" class="form-control col-md-7 col-xs-12">
+                          {% if route %}
+                            <input type="text" id="departure" name="departure" required="required" class="form-control col-md-7 col-xs-12" value={{route.departure_station}}>
+                          {% else %}
+                            <input type="text" id="departure" name="departure" required="required" class="form-control col-md-7 col-xs-12">
+                          {% endif %}
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12">Arrival</label>
+                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> Arrival <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="arrival" class="form-control col-md-7 col-xs-12" type="text" name="arrival">
+                          {% if route %}
+                            <input type="text" id="arrival" name="arrival" required="required" class="form-control col-md-7 col-xs-12" value={{route.arrival_station}}>
+                          {% else %}
+                            <input type="text" id="arrival" name="arrival" required="required" class="form-control col-md-7 col-xs-12">
+                          {% endif %}
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="distance" class="control-label col-md-3 col-sm-3 col-xs-12">Distance</label>
+                        <label for="distance" class="control-label col-md-3 col-sm-3 col-xs-12"> Distance </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="distance" class="form-control col-md-7 col-xs-12" type="text" name="distance">
+                          {% if route %}
+                            <input type="text" id="distance" name="distance" required="required" class="form-control col-md-7 col-xs-12" value={{route.line_distance}}>
+                          {% else %}
+                            <input type="text" id="distance" name="distance" required="required" class="form-control col-md-7 col-xs-12">
+                          {% endif %}
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button class="btn btn-primary" type="button">Cancel</button>
+                          <button class="btn btn-primary" href="{{ url_for('manager_bp.route_view') }}" type="button">Cancel</button>
 						  <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success">Submit</button>
+                          <div style="color:#FF0000; float:left">
+                            {% for message in get_flashed_messages() %}
+                              <br>
+                              <em class="flash" style="color: 00f">{{ message }}</em>
+                            {% endfor %}
+                          </div>
                         </div>
                       </div>
 

@@ -3519,8 +3519,8 @@ form:after {
 }
 #content form .submit,
 .login_content form input[type="submit"] {
-  float: left;
-  margin-left: 38px;
+  float: center
+  //margin-left: 38px;
 }
 .button a {
   background: url(http://cssdeck.com/uploads/media/items/8/8bcLQqF.png) 0 -112px

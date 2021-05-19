@@ -32,19 +32,19 @@
           <section class="login_content">
             <form name="login" method="POST">
               <h1>Login</h1>
-
-              <div>{% for message in get_flashed_messages() %}
-                  <em class="flash" style="color: 00f">{{ message }}</em>
-                {% endfor %}
-                <input type="text" class="form-control" placeholder="Username" name="login_username" id="login_username" required="">
-
-              </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" name="login_password" id="login_password" required="" />
-              </div>
-              <div>
-                <input type='submit' name="submit" value="Sign In">
-                <a class="reset_pass" href="#">Lost your password?</a>
+                <div>
+                  <input type="text" class="form-control" placeholder="Username" name="login_username" id="login_username" required=""/>
+                  <input type="password" class="form-control" placeholder="Password" name="login_password" id="login_password" required="" />
+                </div>
+
+                <input class="btn btn-default submit" style=＂display:center;＂ type='submit' name="submit" value="Sign In">
+
+                <div style="color:#FF0000; float:right">
+                  {% for message in get_flashed_messages() %}
+                    <em class="flash" style="color: 00f">{{ message }}</em>
+                  {% endfor %}
+                </div>
               </div>
 
               <div class="clearfix"></div>
@@ -58,8 +58,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1>Railway Manager</h1>
+                  <p>@2021 railway system groups</p>
                 </div>
               </div>
             </form>
@@ -71,10 +71,6 @@
             <form name="register" method="POST">
               <h1>Create Account</h1>
 
-              {% for message in get_flashed_messages() %}
-                <div class="flash">{{ message }}</div>
-              {% endfor %}
-
               <div>
                 <input type="text" class="form-control" placeholder="Username" name="register_username" required="" />
               </div>
@@ -85,7 +81,14 @@
                 <input type="password" class="form-control" placeholder="Password Again" name="register_password2" required="" />
               </div>
               <div>
-                <input type='submit' name="submit" value="Sign Up">
+                <input class="btn btn-default submit" style=＂display:center;＂ type='submit' name="submit" value="Sign Up">
+
+                <div style="color:#FF0000; float:right">
+                  {% for message in get_flashed_messages() %}
+                    <em class="flash" style="color: 00f">{{ message }}</em>
+                  {% endfor %}
+                </div>
+
               </div>
 
               <div class="clearfix"></div>
@@ -99,8 +102,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1>Railway Manager</h1>
+                  <p>@2021 railway system groups</p>
                 </div>
               </div>
             </form>
