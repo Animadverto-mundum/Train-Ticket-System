@@ -22,6 +22,7 @@ def Predict():
             data_list = RawData.query.filter(RawData.train_number_ID == sensor).order_by(RawData.time.desc()).all()
             data_df=createdataframe(data_list)
             predict_list,pic = dataPreview(data_df[['时间', '数值']], periods=periods, freq=freq)
+            plt.show()
             plt.savefig('./temp.png', format='png')
             img_stream=tran_pic('./temp.png')
             render_args = {
@@ -48,6 +49,7 @@ def Predict():
                     error = "There is no data in the database for this train during this time period!"
                 elif request.form['type']=='trend':
                     trend_list,pic = dataTrend(data_df[['时间', '数值']])
+                    plt.show()
                     plt.savefig('./temp2.png', format='png')
                     img_stream = tran_pic('./temp2.png')
                     render_args = {

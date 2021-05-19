@@ -37,7 +37,6 @@ def pic_Compared(path1,path2):
                 "liveness_control": "LOW"
             }
     ]
-
     access_token = '[24.64704f2c3286bc5a63ddb8418600f9af.2592000.1623661342.282335-24172054]'
     request_url = request_url + "?access_token=" + access_token
     headers = {'content-type': 'application/json'}

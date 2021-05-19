@@ -14,3 +14,8 @@ def user_index():
 def user_logout():
     session.clear()
     return redirect(url_for('user_bp.user_login'))
+
+
+@user_bp.route('/3d_show')
+def user_3dshow():
+    return render_template('3d_show.html')

@@ -40,10 +40,6 @@ def dataTrend(sensor_data):  # 数据总趋势
     forecast = forecast.reset_index(drop=True)
     # print(forecast)
     for i in range(0, len(forecast)):
-        # print(forecast.loc[i, 1])
-        # forecast.loc[i, 1] = round(forecast.loc[i, 1], 4)
-        # forecast.loc[i, 2] = round(forecast.loc[i, 2], 4)
-        # forecast.loc[i, 3] = round(forecast.loc[i, 3], 4)
         part = forecast.loc[i].T.to_dict()
         forecast_list.append(part)
 
@@ -79,7 +75,7 @@ def createFbprophet(sensor_data, yearly_seasonality=False):  # 创建预测对�
     holidays = pd.DataFrame({
         'holiday': '节假日',
         'ds': pd.to_datetime(
-            ['2008','2020']),
+            ['2008','2012']),
         'lower_window': 0,
         'upper_window': 0,
     })
