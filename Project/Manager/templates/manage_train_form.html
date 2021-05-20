@@ -352,7 +352,7 @@
                       <div class="form-group">
                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">线路/线路号</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="line_ID" required="required" class="form-control col-md-7 col-xs-12" {% if line_list %}list='line_list'{% endif %} onblur="check('line_ID', 'line_list')" onfocus="this.value=''">
+                          <input type="text" name="line_ID" required="required" class="form-control col-md-7 col-xs-12" {% if line_list %}list='line_list' onblur="check('line_ID', 'line_list')" onfocus="this.value=''" {% endif %}>
                           {% if line_list %}
                             <datalist id='line_list'>
                               {% for item in line_list %}

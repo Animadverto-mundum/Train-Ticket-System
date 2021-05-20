@@ -36,7 +36,10 @@ def ticket_delete():
 
 @manager_bp.route('/ticket_edit')
 def ticket_edit():
-    render_args = {'form_data': {}}
+    train_number_ID_list = db.session.query(TrainNumber, Line).filter(TrainNumber.line_ID == Line.line_ID).all()
+    render_args = {'form_data': {}, 
+        'train_number_ID_list': train_number_ID_list
+        }
     return render_template('manage_ticket_form.html', **render_args)
 
 @manager_bp.route('/ticket_add', methods = ['POST'])
@@ -55,11 +58,11 @@ def ticket_add():
         
     if request.form.get("seat_type") == 'on':
         fare_info = db.session.query(FareInformation)\
-            .filter(FareInformation.train_number_id == request.form.get("train_number_ID"))\
+            .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
             .filter(FareInformation.seat_type == 1).first()
     else:
         fare_info = db.session.query(FareInformation)\
-            .filter(FareInformation.train_number_id == request.form.get("train_number_ID"))\
+            .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
             .filter(FareInformation.seat_type == 2).first()
     while True:
         seat = random.randint(1, 1000)
@@ -88,7 +91,7 @@ def ticket_query():
             .filter(User.user_ID == request.form.get("user_certificate")).first()
         
     fare_info = db.session.query(FareInformation)\
-        .filter(FareInformation.train_number_id == request.form.get("train_number_ID"))\
+        .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
         .filter(FareInformation.seat_type == int(request.form.get("seat_type"))).first()
     try:
         price = fare_info.money
