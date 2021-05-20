@@ -55,9 +55,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                {% if g.manager_user %}
-                  <h2>{{ g.manager_user.user_name }}</h2>
-                {% endif %}
+                <h2>{{ user_name }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -177,7 +175,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="static/images/img.jpg" alt="">{% if g.manager_user %}{{ g.manager_user.user_name }}{% endif %}
+                    <img src="static/images/img.jpg" alt="">{{ user_name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
