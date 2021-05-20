@@ -329,14 +329,14 @@
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="{{url_for('manager_bp.train_add')}}">
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">train_number_ID <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">车次号 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" name="train_number_ID" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"> train_ID <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">车号 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" name="train_ID" required="required" class="form-control col-md-7 col-xs-12" {% if train_list %}list='train_list'{% endif %} onblur="check('train_ID', 'train_list')" onfocus="this.value=''">
@@ -350,7 +350,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">line_ID</label>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">线路/线路号</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" name="line_ID" required="required" class="form-control col-md-7 col-xs-12" {% if line_list %}list='line_list'{% endif %} onblur="check('line_ID', 'line_list')" onfocus="this.value=''">
                           {% if line_list %}
@@ -363,13 +363,13 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">departure_time</label>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">出发时间</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="time" name="departure_time" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">arrival_time</label>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">到达时间</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="time" name="arrival_time" required="required" class="form-control col-md-7 col-xs-12">
                         </div>

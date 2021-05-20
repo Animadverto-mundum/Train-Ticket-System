@@ -315,7 +315,7 @@
                     {% endfor %}
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{ url_for('manager_bp.ticket_add') }}" method="POST">
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">User Certificate Type</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">用户凭证类型</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="user_certificate_type">
                             <option>user_name</option>
@@ -325,28 +325,28 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_certificate">User Certificate <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_certificate">用户凭证 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" name="user_certificate" value="{{form_data['user_certificate']}}" required="required" class="form-control col-md-7 col-xs-12" required="required">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Train Number <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">车次号 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" name="train_number_ID" value="{{form_data['train_number_ID']}}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Train Departure Date <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">出发日期 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="date" name="train_departure_date" value="{{form_data['train_departure_date']}}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Seat Type</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">座等</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control" name="seat_type">
                             <option value = 1>Class 1</option>
