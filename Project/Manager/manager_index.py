@@ -15,4 +15,7 @@ def manager_index():
 @manager_bp.route('/logout')
 def manager_logout():
     session.clear()
-    return redirect(url_for('manager_bp.manager_auth'))
+    response = redirect(url_for('manager_bp.manager_auth'))
+    response.delete_cookie("user_name")
+    response.delete_cookie("user_type")
+    return response
