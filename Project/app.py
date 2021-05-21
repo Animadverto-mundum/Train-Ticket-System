@@ -22,8 +22,6 @@ app.config['JSON_AS_ASCII'] = False
 app.register_blueprint(db_app)
 app.register_blueprint(user_bp)
 app.register_blueprint(analysis_bp)
-# app.add_url_rule('/', endpoint='manage_login')
-# app.add_url_rule('/', endpoint='analysis')
 
 
 if __name__ == '__main__':

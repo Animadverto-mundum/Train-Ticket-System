@@ -1,12 +1,12 @@
 @font-face {
 	font-family: 'themify';
-	src:url('../../../../../登陆注册页面/assets/fonts/themify.eot?-fvbane');
+	src:url('../fonts/themify.eot?-fvbane');
 
 
-	src:url('../../../../../登陆注册页面/assets/fonts/themify.eot?#iefix-fvbane') format('embedded-opentype'),
-		url('../../../../../登陆注册页面/assets/fonts/themify.woff?-fvbane') format('woff'),
-		url('../../../../../登陆注册页面/assets/fonts/themify.ttf?-fvbane') format('truetype'),
-		url('../../../../../登陆注册页面/assets/fonts/themify.svg?-fvbane#themify') format('svg');
+	src:url('../fonts/themify.eot?#iefix-fvbane') format('embedded-opentype'),
+		url('../fonts/themify.woff?-fvbane') format('woff'),
+		url('../fonts/themify.ttf?-fvbane') format('truetype'),
+		url('../fonts/themify.svg?-fvbane#themify') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

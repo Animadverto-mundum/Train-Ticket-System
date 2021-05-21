@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash  # 避
 from .face_function import *
 from config import *
 
+
 @user_bp.route('/', methods=['GET', 'POST'])
 def user_login():
     # print(request)
@@ -107,6 +108,7 @@ def user_change_password():
         return render_template('user_changepassword.html')
 
     return render_template('user_changepassword.html')
+
 
 @user_bp.before_app_request
 def load_logged_in_user():
