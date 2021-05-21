@@ -4,6 +4,7 @@ from model import db
 # from dataAnalysis.InitData import db_app
 import config
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config)  # 配置文件
@@ -17,6 +18,7 @@ app = create_app()
 from Manager import manager_bp
 app.register_blueprint(manager_bp)
 
+
 # route
 @app.route('/')
 def hello():
@@ -24,4 +26,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5665)
+    app.run(debug=True,port=8080)

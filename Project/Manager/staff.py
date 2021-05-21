@@ -5,16 +5,17 @@ from .manager_auth import login_required
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 
-@manager_bp.route('/user_view')
+@manager_bp.route('/staff_view')
 @login_required
-def user_view():
+def staff_view():
     '''查看所有普通用户'''
     users = User.query.filter().all()
     return render_template('manage_user_table.html', users=users)
 
-@manager_bp.route('/user_add', methods=['POST','GET'])
+
+@manager_bp.route('/staff_add', methods=['POST','GET'])
 @login_required
-def user_add():
+def staff_add():
     '''增加新的普通用户'''
     error = None
     if request.method == 'POST':
@@ -41,9 +42,9 @@ def user_add():
 
     return render_template('manage_user_form.html', user=None)
 
-@manager_bp.route('/user_edit_single', methods=['GET','POST'])
+@manager_bp.route('/staff_edit_single', methods=['GET','POST'])
 @login_required
-def user_edit_single():
+def staff_edit_single():
     '''对单个的普通用户进行修改'''
     error = None
     user_id = request.args.get('id')
@@ -75,9 +76,9 @@ def user_edit_single():
     return render_template('manage_user_form.html', user=user)
 
 
-@manager_bp.route('/user_delete', methods=["GET"])
+@manager_bp.route('/staff_delete', methods=["GET"])
 @login_required
-def user_delete():
+def staff_delete():
     '''删除单个普通用户'''
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID == user_id).first()  # 查找当前删除的普通用户
@@ -86,9 +87,9 @@ def user_delete():
 
     return redirect(url_for('manager_bp.user_view'))
 
-@manager_bp.route('/user_view_single', methods=["GET"])
+@manager_bp.route('/staff_view_single', methods=["GET"])
 @login_required
-def user_view_single():
+def staff_view_single():
     '''查看单个用户的购票信息'''
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID==user_id).first() # 查找当前查看的用户
@@ -96,7 +97,7 @@ def user_view_single():
     tickets = db.session.query(TicketsSold.seat, TrainNumber.train_number_ID, Line.line_name, FareInformation.money, FareInformation.seat_type, TrainNumber.departure_time, TrainNumber.arrival_time, TicketsSold.departure_date).filter(
         Line.line_ID==TrainNumber.line_ID,
         TicketsSold.user_ID==user.user_ID,
-        TicketsSold.fare_ID==FareInformation.fare_ID, 
+        TicketsSold.fare_ID==FareInformation.fare_ID,
         FareInformation.train_number_id==TrainNumber.train_number_ID)
 
     return render_template('manage_user_viewsingle.html', user=user, tickets=tickets)

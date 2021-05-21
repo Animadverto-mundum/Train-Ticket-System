@@ -7,8 +7,12 @@ from .manager_auth import login_required
 def manager_index():
     return render_template('manage_index.html')
 
+
 @manager_bp.route('/logout')
 @login_required
 def manager_logout():
     session.clear()
     return redirect(url_for('manager_bp.manager_auth'))
+
+
+

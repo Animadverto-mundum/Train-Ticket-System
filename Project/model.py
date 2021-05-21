@@ -74,6 +74,7 @@ class TicketsSold(db.Model):
     fare_ID = db.Column(db.Integer, db.ForeignKey('fare_information.fare_ID', ondelete='CASCADE'), nullable=False)
     user_ID = db.Column(db.Integer, db.ForeignKey('user.user_ID', ondelete='CASCADE'), nullable=False)
     seat = db.Column(db.Integer, nullable=False)
+    departure_date = db.Column(db.Date, nullable=False)
 
 
 # 拓展功能用数据库

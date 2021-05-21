@@ -34,7 +34,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{ url_for('manager_bp.manager_index') }}" class="site_title"><span>Railway Manager</span></a>
+              <a href="{{ url_for('manager_bp.manager_index') }}" class="site_title"><i class="fa fa-university"></i> <span>SWJTU</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -42,7 +42,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="static/images/img.png" alt="..." class="img-circle profile_img">
+                <img src="static/images/logo.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -60,34 +60,40 @@
               <div class="menu_section">
                 <h3>Manager</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Route <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle-thin"></i> Route <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.route_view') }}">View Route</a></li>
-                      <li><a href="{{ url_for('manager_bp.route_add') }}">Edit Route</a></li>
+                      <li><a href="{{ url_for('manager_bp.route_add') }}">Add Route</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Station <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle"></i> Station <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.station_view') }}">View Station</a></li>
-                      <li><a href="{{ url_for('manager_bp.station_edit') }}">Edit Station</a></li>
+                      <li><a href="{{ url_for('manager_bp.station_add') }}">Add station</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> Ticket <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle-thin"></i> Ticket <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.ticket_view') }}">View Ticket</a></li>
                       <li><a href="{{ url_for('manager_bp.ticket_edit') }}">Edit Ticket</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Train <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle"></i> Train <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.train_view') }}">View Train</a></li>
                       <li><a href="{{ url_for('manager_bp.train_edit') }}">Edit Train</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> User <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle-thin"></i> User <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.user_view') }}">View User</a></li>
                       <li><a href="{{ url_for('manager_bp.user_add') }}">Add User</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-circle"></i> Staff <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url_for('manager_bp.staff_view') }}">View Staff</a></li>
+                      <li><a href="{{ url_for('manager_bp.staff_add') }}">Add User</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -95,7 +101,7 @@
               <div class="menu_section">
                 <h3>USER</h3>
                 <ul class="nav side-menu">
-                  <li><a href="javascript:void(0)"><i class="fa fa-bug"></i> Go To User </a></li>
+                  <li><a href='/manager/auth'><i class="fa fa-clone"></i> Go To User</a></li>
                 </ul>
               </div>
 
@@ -104,7 +110,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{url_for('manager_bp.manager_logout')}}">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -130,7 +136,6 @@
             <div class="page-title">
               <div class="title_left">
                 <h3> Route View </h3>
-                <br>
               </div>
             </div>
 
@@ -172,7 +177,8 @@
                           <th>{{ route.arrival_station }}</th>
                           <th>{{ route.line_distance }}</th>
                           <th>
-                            <a href="{{ url_for('manager_bp.route_delete') }}?id={{ route.line_ID }}">Delete | </a>
+                            <a href="{{ url_for('manager_bp.route_delete') }}?id={{ route.line_ID }}">Delete</a>
+                            <a> | </a>
                             <a href="{{ url_for('manager_bp.route_edit') }}?id={{ route.line_ID }}">Edit</a>
                           </th>
                         </tr>
