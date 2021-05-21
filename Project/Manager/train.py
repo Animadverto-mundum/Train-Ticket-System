@@ -5,12 +5,8 @@ from . import access_check, manager_bp
 
 
 @manager_bp.route('/train_view')
+@access_check(request, '4')
 def train_view():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     trains = db.session.query(TrainNumber).filter().all()
     lists = db.session.query(Line).filter().all()
     dict = {item.line_ID: item.line_name for item in lists}
@@ -24,12 +20,8 @@ def train_view():
 
 
 @manager_bp.route('/train_edit')
+@access_check(request, '4')
 def train_edit():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     train_list = db.session.query(Train).all()
     line_list = db.session.query(Line).all()
     render_args = {
@@ -41,13 +33,8 @@ def train_edit():
 
 
 @manager_bp.route('/train_add', methods=['POST'])
+@access_check(request, '4')
 def train_add():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
-    
     train_number_ID = request.form.get('train_number_ID')
     train_ID = request.form.get('train_ID')
     line_ID = request.form.get('line_ID').split('-')[0]

@@ -1,16 +1,18 @@
 from flask import redirect, render_template, request, flash, url_for
-from . import manager_bp
+from . import manager_bp, access_check
 from model import db, Line
 
 
 @manager_bp.route('/route_view')
+@access_check(request, '1')
 def route_view():
     # 查看所有线路
     routes = Line.query.filter().all()
-    return render_template('manage_route_table.html', routes=routes)
+    return render_template('manage_route_table.html', routes=routes, user_name = request.cookies.get('user_name'))
 
 
 @manager_bp.route('route_add', methods=['POST', 'GET'])
+@access_check(request, '1')
 def route_add():
     # 增加新的线路
     error = None
@@ -32,10 +34,11 @@ def route_add():
             db.session.commit()
             return redirect(url_for('manager_bp.route_view'))
         flash(error)
-    return render_template('manage_route_form.html', routes=None)
+    return render_template('manage_route_form.html', routes=None, user_name = request.cookies.get('user_name'))
 
 
 @manager_bp.route('route_edit', methods=['GET', 'POST'])
+@access_check(request, '1')
 def route_edit():
     # 对单个的普通用户进行修改
     error = None
@@ -62,10 +65,11 @@ def route_edit():
             db.session.commit()
             return redirect(url_for('manager_bp.route_view'))
         flash(error)
-    return render_template('manage_route_form.html', route=route)
+    return render_template('manage_route_form.html', route=route, user_name = request.cookies.get('user_name'))
 
 
 @manager_bp.route('route_delete', methods=["GET"])
+@access_check(request, '1')
 def route_delete():
     # 删除一条线路
     route_id = request.args.get('id')

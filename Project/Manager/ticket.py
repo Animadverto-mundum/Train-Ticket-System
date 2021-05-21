@@ -5,12 +5,8 @@ import random
 
 
 @manager_bp.route('/ticket_view', methods = ['GET'])
+@access_check(request, '3')
 def ticket_view():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     ret = db.session.query(TrainNumber, Line, TicketsSold, FareInformation, User)\
         .filter(TrainNumber.line_ID == Line.line_ID)\
         .filter(TicketsSold.fare_ID == FareInformation.fare_ID)\
@@ -24,12 +20,8 @@ def ticket_view():
 
 
 @manager_bp.route('/ticket_delete', methods = ['GET'])
+@access_check(request, '3')
 def ticket_delete():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     delete_tickets_sold_ID = request.args.get('delete_tickets_sold_ID')
     delete_item = db.session.query(TicketsSold).filter(TicketsSold.tickets_sold_ID == delete_tickets_sold_ID).first()
     db.session.delete(delete_item)
@@ -38,21 +30,19 @@ def ticket_delete():
 
 
 @manager_bp.route('/ticket_edit')
+@access_check(request, '3')
 def ticket_edit():
     train_number_ID_list = db.session.query(TrainNumber, Line).filter(TrainNumber.line_ID == Line.line_ID).all()
     render_args = {'form_data': {}, 
-        'train_number_ID_list': train_number_ID_list
+        'train_number_ID_list': train_number_ID_list,
+        'user_name': request.cookies.get('user_name')
         }
     return render_template('manage_ticket_form.html', **render_args)
 
 
 @manager_bp.route('/ticket_add', methods = ['POST'])
+@access_check(request, '3')
 def ticket_add():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     if request.form.get("user_certificate_type") == 'user_name':
         user_operating = db.session.query(User)\
             .filter(User.user_name == request.form.get("user_certificate")).first()
@@ -82,12 +72,8 @@ def ticket_add():
 
 
 @manager_bp.route('/ticket_query', methods = ['POST'])
+@access_check(request, '3')
 def ticket_query():
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_index'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     if request.form.get("user_certificate_type") == 'user_name':
         user_operating = db.session.query(User)\
             .filter(User.user_name == request.form.get("user_certificate")).first()
@@ -117,5 +103,7 @@ def ticket_query():
         form_data['user_certificate_type'] = 'selected'
     if form_data['seat_type'] == '2':
         form_data['seat_type'] = 'selected'
-    render_args = {'form_data': form_data}
+    render_args = {'form_data': form_data,
+            'user_name': request.cookies.get('user_name')
+    }
     return render_template('manage_ticket_form.html', **render_args)

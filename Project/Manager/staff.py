@@ -1,10 +1,11 @@
 from flask import redirect, render_template, request, flash, url_for
-from . import manager_bp
+from . import manager_bp, access_check
 from model import db, User, TicketsSold, FareInformation, Line, TrainNumber
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 
 @manager_bp.route('/staff_view')
+@access_check(request)
 def staff_view():
     '''查看所有普通用户'''
     users = User.query.filter().all()
@@ -12,6 +13,7 @@ def staff_view():
 
 
 @manager_bp.route('/staff_add', methods=['POST','GET'])
+@access_check(request)
 def staff_add():
     '''增加新的普通用户'''
     error = None
@@ -40,6 +42,7 @@ def staff_add():
     return render_template('manage_user_form.html', user=None)
 
 @manager_bp.route('/staff_edit_single', methods=['GET','POST'])
+@access_check(request)
 def staff_edit_single():
     '''对单个的普通用户进行修改'''
     error = None
@@ -73,6 +76,7 @@ def staff_edit_single():
 
 
 @manager_bp.route('/staff_delete', methods=["GET"])
+@access_check(request)
 def staff_delete():
     '''删除单个普通用户'''
     user_id = request.args.get('id')
@@ -83,6 +87,7 @@ def staff_delete():
     return redirect(url_for('manager_bp.user_view'))
 
 @manager_bp.route('/staff_view_single', methods=["GET"])
+@access_check(request)
 def staff_view_single():
     '''查看单个用户的购票信息'''
     user_id = request.args.get('id')
