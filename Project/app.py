@@ -1,8 +1,6 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from model import db, User
-# from DataAnalysis.InitData import db_app
 from User import user_bp
-# from DataAnalysis.Analysis import analysis_bp
 import config
 
 
