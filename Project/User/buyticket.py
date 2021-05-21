@@ -1,7 +1,7 @@
 import datetime
 import time
 from random import random
-from flask import request, redirect, render_template, url_for, flash
+from flask import request, redirect, render_template, url_for, flash, g
 # from model import *
 from . import user_bp
 from .user_auth import login_required
@@ -29,12 +29,13 @@ def user_inputbuyticket():
             elif buy_seat_type == '':
                 buy_error = 'seat type is required.'
 
+            # 票号、车次、线路号、座位类型、出发站、到达站、出发时间、到达时间
+            # 用户ID、票价号
             if buy_error is None:
-                checkbuytickets = db.session.query(TrainNumber.train_number_ID, Line.line_ID,
-                                                   FareInformation.seat_type,
+                checkbuytickets = db.session.query(FareInformation.fare_ID, TrainNumber.train_number_ID,
+                                                   Line.line_ID, FareInformation.seat_type,
                                                    Line.departure_station, Line.arrival_station,
-                                                   TrainNumber.departure_time,
-                                                   TrainNumber.arrival_time). \
+                                                   TrainNumber.departure_time, TrainNumber.arrival_time). \
                     filter(TrainNumber.train_number_ID == FareInformation.train_number_id,
                            TrainNumber.line_ID == Line.line_ID,
                            Line.departure_station == buy_departure_station,
@@ -42,39 +43,33 @@ def user_inputbuyticket():
                            FareInformation.seat_type == buy_seat_type,
                            TrainNumber.departure_time >= buy_departure_time).all()
 
-                # print(buy_departure_time)
-                # temp = datetime.datetime.strptime(buy_departure_time, "%H:%M:%S")
-                # print(temp)
-                # temp1 = "00:00:00"
-                # temp2 = datetime.datetime.strptime(temp1, "%H:%M:%S")
-                # if temp == temp2:
-                #     print("结果相同")
-                # else:
-                #     print("结果不同")
                 return render_template('user_checkbuyTicket.html', checkbuytickets=checkbuytickets)
 
         flash(buy_error, 'query ticket')
 
-    return render_template('user_buyTicket1.html')
+    return render_template('user_buyTicket.html')
 
 
 # 购票 插入数据 已购票信息
 @user_bp.route('buyticket', methods=['GET', 'POST'])
 @login_required
 def user_buyticket():
+    # 传入参数：用户ID、票价号
+    # 还未考虑用户类型、座位类型
     user_id = request.args.get('user_id')
     fare_id = request.args.get('fare_id')
     localtime = time.localtime()
-    current_date = time.strftime("%Y-%m-%d", localtime)
+    temp = time.strftime("%Y-%m-%d", localtime)
+    current_date = datetime.datetime.strptime(temp, '%Y-%m-%d').date()
 
     while True:
         seat = random.randint(1, 1000)
-        if len(db.session.query(TicketsSold).filter(TicketsSold.fare_ID == fare_info.fare_ID).\
-                       filter(TicketsSold.seat == seat).all()):
+        if len(db.session.query(TicketsSold).filter(TicketsSold.fare_ID == FareInformation.fare_ID,
+                                                    TicketsSold.seat == seat).all()):
             continue
         break
 
-    new_ticketsold = TicketsSold(fare_ID=fare_id, user_ID=user_id, seat=seat, departure_date=current_date)
+    new_ticketsold = TicketsSold(fare_ID=fare_id, user_ID=user_id, seat=seat, departure_date = current_date)
     db.session.add(new_ticketsold)
     db.session.commit()
     return redirect(url_for('user_bp.user_inputbuyticket'))

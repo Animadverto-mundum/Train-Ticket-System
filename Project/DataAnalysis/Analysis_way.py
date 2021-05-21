@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 
 # import sklearn
-from fbprophet.plot import plot_yearly, seasonality_plot_df, set_y_as_percent
+# from fbprophet.plot import plot_yearly, seasonality_plot_df, set_y_as_percent
 import joblib
 import time
 from statsmodels.tsa.stattools import adfuller
-from fbprophet import Prophet
+# from fbprophet import Prophet
 from matplotlib import pyplot as plt
 from statsmodels.tsa.stattools import adfuller
 

@@ -1,8 +1,8 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from model import db, User
-from DataAnalysis.InitData import db_app
+# from DataAnalysis.InitData import db_app
 from User import user_bp
-from DataAnalysis.Analysis import analysis_bp
+# from DataAnalysis.Analysis import analysis_bp
 import config
 
 
@@ -19,9 +19,9 @@ app = create_app()
 app.config['JSON_AS_ASCII'] = False
 
 # init blueprint
-app.register_blueprint(db_app)
+# app.register_blueprint(db_app)
 app.register_blueprint(user_bp)
-app.register_blueprint(analysis_bp)
+# app.register_blueprint(analysis_bp)
 # app.add_url_rule('/', endpoint='manage_login')
 # app.add_url_rule('/', endpoint='analysis')
 

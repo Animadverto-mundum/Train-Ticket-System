@@ -3,7 +3,7 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import *
 from flask import jsonify
 import datetime
-from DataAnalysis.Analysis_way import *
+# from DataAnalysis.Analysis_way import *
 import base64
 from PIL import Image
 from io import BytesIO

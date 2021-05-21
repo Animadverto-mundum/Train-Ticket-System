@@ -8,12 +8,14 @@ import time
 @user_bp.route('/checkrefundTicket', methods=['GET', 'POST'])
 @login_required
 def user_checkrefundticket():
-    user_id = request.args.get('user_id')
+    user_id = g.user.user_ID;
     localtime = time.localtime()
     current_time = time.strftime("%H:%M:%S", localtime)
 
-    checkrefundtickets = db.session.query(TrainNumber.train_number_ID, Line.line_name,
-                                          Line.departure_station, Line.arrival_station,
+    # 票号 车次 线路名 出发站 到达站 出发时间 到达时间 座位类型 票价 座位号
+    # 前端要根据用户类型、座位类型显示票价
+    checkrefundtickets = db.session.query(TicketsSold.tickets_sold_ID, TrainNumber.train_number_ID,
+                                          Line.line_name, Line.departure_station, Line.arrival_station,
                                           TrainNumber.departure_time, TrainNumber.arrival_time,
                                           FareInformation.seat_type, FareInformation.money,
                                           TicketsSold.seat).\
@@ -27,6 +29,7 @@ def user_checkrefundticket():
 @user_bp.route('refundtickt', methods=['GET', 'POST'])
 @login_required
 def user_refundticket():
+    # 传入参数：票号
     ticketsold_id = request.args.get('ticketsold_id')
 
     db.session.query.filter(TicketsSold.tickets_sold_ID == ticketsold_id).delete()
