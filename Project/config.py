@@ -5,7 +5,12 @@ DRIVER = 'pymysql'
 USERNAME = 'root'
 
 
+<<<<<<< HEAD
 PASSWORD = 'zyp991130'
+=======
+
+PASSWORD = 'wgtwgt0017'
+>>>>>>> origin/llm
 
 HOST = '127.0.0.1'
 PORT = '3306'

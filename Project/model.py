@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-# from dataAnalysis.Analysis_way import *
 
 db = SQLAlchemy()
 
@@ -17,10 +16,7 @@ class User(db.Model):
     user_ID = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_name = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
-    user_type_number = db.Column(db.String(20), nullable=False)
-    real_name = db.Column(db.String(20), nullable=False)
-    id_num = db.Column(db.String(20), nullable=False)
-    avatar_path = db.Column(db.String(128), nullable=False)
+    user_type_number = db.Column(db.String(20), nullable=False)  # 将用户类型修改为字符串
 
 
 class Site(db.Model):

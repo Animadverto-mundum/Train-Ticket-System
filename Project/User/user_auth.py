@@ -3,8 +3,6 @@ from flask import Blueprint, request, redirect, render_template, url_for, sessio
 from model import db, User
 from . import user_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
-from .face_function import *
-from config import *
 
 
 @user_bp.route('/', methods=['GET', 'POST'])
@@ -15,14 +13,12 @@ def user_login():
         login_password = request.form['password']
         login_error = None
         login_user = User.query.filter(User.user_name == login_username).first()
-        pic_save("login_temp.png")
 
         if login_user is None:
             login_error = 'User does not exist!'
         elif not check_password_hash(login_user.password, login_password):
             login_error = 'Incorrect password'
-        # elif pic_Compared("login_temp.png",FACE_FOLDER+str(login_username)+".png")=='false':
-        #     login_error = "Face matching failed!"
+        
         if login_error is None:
             session.clear()
             session['user_ID'] = login_user.user_ID
@@ -38,38 +34,25 @@ def user_register():
         reg_username = request.form.get('user')
         reg_password1 = request.form.get('password1')
         reg_password2 = request.form.get('password2')
-        user_type = request.form.get('browser')
-        real_name = request.form.get('real_name')
-        id_num = request.form.get('id_num')
-        avater = request.files.get('avatar') # 读取
-        print("22222222222222222222222",avater)
-        fname = avater.filename
+
+        if request.form.get('browser') == '成人':
+            user_type = 0
+        else:
+            user_type = 1
 
         reg_error = None
 
         if reg_password1 != reg_password2:
             reg_error = 'Inconsistent password.'
-        elif len(id_num) != 1:
-            reg_error = 'Please enter a valid ID number!'
         elif User.query.filter(User.user_name == reg_username).first() is not None:
             reg_error = 'User {} is already registered.'.format(reg_username)
-        elif User.query.filter(User.id_num == id_num).first() is not None:
-            reg_error = 'The ID number has been registered!'
-        elif not ('.' in fname and fname.rsplit('.',1)[1] in ALLOWED_EXTENSIONS):
-            reg_error = '头像格式错误'
 
         if reg_error is None:
-            # 存用户上传的头像
-            avater.save('{}{}_{}'.format(UPLOAD_FOLDER,reg_username,fname))
-            path_avater = '{}{}_{}'.format(UPLOAD_FOLDER_SAVE,reg_username,fname)
-
-            # 真人头像拍摄
-            path=FACE_FOLDER+reg_username+'.png'
-            pic_save(path)
             reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
-                            user_type_number=user_type,real_name=real_name,id_num=id_num,avatar_path=path_avater)
+                            user_type_number=user_type)
             db.session.add(reg_user)
             db.session.commit()
+            
             session.clear()
             session['user_ID'] = User.query.filter(User.user_name == reg_username).first().user_ID
             return redirect(url_for('user_bp.user_index'))
@@ -78,7 +61,6 @@ def user_register():
 
     if request.method=='GET':
         return render_template('user_register.html')
-    print("报错了")
     return render_template('user_register.html')
 
 
@@ -91,10 +73,12 @@ def user_change_password():
         reg_password2 = request.form.get('password2')
         reg_error = None
         user = User.query.filter(User.user_name == reg_username).first()
+
         if user is None:
             reg_error = '用户不存在！'
-        elif not check_password_hash(user.password, reg_password1):
-            reg_error = '原密码错误！'
+        elif reg_password1 != reg_password2:
+            reg_error = '两次密码不一致！'
+        
         if reg_error is None:
             user.password = generate_password_hash(reg_password2)
             reg_error = '修改成功！'

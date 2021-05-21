@@ -3,7 +3,7 @@ from sqlalchemy import event
 
 from model import *
 from flask import Blueprint
-from DataAnalysis.Analysis_way import *
+# from DataAnalysis.Analysis_way import *
 import datetime
 db_app = Blueprint('db_app', __name__, static_folder='static', template_folder='templates', url_prefix='/db')
 
