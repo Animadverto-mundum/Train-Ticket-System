@@ -1,22 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <script>
-    function check(input_name, list_name){
-      var items = document.getElementById(list_name).children;
-      var str = document.getElementsByName(input_name)[0].value;
-      var flag = true;
-      for(var i = 0; i < items.length; i++){
-          if(items[i].text == str){
-              flag = false;
-              break;
-          }
-      }
-      if(flag){
-          document.getElementsByName(input_name)[0].value = "Re-enter!";
-      }
-      return 1;
-    }
-  </script>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -24,9 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	
     <title>铁路管理系统</title>
-
 
     <!-- Bootstrap -->
     <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -69,9 +50,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                {% if user_name %}
-                  <h2>{{ user_name }}</h2>
-                {% endif %}
+                <h2>{{ user_name }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -158,18 +137,25 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>{{ user_name }}, You are adding a new ticket</h3>
+                <h3> 
+                  {% if user %} 
+                    {{ user.user_name }} 你在看
+                  {% else %}
+                    Add a new One 
+                  {% endif %}
+                  </h3>
               </div>
-
             </div>
+
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Add a ticket</h2>
+                    <h2> 修改管理员用户名和密码 </h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -177,66 +163,60 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    {% for message in get_flashed_messages() %}
-                      <h2><small>
-                        <div class="flash">{{ message }}</div>
-                      </small></h2>
-                      <br>
-                    {% endfor %}
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{ url_for('manager_bp.ticket_add') }}" method="POST">
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">用户凭证类型</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control" name="user_certificate_type">
-                            <option>user_name</option>
-                            <option {{ form_data['user_certificate_type'] }} > user_id</option>
-                          </select>
-                        </div>
-                      </div>
+
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_certificate">用户凭证 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_name">新用户名 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" name="user_certificate" id="user_certificate" value="{{form_data['user_certificate']}}" required="required" class="form-control col-md-7 col-xs-12" required="required">
+                            {% if user %}
+                          <input type="text" id="user_name" name="user_name" required="required" class="form-control col-md-7 col-xs-12" value="{{user.user_name}}" disabled=true>
+                            {% else %}
+                          <input type="text" id="user_name" name="user_name" required="required" class="form-control col-md-7 col-xs-12">
+                            {% endif %}
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="train_number_ID">车次号 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password1"> 新密码 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="train_number_ID" name="train_number_ID" value="{{form_data['train_number_ID']}}" required="required" class="form-control col-md-7 col-xs-12"  {% if train_number_ID_list %}list='train_number_ID_list' onblur="check('train_number_ID', 'train_number_ID_list')" onfocus="this.value=''" {% endif %}>
-                          {% if train_number_ID_list %}
-                            <datalist id='train_number_ID_list'>
-                              {% for item in train_number_ID_list %}
-                                <option>{{ item[0].train_number_ID }}-{{ item[1].line_name }}-{{ item[0].departure_time }}</option>
-                              {% endfor %}
-                            </datalist>
-                          {% endif %}
+                          <input type="password" id="password1" name="password1" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="train_departure_date">出发日期 <span class="required">*</span>
-                        </label>
+                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">确认密码 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="date" id="train_departure_date" name="train_departure_date" id="train_departure_date" value="{{form_data['train_departure_date']}}" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="password" id="password2" name="password2" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">座等</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">用户身份*</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control" name="seat_type">
-                            <option value = 1>Class 1</option>
-                            <option value = 2 {{form_data['seat_type']}}>Class 2</option>
-                          </select>
+                            {% if type == 'edit' %}
+                            <select id="identity" name="identity" class="form-control" required>
+                              <option value="0" {% if user.department_type_number==0 %}selected{% endif %}>线路管理</option>
+                              <option value="1" {% if user.department_type_number==1 %}selected{% endif %}>车站管理</option>
+                              <option value="2" {% if user.department_type_number==2 %}selected{% endif %}>票务管理</option>
+                              <option value="3" {% if user.department_type_number==3 %}selected{% endif %}>列车管理</option>
+                              <option value="4" {% if user.department_type_number==4 %}selected{% endif %}>普通用户管理</option>
+                            </select>
+                            {% else %}
+                            <select id="identity" name="identity" class="form-control" required>
+                                <option value="0" >线路管理</option>
+                                <option value="1" >车站管理</option>
+                                <option value="2" >票务管理</option>
+                                <option value="3" >列车管理</option>
+                                <option value="4" >普通用户管理</option>
+                              </select>
+                            {% endif %}
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button class="btn btn-primary" type="button" onclick="javascrtpt:window.location.href='{{url_for('manager_bp.ticket_view')}}'">Cancel</button>
-						              <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="button" class="btn btn-success" onclick="get()">Check</button>
+                          <button class="btn btn-primary" href="{{ url_for('manager_bp.user_view') }}" type="button">Cancel</button>
+                          <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
@@ -246,8 +226,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
         <!-- /page content -->
@@ -296,35 +274,6 @@
     <script src="static/vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="static/build/js/custom.min.js"></script>
-    <script>
-      function httpPost(URL, PARAMS) {
-        var temp = document.createElement("form");
-        temp.action = URL;
-        temp.method = "post";
-        temp.style.display = "none";
-        
-        for (var x in PARAMS) {
-          var opt = document.createElement("textarea");
-          opt.name = x;
-          opt.value = PARAMS[x];
-          temp.appendChild(opt);
-        }
-        
-        document.body.appendChild(temp);
-        temp.submit();
-        
-        return temp;
-      }
-      function get() {
-        var params = {
-          "user_certificate_type": document.getElementsByName("user_certificate_type")[0].value,
-          "user_certificate": document.getElementsByName("user_certificate")[0].value,
-          "train_number_ID": document.getElementsByName("train_number_ID")[0].value,
-          "train_departure_date": document.getElementsByName("train_departure_date")[0].value,
-          "seat_type": document.getElementsByName("seat_type")[0].value,
-        };
-        httpPost("{{url_for('manager_bp.ticket_query')}}", params);
-      }
-    </script>
+	
   </body>
 </html>

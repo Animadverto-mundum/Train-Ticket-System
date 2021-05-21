@@ -71,7 +71,7 @@
                   <li><a><i class="fa fa-circle"></i> Station <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.station_view') }}">View Station</a></li>
-                      <li><a href="{{ url_for('manager_bp.station_add') }}">Add station</a></li>
+                      <li><a href="{{ url_for('manager_bp.station_add') }}">Add Station</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-circle-thin"></i> Ticket <span class="fa fa-chevron-down"></span></a>
@@ -95,7 +95,7 @@
                   <li><a><i class="fa fa-circle"></i> Staff <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url_for('manager_bp.staff_view') }}">View Staff</a></li>
-                      <li><a href="{{ url_for('manager_bp.staff_add') }}">Add User</a></li>
+                      <li><a href="{{ url_for('manager_bp.staff_add') }}">Add Staff</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -139,7 +139,7 @@
               <div class="title_left">
                 <h3> 
                   {% if user %} 
-                    {{ user.user_name }}
+                    {{ user.user_name }} 你在看
                   {% else %}
                     Add a new One 
                   {% endif %}
@@ -152,7 +152,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2> Edit Name and Password </h2>
+                    <h2> 修改普通用户名和密码 </h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -167,34 +167,34 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_name">New Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user_name">新用户名 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="user_name" name="user_name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password1"> New Password <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password1"> 新密码 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="password" id="password1" name="password1" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Password Again</label>
+                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">确认密码 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="password" id="password2" name="password2" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Identity</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">用户身份</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div id="gender" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="identity" value="student"> &nbsp; Student &nbsp;
+                              <input type="radio" name="identity" value="student"> &nbsp; 学生用户 &nbsp;
                             </label>
                             <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="identity" value="no student"> Non Student
+                              <input type="radio" name="identity" value="no student"> 非学生用户
                             </label>
                           </div>
                         </div>

@@ -7,26 +7,18 @@ import random
 
 
 @manager_bp.route('/user_view')
+@access_check(request, '5')
 def user_view():
     '''查看所有普通用户'''
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_auth'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     users = User.query.filter().all()
     user_name = request.cookies.get('user_name')
     return render_template('manage_user_table.html', users=users, user_name=user_name)
 
 
 @manager_bp.route('/user_add', methods=['POST','GET'])
+@access_check(request, '5')
 def user_add():
     '''增加新的普通用户'''
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_auth'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     error = None
     if request.method == 'POST':
         # 获取表单数据
@@ -54,13 +46,9 @@ def user_add():
 
 
 @manager_bp.route('/user_edit_single', methods=['GET','POST'])
+@access_check(request, '5')
 def user_edit_single():
     '''对单个的普通用户进行修改'''
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_auth'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     error = None
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID == user_id).first()  # 查找当前修改的用户
@@ -93,13 +81,9 @@ def user_edit_single():
 
 
 @manager_bp.route('/user_delete', methods=["GET"])
+@access_check(request, '5')
 def user_delete():
     '''删除单个普通用户'''
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_auth'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID == user_id).first()  # 查找当前删除的普通用户
     db.session.delete(user)
@@ -110,13 +94,9 @@ def user_delete():
 
 
 @manager_bp.route('/user_view_single', methods=["GET"])
+@access_check(request, '5')
 def user_view_single():
     '''查看单个用户的购票信息'''
-    if not access_check(request, 0):
-        response = redirect(url_for('manager_bp.manager_auth'))
-        response.delete_cookie('user_name')
-        response.delete_cookie('user_type')
-        return response
     user_id = request.args.get('id')
     user = User.query.filter(User.user_ID==user_id).first() # 查找当前查看的用户
     # 查询该用户的购票信息

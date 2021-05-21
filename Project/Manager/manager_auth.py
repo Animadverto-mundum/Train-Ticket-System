@@ -67,13 +67,3 @@ def load_logged_in_user():
         g.manager_user = None
     else:
         g.manager_user = UserStaff.query.filter(UserStaff.staff_ID == user_ID).first()
-
-# def login_required(view):
-#     @functools.wraps(view)
-#     def wrapped_view(**kwargs):
-#         if g.manager_user is None:
-#             return redirect(url_for('manager_bp.manager_auth'))
-        
-#         return view(**kwargs)
-    
-#     return wrapped_view
