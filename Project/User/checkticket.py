@@ -3,7 +3,7 @@ from model import db, TrainNumber, FareInformation, Line
 from . import user_bp
 
 
-@user_bp.route('/checkTicket')
+@user_bp.route('/user_checkTicket')
 def user_checkticket():
     checktickets = db.session.query(TrainNumber.train_number_ID, Line.line_name,
                                     Line.departure_station, Line.arrival_station,

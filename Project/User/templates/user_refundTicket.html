@@ -9,19 +9,19 @@
 
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../static/assets/css/slicknav.css">
-    <link rel="stylesheet" href="../static/assets/css/animate.min.css">
-    <link rel="stylesheet" href="../static/assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="../static/assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../static/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="../static/assets/css/slick.css">
-    <link rel="stylesheet" href="../static/assets/css/nice-select.css">
-    <link rel="stylesheet" href="../static/assets/css/style.css">
-    <link rel="stylesheet" href="../static/assets/css/check_ticket_style.css">
-    <script type="text/javascript" src="../static/js/jquery.searchableSelect.js"></script>
-    <link href="../static/css/searchableSelect.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/assets/css/slicknav.css">
+    <link rel="stylesheet" href="static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="static/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="static/assets/css/slick.css">
+    <link rel="stylesheet" href="static/assets/css/nice-select.css">
+    <link rel="stylesheet" href="static/assets/css/style.css">
+    <link rel="stylesheet" href="static/assets/css/check_ticket_style.css">
+    <script type="text/javascript" src="static/js/jquery.searchableSelect.js"></script>
+    <link href="static/css/searchableSelect.css" rel="stylesheet">
 
 </head>
 
@@ -125,148 +125,40 @@
     <div class="whole-wrap">
         <div class="container box_1170">
             <div class="section-top-border">
-                <div class="row">
-                    <div class="col-lg-8 col-md-8">
-                        <h3 class="mb-30">please input information</h3>
-                        <form action="#" method="post">
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select"
-                                ">
-                                <!--<select name="departure_station"  onchange="document.getElementById('input').value=this.value">
-                                    <option value="1">始发站</option>
-                                    <option value="1">成都</option>
-                                    <option value="1">北京</option>
-                                    <option value="1">上海</option>
-                                    <option value="1">广州</option>
-                                </select>-->
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="departure_station"
-                                           list="departure_stations" placeholder="始发站">
-                                    <datalist id="departure_stations" style="display:none;">
-                                        <option value="成都"></option>
-                                        <option value="上海"></option>
-                                        <option value="广州"></option>
-                                    </datalist>
-                                </div>
-                                <!-- 使用style="display:none;"将datalist元素设定为不显示 -->
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select"
-                                ">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="arrival_station"
-                                           list="arrival_stations" placeholder="终点站">
-                                    <datalist id="arrival_stations" style="display:none;">
-                                        <option value="成都"></option>
-                                        <option value="上海"></option>
-                                        <option value="广州"></option>
-                                    </datalist>
-                                </div>
-
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select"
-                                ">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="seat_type" list="seat_types" placeholder="座位类型">
-                                    <datalist id="seat_types" style="display:none;">
-                                        <option value="一等座"></option>
-                                        <option value="二等座"></option>
-                                    </datalist>
-                                </div>
-
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select"
-                                ">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="departure_time" list="departure_times" placeholder="出发时间">
-                                    <datalist id="departure_times" style="display:none;">
-                                        <option value="13:00"></option>
-                                        <option value="14:00"></option>
-                                        <option value="15:00"></option>
-                                        <option value="16:00"></option>
-                                        <option value="17:00"></option>
-                                    </datalist>
-                                </div>
-                            </div>
-                            </br>
-                            <!--<a href="" type="submit"   class="genric-btn link radius" name="user_inputbuyticket">查询</a>-->
-                            <!-- <a href="#" class="genric-btn default radius">Default</a>-->
-                            <div class="my_button_style">
-                                <button class="genric-btn default radius" type="submit" name="submit"
-                                        value="user_inputbuyticket">查询
-                                </button>
-                            </div>
-
-                            {% for message in get_flashed_messages() %}
-                            <div class="flash">{{ message }}</div>
-                            {% endfor %}
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="section-top-border">
-                <h3 class="mb-30">Result</h3>
+                <h3 class="mb-30">My Tickets</h3>
                 <div class="result-table-wrap">
-                    <div class="result-table">
-                        <div class="table-head">
-                            <div class="percentage">火车号</div>
-                            <div class="percentage">线路号</div>
-                            <div class="percentage">座位类型</div>
-                            <div class="percentage">起点站</div>
-                            <div class="percentage">终点站</div>
-                            <div class="percentage">出发时间</div>
-                            <div class="percentage">到达时间</div>
-                            <div class="percentage">操作</div>
-                        </div>
-
-                        <!--<div class="table-row">
-                            <div class="percentage">ct.train_number_ID</div>
-                            <div class="percentage">ct.line_ID</div>
-                            <div class="percentage">ct.seat_type</div>
-                            <div class="percentage">ct.departure_station</div>
-                            <div class="percentage">ct.arrival_station</div>
-                            <div class="percentage">ct.departure_time</div>
-                            <div class="percentage">ct.arrival_time</div>
-                        </div>-->
-                        <div class="check_buy_result">
-                            {% for ct in checkbuytickets %}
-                            <div class="percentage">{{ct.train_number_ID}}</div>
-                            <div class="percentage">{{ct.line_ID}}</div>
-                            <div class="percentage">{{ct.seat_type}}</div>
-                            <div class="percentage">{{ct.departure_station}}</div>
-                            <div class="percentage">{{ct.arrival_station}}</div>
-                            <div class="percentage">{{ct.departure_time}}</div>
-                            <div class="percentage">{{ct.arrival_time}}</div>
-                            <a href="{{ url_for=('user_bp.user_inputbuyticket'?id={{ ct.}}}) }}"
-                               class="percentage">购买</a>
-                            {% endfor %}
-                        </div>
-                        <!--<tbody>
-                        {% for user in users %}
+                    <table class="result-table">
+                        <thead>
                         <tr>
-                            <th>{{ loop.index }}</th>
-                            <th>{{ user.user_name }}</th>
-                            {% if user.user_type_number is equalto 1 %}
-                            <th>student</th>
-                            {% else %}
-                            <th>no student</th>
-                            {% endif %}
+                            <th>票号</th>
+                            <th>车次</th>
+                            <th>线路名</th>
+                            <th>出发时间</th>
+                            <th>座位类型</th>
+                            <th>票价</th>
+                            <th>座位号</th>
+                            <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for cft in checkrefundtickets %}
+                        <tr>
+                            <th>{{cft.tickets_sold_ID}}</th>
+                            <th>{{cft.train_number_ID}}</th>
+                            <th>{{cft.line_name}}</th>
+                            <th>{{cft.departure_time}}</th>
+                            <th>{{cft.seat_type}}</th>
+                            <th>{{cft.money}}</th>
+                            <th>{{cft.seat}}</th>
                             <th>
-                                <a href="{{ url_for('manager_bp.user_delete') }}?id={{ user.user_ID }}">Delete | </a>
-                                <a href="{{ url_for('manager_bp.user_edit_single') }}?id={{ user.user_ID }}">Edit</a>
-                            </th>
+                                <a class="genric-btn default radius" type="submit" name="submit"
+                                   href="{{ url_for('user_bp.user_refundticket') }}?ticketsold_id={{cft.tickets_sold_ID}}">退订
+                                </a>
+                            <th>
                         </tr>
                         {% endfor %}
-                        </tbody>-->
-                    </div>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -318,36 +210,36 @@
 <!-- JS here -->
 
 <!-- All JS Custom Plugins Link Here here -->
-<script src="../static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
-<script src="../static/assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="../static/assets/js/popper.min.js"></script>
-<script src="../static/assets/js/bootstrap.min.js"></script>
+<script src="static/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="static/assets/js/popper.min.js"></script>
+<script src="static/assets/js/bootstrap.min.js"></script>
 <!-- Jquery Mobile Menu -->
-<script src="../static/assets/js/jquery.slicknav.min.js"></script>
+<script src="static/assets/js/jquery.slicknav.min.js"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
-<script src="../static/assets/js/owl.carousel.min.js"></script>
-<script src="../static/assets/js/slick.min.js"></script>
+<script src="static/assets/js/owl.carousel.min.js"></script>
+<script src="static/assets/js/slick.min.js"></script>
 <!-- One Page, Animated-HeadLin -->
-<script src="../static/assets/js/wow.min.js"></script>
-<script src="../static/assets/js/animated.headline.js"></script>
-<script src="../static/assets/js/jquery.magnific-popup.js"></script>
+<script src="static/assets/js/wow.min.js"></script>
+<script src="static/assets/js/animated.headline.js"></script>
+<script src="static/assets/js/jquery.magnific-popup.js"></script>
 
 <!-- Nice-select, sticky -->
-<script src="../static/assets/js/jquery.nice-select.min.js"></script>
-<script src="../static/assets/js/jquery.sticky.js"></script>
+<script src="static/assets/js/jquery.nice-select.min.js"></script>
+<script src="static/assets/js/jquery.sticky.js"></script>
 
 <!-- contact js -->
-<script src="../static/assets/js/contact.js"></script>
-<script src="../static/assets/js/jquery.form.js"></script>
-<script src="../static/assets/js/jquery.validate.min.js"></script>
-<script src="../static/assets/js/mail-script.js"></script>
-<script src="../static/assets/js/jquery.ajaxchimp.min.js"></script>
+<script src="static/assets/js/contact.js"></script>
+<script src="static/assets/js/jquery.form.js"></script>
+<script src="static/assets/js/jquery.validate.min.js"></script>
+<script src="static/assets/js/mail-script.js"></script>
+<script src="static/assets/js/jquery.ajaxchimp.min.js"></script>
 
 <!-- Jquery Plugins, main Jquery -->
-<script src="../static/assets/js/plugins.js"></script>
-<script src="../static/assets/js/main.js"></script>
+<script src="static/assets/js/plugins.js"></script>
+<script src="static/assets/js/main.js"></script>
 
 </body>
 </html>

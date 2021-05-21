@@ -1,6 +1,6 @@
 import datetime
 import time
-from random import random
+import random
 from flask import request, redirect, render_template, url_for, flash, g
 # from model import *
 from . import user_bp
@@ -52,24 +52,24 @@ def user_inputbuyticket():
 
 # 购票 插入数据 已购票信息
 @user_bp.route('buyticket', methods=['GET', 'POST'])
-@login_required
 def user_buyticket():
     # 传入参数：用户ID、票价号
     # 还未考虑用户类型、座位类型
-    user_id = request.args.get('user_id')
-    fare_id = request.args.get('fare_id')
+    # user_id = request.args.get('user_id')
+    fare_id = request.args['fare_id']
     localtime = time.localtime()
     temp = time.strftime("%Y-%m-%d", localtime)
     current_date = datetime.datetime.strptime(temp, '%Y-%m-%d').date()
 
     while True:
         seat = random.randint(1, 1000)
-        if len(db.session.query(TicketsSold).filter(TicketsSold.fare_ID == FareInformation.fare_ID,
-                                                    TicketsSold.seat == seat).all()):
+        if len(db.session.query(TicketsSold).filter(TicketsSold.fare_ID == fare_id) \
+                       .filter(TicketsSold.seat == seat).all()):
             continue
         break
 
-    new_ticketsold = TicketsSold(fare_ID=fare_id, user_ID=user_id, seat=seat, departure_date = current_date)
+
+    new_ticketsold = TicketsSold(fare_ID=fare_id, user_ID=1, seat=seat, departure_date=current_date)
     db.session.add(new_ticketsold)
     db.session.commit()
     return redirect(url_for('user_bp.user_inputbuyticket'))
