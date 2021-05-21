@@ -1,0 +1,259 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Transportation HTML-5 Template </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="static/site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="static/assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/assets/css/slicknav.css">
+    <link rel="stylesheet" href="static/assets/css/flaticon.css">
+    <link rel="stylesheet" href="static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="static/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="static/assets/css/slick.css">
+    <link rel="stylesheet" href="static/assets/css/nice-select.css">
+    <link rel="stylesheet" href="static/assets/css/style.css">
+</head>
+<body>
+<!--? Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="static/assets/img/logo/logo.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader Start -->
+<header>
+    <!-- Header Start -->
+    <div class="header-area">
+        <div class="main-header ">
+
+            <div class="header-bottom  header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper  d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="{{ url_for("user_bp.user_index") }}">首页</a></li>
+                                            <li><a href="{{ url_for("user_bp.user_inputbuyticket") }}">查询车票</a></li>
+                                            <li><a href="{{ url_for("user_bp.user_buyticket") }}">购买车票</a></li>
+                                            <li><a href="{{ url_for("user_bp.user_refundticket") }}">车票退订</a></li>
+                                            <li><a href="{{ url_for("user_bp.user_3dshow") }}">3D模型展示</a></li>
+                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
+                                            <li><a href="{{ url_for("user_bp.user_3dshow") }}">你好，{{ g.user.user_name }}</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Header-btn -->
+                                <div class="header-right-btn d-none d-lg-block ml-20">
+                                    <a href="{{ url_for("user_bp.user_logout") }}" class="btn header-btn">登出</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<main>
+ <!--? contact-form start -->
+        <section class="contact-form-area section-bg  pt-115 pb-120 fix" data-background="assets/img/gallery/section_bg02.jpg">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <!-- Contact wrapper -->
+                    <div class="col-xl-8 col-lg-9">
+                        <div class="contact-form-wrapper">
+                            <!-- From tittle -->
+                            <div class="row">
+                               <div class="col-lg-12">
+                                    <!-- Section Tittle -->
+                                    <div class="section-tittle mb-50">
+{#                                        <span>修改个人信息</span>#}
+                                        <h2>个人信息</h2>
+                                        <p2>用户名、身份证号、真实姓名不可修改！</p2>
+                                    </div>
+                               </div>
+                            </div>
+                            <!-- form -->
+
+                            <form action="" enctype="multipart/form-data" class="contact-form" method="post">
+                                <br class="row ">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>用户名：</span>
+                                            <input type="text" placeholder="用户名" readonly="readonly" value="{{ g.user.user_name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>真实姓名：</span>
+                                            <input type="text" placeholder="真实姓名" readonly="readonly" value="{{ g.user.real_name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>身份证：</span>
+                                            <input type="text" placeholder="身份证" readonly="readonly" value="{{ g.user.id_num}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>密码：</span>
+                                            <input type="password" placeholder="密码" name="password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>用户类型：</span>
+                                             <input list="browsers" name="browser" placeholder="身份" value="{{ g.user.user_type_number }}">
+                                            <datalist id="browsers">
+                                                <option value="成年人">
+                                                <option value="学生">
+                                                <option value="退役军人/现役军人">
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>电话：</span>
+                                            <input type="text" placeholder="电话" value="15996690628" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>头像</span>
+                                            <img src="{{ g.user.avatar_path }}" width="64" height="64" alt="">
+                                            <p> </p>
+                                            <input type="file" name="avatar" placeholder="点击上传头像">
+                                        </div>
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="col-lg-6">
+                                        <button name="submit" class="submit-btn">提交修改</button>
+                                    </div>
+
+                                <form action="demo-form.php" method="get">
+                                     <font color="red"  size="5">
+                                    {% for message in get_flashed_messages() %}
+                                    <div class="flash">{{ message }} </div>
+                                    {% endfor %}</font>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- contact-form end -->
+
+
+    <div class="our-info-area pt-70 pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-support"></span>
+                        </div>
+                        <div class="info-caption">
+                            <p>联系我们</p>
+                            <span>+ (86) 400-820-8820</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-clock"></span>
+                        </div>
+                        <div class="info-caption">
+                            <p>夜间停售</p>
+                            <span> 7.00 - 23.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-place"></span>
+                        </div>
+                        <div class="info-caption">
+                            <p>郫都区</p>
+                            <span>中国, 四川省 - 成都</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+<div id="back-top" >
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+    <!-- JS here -->
+
+    <script src=" static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src=" static/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src=" static/assets/js/popper.min.js"></script>
+    <script src=" static/assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src=" static/assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src=" static/assets/js/owl.carousel.min.js"></script>
+    <script src=" static/assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src=" static/assets/js/wow.min.js"></script>
+    <script src=" static/assets/js/animated.headline.js"></script>
+    <script src=" static/assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Nice-select, sticky -->
+    <script src=" static/assets/js/jquery.nice-select.min.js"></script>
+    <script src=" static/assets/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src=" static/assets/js/contact.js"></script>
+    <script src=" static/assets/js/jquery.form.js"></script>
+    <script src=" static/assets/js/jquery.validate.min.js"></script>
+    <script src=" static/assets/js/mail-script.js"></script>
+    <script src=" static/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src=" static/assets/js/plugins.js"></script>
+    <script src=" static/assets/js/main.js"></script>
+
+</body>
+</html>

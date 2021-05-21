@@ -74,20 +74,21 @@
 </header>
 <div class="login">
     <h1>Regsiter</h1>
-    <form action="" method="post">
+    <form action="" enctype="multipart/form-data" method="post">
 
         <input type="text" name="user" placeholder="用户名" required="required">
         <input type="password" name="password1" placeholder="输入密码" required="required">
         <input type="password" name="password2" placeholder="确认密码" required="required">
         <input type="text" name="real_name" placeholder="输入真实姓名" required="required">
         <input type="text" name="id_num" placeholder="输入身份证号码" required="required">
-        <form action="demo-form.php" method="get">
-            <input list="browsers" name="browser" placeholder="您的身份" required="required">
+        <input list="browsers" name="browser" placeholder="您的身份" required="required">
             <datalist id="browsers">
                 <option value="成年人">
                 <option value="学生">
                 <option value="退役军人/现役军人">
             </datalist>
+        <input type="file" name="avatar" placeholder="点击上传头像" required="required">
+        <form action="demo-form.php" method="get">
         <font color="white">点击注册后请对视摄像头采集人脸信息！</font>
             <!--<input type="submit">-->
             <button type="submit">注册</button>
