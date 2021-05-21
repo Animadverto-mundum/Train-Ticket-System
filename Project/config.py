@@ -3,7 +3,7 @@ import os
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
 USERNAME = 'root'
-PASSWORD = ''
+PASSWORD = 'zyp991130'
 HOST = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'railway'
