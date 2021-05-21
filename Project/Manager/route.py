@@ -1,12 +1,9 @@
 from flask import redirect, render_template, request, flash, url_for
 from . import manager_bp
 from model import db, Line
-from .manager_auth import login_required
-
 
 
 @manager_bp.route('/route_view')
-@login_required
 def route_view():
     # 查看所有线路
     routes = Line.query.filter().all()
@@ -14,7 +11,6 @@ def route_view():
 
 
 @manager_bp.route('route_add', methods=['POST', 'GET'])
-@login_required
 def route_add():
     # 增加新的线路
     error = None
@@ -40,7 +36,6 @@ def route_add():
 
 
 @manager_bp.route('route_edit', methods=['GET', 'POST'])
-@login_required
 def route_edit():
     # 对单个的普通用户进行修改
     error = None
@@ -71,7 +66,6 @@ def route_edit():
 
 
 @manager_bp.route('route_delete', methods=["GET"])
-@login_required
 def route_delete():
     # 删除一条线路
     route_id = request.args.get('id')

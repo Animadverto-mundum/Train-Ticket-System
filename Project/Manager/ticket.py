@@ -3,6 +3,7 @@ from . import manager_bp, access_check
 from model import db, TrainNumber, Line, TicketsSold, FareInformation, User
 import random
 
+
 @manager_bp.route('/ticket_view', methods = ['GET'])
 def ticket_view():
     if not access_check(request, 0):
@@ -21,6 +22,7 @@ def ticket_view():
         }
     return render_template('manage_ticket_table.html', **render_args)
 
+
 @manager_bp.route('/ticket_delete', methods = ['GET'])
 def ticket_delete():
     if not access_check(request, 0):
@@ -34,10 +36,15 @@ def ticket_delete():
     db.session.commit()
     return redirect(url_for('manager_bp.ticket_view'))
 
+
 @manager_bp.route('/ticket_edit')
 def ticket_edit():
-    render_args = {'form_data': {}}
+    train_number_ID_list = db.session.query(TrainNumber, Line).filter(TrainNumber.line_ID == Line.line_ID).all()
+    render_args = {'form_data': {}, 
+        'train_number_ID_list': train_number_ID_list
+        }
     return render_template('manage_ticket_form.html', **render_args)
+
 
 @manager_bp.route('/ticket_add', methods = ['POST'])
 def ticket_add():
@@ -55,11 +62,11 @@ def ticket_add():
         
     if request.form.get("seat_type") == 'on':
         fare_info = db.session.query(FareInformation)\
-            .filter(FareInformation.train_number_id == request.form.get("train_number_ID"))\
+            .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
             .filter(FareInformation.seat_type == 1).first()
     else:
         fare_info = db.session.query(FareInformation)\
-            .filter(FareInformation.train_number_id == request.form.get("train_number_ID"))\
+            .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
             .filter(FareInformation.seat_type == 2).first()
     while True:
         seat = random.randint(1, 1000)
@@ -72,6 +79,7 @@ def ticket_add():
     db.session.add(new_ticket)
     db.session.commit()
     return redirect(url_for('manager_bp.ticket_view'))
+
 
 @manager_bp.route('/ticket_query', methods = ['POST'])
 def ticket_query():
@@ -88,7 +96,7 @@ def ticket_query():
             .filter(User.user_ID == request.form.get("user_certificate")).first()
         
     fare_info = db.session.query(FareInformation)\
-        .filter(FareInformation.train_number_id == request.form.get("train_number_ID"))\
+        .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
         .filter(FareInformation.seat_type == int(request.form.get("seat_type"))).first()
     try:
         price = fare_info.money

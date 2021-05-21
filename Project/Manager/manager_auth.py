@@ -4,6 +4,7 @@ from model import db, UserStaff
 from . import manager_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
+
 @manager_bp.route('/auth', methods=['GET', 'POST'])
 def manager_auth():
     if request.method == 'POST':
@@ -67,12 +68,12 @@ def load_logged_in_user():
     else:
         g.manager_user = UserStaff.query.filter(UserStaff.staff_ID == user_ID).first()
 
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.manager_user is None:
-            return redirect(url_for('manager_bp.manager_auth'))
+# def login_required(view):
+#     @functools.wraps(view)
+#     def wrapped_view(**kwargs):
+#         if g.manager_user is None:
+#             return redirect(url_for('manager_bp.manager_auth'))
         
-        return view(**kwargs)
+#         return view(**kwargs)
     
-    return wrapped_view
+#     return wrapped_view

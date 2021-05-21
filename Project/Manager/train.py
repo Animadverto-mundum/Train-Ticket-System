@@ -22,6 +22,7 @@ def train_view():
         }
     return render_template('manage_train_table.html', **render_args)
 
+
 @manager_bp.route('/train_edit')
 def train_edit():
     if not access_check(request, 0):
@@ -37,6 +38,7 @@ def train_edit():
         'user_name': request.cookies.get('user_name')
     }
     return render_template('manage_train_form.html', **render_args)
+
 
 @manager_bp.route('/train_add', methods=['POST'])
 def train_add():

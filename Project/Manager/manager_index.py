@@ -1,18 +1,23 @@
-from flask import render_template, redirect, url_for, session
-from . import manager_bp
-from .manager_auth import login_required
+from flask import render_template, redirect, url_for, session, request
+from . import manager_bp, access_check
+import random
+
 
 @manager_bp.route('/index')
-@login_required
 def manager_index():
-    return render_template('manage_index.html')
+    if not access_check(request, 0):
+        response = redirect(url_for('manager_bp.manager_auth'))
+        response.delete_cookie('user_name')
+        response.delete_cookie('user_type')
+        return response
+    user_name = request.cookies.get('user_name')
+    return render_template('manage_index.html', user_name=user_name)
 
 
 @manager_bp.route('/logout')
-@login_required
 def manager_logout():
     session.clear()
-    return redirect(url_for('manager_bp.manager_auth'))
-
-
-
+    response = redirect(url_for('manager_bp.manager_auth'))
+    response.delete_cookie("user_name")
+    response.delete_cookie("user_type")
+    return response
