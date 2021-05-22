@@ -1,0 +1,255 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Transportation HTML-5 Template </title>
+    <meta name="description" content="">
+
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/assets/css/slicknav.css">
+    <link rel="stylesheet" href="static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="static/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="static/assets/css/slick.css">
+    <link rel="stylesheet" href="static/assets/css/nice-select.css">
+    <link rel="stylesheet" href="static/assets/css/style.css">
+    <link rel="stylesheet" href="static/assets/css/check_ticket_style.css">
+    <script type="text/javascript" src="static/js/jquery.searchableSelect.js"></script>
+    <link href="static/css/searchableSelect.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+    <!-- Header Start -->
+    <div class="header-area">
+        <div class="main-header ">
+            <div class="header-top d-none d-lg-block">
+                <div class="container">
+                    <div class="col-xl-12">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="header-info-left">
+                                <ul>
+                                    <li>Phone: +99 (0) 101 0000 888</li>
+                                    <li>Email: noreply@yourdomain.com</li>
+                                </ul>
+                            </div>
+                            <div class="header-info-right">
+                                <ul class="header-social">
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom  header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a href="index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper  d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="user_index.html">首页</a></li>
+                                            <li><a href="user_checkTicket.html">车票查询</a></li>
+                                            <li><a href="user_buyTicket.html">车票购买</a></li>
+                                            <li><a href="user_refundTicket.html">办理退票</a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="blog_details.html">Blog Details</a></li>
+                                                    <li><a href="elements.html">Element</a></li>
+                                                </ul>
+                                            </li>
+                                            <!--<li><a href="contact.html">Contact</a></li>-->
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Header-btn -->
+                                <div class="header-right-btn d-none d-lg-block ml-20">
+                                    <a href="user_login.html" class="btn header-btn">登陆</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<main>
+
+    </script>
+    <div class="slider-area ">
+        <div class="single-slider hero-overly slider-height2 d-flex align-items-center"
+             data-background="static/images/fuxing_bullet_train.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap">
+                            <h2>车票购买</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">主页</a></li>
+                                    <li class="breadcrumb-item"><a href="#">车票查询</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="whole-wrap">
+        <div class="container box_1170">
+            <div class="section-top-border">
+
+            </div>
+            <div class="section-top-border">
+                <h3 class="mb-30">Result</h3>
+                <div class="result-table-wrap">
+                    <div class="result-table">
+
+                        <table class="result-table">
+                            <thead>
+                            <tr>
+                                <th>火车号</th>
+                                <th>线路号</th>
+                                <th>座位类型</th>
+                                <th>起点站</th>
+                                <th>终点站</th>
+                                <th>出发时间</th>
+                                <th>到达时间</th>
+                                <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for ct in checkbuytickets %}
+                            <tr>
+                                <th>{{ct.train_number_ID}}</th>
+                                <th>{{ct.line_ID}}</th>
+                                <th>{{ct.seat_type}}</th>
+                                <th>{{ct.departure_station}}</th>
+                                <th>{{ct.arrival_station}}</th>
+                                <th>{{ct.departure_time}}</th>
+                                <th>{{ct.arrival_time}}</th>
+                                <th>
+                                    <a class="genric-btn default radius" type="submit" name="submit"
+                                        href="{{ url_for('user_bp.user_buyticket') }}?fare_id={{ct.fare_ID}}">购买
+                                </a>
+                                <th>
+                            </tr>
+                            {% endfor %}
+                            </thead>
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</main>
+<footer>
+    <!--? Footer Start-->
+    <div class="footer-area footer-bg">
+        <div class="container">
+            <div class="footer-top footer-padding">
+                <div class="footer-heading">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-6 col-lg-8 col-md-8">
+                            <div class="wantToWork-caption wantToWork-caption2">
+                                <h2>铁路售票员小组竭诚为您服务!</h2>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4">
+                            <span class="contact-number f-right">+86 400-8208820</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right text-center">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved | <a href="http://bootstrap.fans/" target="_blank">铁路售票员小组版权所有</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End-->
+</footer>
+
+<div id="back-top">
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+
+<!-- JS here -->
+
+<!-- All JS Custom Plugins Link Here here -->
+<script src="static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="static/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="static/assets/js/popper.min.js"></script>
+<script src="static/assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="static/assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="static/assets/js/owl.carousel.min.js"></script>
+<script src="static/assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="static/assets/js/wow.min.js"></script>
+<script src="static/assets/js/animated.headline.js"></script>
+<script src="static/assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Nice-select, sticky -->
+<script src="static/assets/js/jquery.nice-select.min.js"></script>
+<script src="static/assets/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="static/assets/js/contact.js"></script>
+<script src="static/assets/js/jquery.form.js"></script>
+<script src="static/assets/js/jquery.validate.min.js"></script>
+<script src="static/assets/js/mail-script.js"></script>
+<script src="static/assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="static/assets/js/plugins.js"></script>
+<script src="static/assets/js/main.js"></script>
+
+</body>
+</html>
