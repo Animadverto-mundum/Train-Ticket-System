@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="static/assets/css/style.css">
     <link rel="stylesheet" href="static/assets/css/login_style.css">
 </head>
-
 <body>
 <header>
     <!-- Header Start -->
@@ -57,24 +56,26 @@
     <form action="" method="post">
         <input type="text" name="user" placeholder="用户名" required="required">
         <input type="password" name="password" placeholder="输入密码" required="required">
-<<<<<<< HEAD
 <!--        <font style="font-weight:300;" color="white">点击登录后请对视摄像头采集人脸信息！</font>-->
-=======
->>>>>>> origin/llm
         <button type="submit">登录</button>
-        <font class="flash" color="red"  size="5">
-        {% for message in get_flashed_messages() %}
-            {{ message }}
-        {% endfor %}</font>
 
         <div class="regsterAccount">
             <br>
             <a style="font-weight:300;" href="{{ url_for('user_bp.user_register')}}">注册账号</a>
         </div>
-         <div class="forgetPassword">
+        <div class="forgetPassword">
              <br>
             <a style="font-weight:300;" href="{{ url_for('user_bp.user_change_password')}}">忘记密码</a>
         </div>
+        <br>
+        <div class="flash" style="font-weight:300; color:red; font-weight:500; font-size:3; text-align: center;">
+            <br><br><br>
+            {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+        </div>
+
+
 
 
 
