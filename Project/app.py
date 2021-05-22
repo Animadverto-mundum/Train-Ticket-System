@@ -1,6 +1,10 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
 from flask_sqlalchemy import SQLAlchemy
 from model import db
+
+from Manager import manager_bp
+from User import user_bp
+
 # from dataAnalysis.InitData import db_app
 import config
 
@@ -11,9 +15,7 @@ def create_app():
     db.init_app(app)
 
     # init blueprint
-    from Manager import manager_bp
     app.register_blueprint(manager_bp)
-    from User import user_bp
     app.register_blueprint(user_bp)
     return app
 
@@ -24,8 +26,7 @@ app = create_app()
 # route
 @app.route('/')
 def hello():
-    return "<a href='/manager/auth'> Manager </a><br><br> <a href='/user'> User </a>"
-
+    return redirect(url_for('user_bp.user_index'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=8008)

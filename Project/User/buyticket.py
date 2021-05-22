@@ -6,9 +6,11 @@ from flask import request, redirect, render_template, url_for, flash, g
 from . import user_bp
 from .user_auth import login_required
 from model import *
+from . import access_check
 
 
 @user_bp.route('/inputbuyTicket', methods=['GET', 'POST'])
+@access_check(request)
 def user_inputbuyticket():
     if request.method == 'POST':
         if request.form['submit'] == 'user_inputbuyticket':
@@ -57,6 +59,7 @@ def user_inputbuyticket():
 
 # 购票 插入数据 已购票信息
 @user_bp.route('buyticket', methods=['GET', 'POST'])
+@access_check(request)
 def user_buyticket():
     # 传入参数：用户ID、用户名、票价号
     user_id = int(request.cookies.get('customer_id'))

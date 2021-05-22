@@ -4,10 +4,12 @@ from model import *
 from . import user_bp
 from .user_auth import login_required
 import time
+from . import access_check
+
 
 
 @user_bp.route('/checkrefundTicket', methods=['GET', 'POST'])
-# @login_required
+@access_check(request)
 def user_checkrefundticket():
     user_id = int(request.cookies.get('customer_id'))
     localtime = time.localtime()
@@ -40,7 +42,7 @@ def user_checkrefundticket():
 
 
 @user_bp.route('refundtickt', methods=['GET', 'POST'])
-# @login_required
+@access_check(request)
 def user_refundticket():
     # 传入参数：票号
     ticketsold_id = request.args['ticketsold_id']

@@ -4,6 +4,7 @@ from .user_auth import login_required
 from config import *
 from model import *
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
+from . import access_check
 
 
 @user_bp.route('/index')
@@ -14,8 +15,10 @@ def user_index():
 @user_bp.route('/logout')
 def user_logout():
     session.clear()
-    return redirect(url_for('user_bp.user_login'))
-
+    response = redirect(url_for('user_bp.user_login'))
+    response.delete_cookie('customer_id')
+    response.delete_cookie('customer_name')
+    return response
 
 @user_bp.route('/information',methods=['GET', 'POST'])
 def user_infomation():

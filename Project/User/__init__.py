@@ -16,7 +16,7 @@ def access_check(request):
             if ret:
                 return func(*args, **kwargs)
             else:
-                response = redirect(url_for('user_bp.user_auth'))
+                response = redirect(url_for('user_bp.user_login'))
                 response.delete_cookie('customer_id')
                 response.delete_cookie('customer_name')
                 return response
