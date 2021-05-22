@@ -12,6 +12,7 @@ from . import access_check
 @user_bp.route('/inputbuyTicket', methods=['GET', 'POST'])
 @access_check(request)
 def user_inputbuyticket():
+    
     if request.method == 'POST':
         if request.form['submit'] == 'user_inputbuyticket':
             buy_arrival_station = request.form['arrival_station']
@@ -54,7 +55,7 @@ def user_inputbuyticket():
 
         flash(buy_error, 'query ticket')
 
-    return render_template('user_buyTicket.html')
+    return render_template('user_buyTicket.html', user_name=request.cookies.get('customer_name'))
 
 
 # 购票 插入数据 已购票信息

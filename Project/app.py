@@ -1,11 +1,7 @@
 from flask import Flask, request, json, Response, redirect, url_for, session, render_template
-from flask_sqlalchemy import SQLAlchemy
 from model import db
-
 from Manager import manager_bp
 from User import user_bp
-
-# from dataAnalysis.InitData import db_app
 import config
 
 
@@ -17,6 +13,7 @@ def create_app():
     # init blueprint
     app.register_blueprint(manager_bp)
     app.register_blueprint(user_bp)
+
     return app
 
 
@@ -29,4 +26,4 @@ def hello():
     return redirect(url_for('user_bp.user_index'))
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8008)
+    app.run(debug=True, port=8088)

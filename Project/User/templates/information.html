@@ -61,7 +61,7 @@
                                             <li><a href="{{ url_for("user_bp.user_refundticket") }}">车票退订</a></li>
                                             <li><a href="{{ url_for("user_bp.user_3dshow") }}">3D模型展示</a></li>
                                             <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
-                                            <li><a href="{{ url_for("user_bp.user_3dshow") }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for("user_bp.user_3dshow") }}">你好，{{ user.user_name }}</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -108,19 +108,7 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="input-form">
                                             <span>用户名：</span>
-                                            <input type="text" placeholder="用户名" readonly="readonly" value="{{ g.user.user_name }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>真实姓名：</span>
-                                            <input type="text" placeholder="真实姓名" readonly="readonly" value="{{ g.user.real_name }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>身份证：</span>
-                                            <input type="text" placeholder="身份证" readonly="readonly" value="{{ g.user.id_num}}">
+                                            <input type="text" placeholder="用户名" readonly="readonly" value="{{ user_name }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
@@ -132,11 +120,10 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="input-form">
                                             <span>用户类型：</span>
-                                             <input list="browsers" name="browser" placeholder="身份" value="{{ g.user.user_type_number }}">
+                                             <input list="browsers" name="browser" placeholder="身份" value={% if user.user_type_number==1 %}'学生'{% else %}'成人'{% endif %}>
                                             <datalist id="browsers">
-                                                <option value="成年人">
+                                                <option value="成年">
                                                 <option value="学生">
-                                                <option value="退役军人/现役军人">
                                             </datalist>
                                         </div>
                                     </div>
