@@ -52,13 +52,27 @@
                                             <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
                                             <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
-                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
-                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
-                                            <li><a href="{{ url_for('manager_bp.manager_auth') }}" class="btn header-btn"
-                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">管理入口</a></li>
+                                            {% if user_name %}
+                                                <img src="{{ image_path + '?_t=' + vall}}" width="48" height="48"/>
+                                            {% endif %}
+                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">
+                                                {% if user_name %}
+                                                    你好，{{ user_name }}
+                                                {% else %}
+                                                    你好，游客
+                                                {% endif %}
+                                            </a></li>
+                                            <li><a href="{{ url_for('user_bp.user_login') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">
+                                                   {% if user_name %}
+                                                        登出
+                                                    {% else %}
+                                                        登陆
+                                                    {% endif %}
+                                                   </a></li>
                                         </ul>
                                     </nav>
-                                </div>
+                                </div>                      
                             </div>
                         </div>
                         <!-- Mobile Menu -->

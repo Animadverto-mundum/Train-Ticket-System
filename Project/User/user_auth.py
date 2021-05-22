@@ -2,29 +2,23 @@ import functools
 from flask import request, redirect, render_template, url_for, session, flash, g
 from model import db, User
 from . import user_bp
-from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
-
+import os
 
 
 @user_bp.route('/', methods=['GET', 'POST'])
 def user_login():
-    # print(request)
     if request.method == 'POST':
+        login_error = None
         login_username = request.form['user']
         login_password = request.form['password']
-        login_error = None
         login_user = User.query.filter(User.user_name == login_username).first()
 
-        login_userid = login_user.user_ID;
+        login_userid = login_user.user_ID
 
         if login_user is None:
-            login_error = 'User does not exist!'
-        elif login_username in ('llm', 'zyp', 'wgt', 'yzh', 'szw', 'jjq'):
-            if login_user.password != login_password:
-                login_error = '密码或用户名错误'
-        else:
-            if not check_password_hash(login_user.password, login_password):
-                login_error = '密码或用户名错误'
+            login_error = 'User {} does not exist!'.format(login_username)
+        elif login_user.password != login_password:
+            login_error = 'Incorrect password!'
         
         if login_error is None:
             session.clear()
@@ -33,6 +27,7 @@ def user_login():
             respond.set_cookie('customer_id', str(login_userid))
             respond.set_cookie('customer_name', login_username)
             return respond
+
         flash(login_error, 'login')
     return render_template('user_login.html')
 
@@ -58,14 +53,22 @@ def user_register():
             reg_error = 'User {} is already registered.'.format(reg_username)
 
         if reg_error is None:
-            reg_user = User(user_name=reg_username, password=generate_password_hash(reg_password1),
-                            user_type_number=user_type)
+            if request.files:
+                image = request.files['image']
+                basedir = os.path.dirname(__file__)
+                image_path = os.path.join(basedir,'static','image',reg_username+'.jpg')
+                image.save(image_path)
+            reg_user = User(user_name=reg_username, password=reg_password1, user_type_number=user_type)
             db.session.add(reg_user)
             db.session.commit()
             
             session.clear()
-            session['user_ID'] = User.query.filter(User.user_name == reg_username).first().user_ID
-            return redirect(url_for('user_bp.user_index'))
+            reg_userid = User.query.filter(User.user_name == reg_username).first().user_ID
+            session['user_ID'] = reg_userid
+            respond = redirect(url_for('user_bp.user_index'))
+            respond.set_cookie('customer_id', str(reg_userid))
+            respond.set_cookie('customer_name', reg_username)
+            return respond
 
         flash(reg_error, 'register')
 
@@ -85,13 +88,13 @@ def user_change_password():
         user = User.query.filter(User.user_name == reg_username).first()
 
         if user is None:
-            reg_error = '用户不存在！'
+            reg_error = 'User {} does not exist!'.format(reg_username)
         elif reg_password1 != reg_password2:
-            reg_error = '两次密码不一致！'
+            reg_error = 'inconsistent password!'
         
         if reg_error is None:
-            user.password = generate_password_hash(reg_password2)
-            reg_error = '修改成功！'
+            user.password = reg_password1
+            reg_error = 'Successfully change!'
             flash(reg_error, 'changepassword')
             db.session.commit()
             return redirect(url_for('user_bp.user_login'))

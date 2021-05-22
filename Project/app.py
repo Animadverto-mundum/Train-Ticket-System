@@ -25,6 +25,5 @@ app = create_app()
 def hello():
     return redirect(url_for('user_bp.user_index'))
 
-
 if __name__ == '__main__':
     app.run(debug=True, port=8088)

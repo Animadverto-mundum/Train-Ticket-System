@@ -6,13 +6,19 @@ from flask import request, redirect, render_template, url_for, flash
 from . import user_bp
 from .user_auth import login_required
 from model import db, FareInformation, TrainNumber, Line, Site, TicketsSold
+from . import access_check
+import os
 
 
 @user_bp.route('/inputbuyTicket', methods=['GET', 'POST'])
+@access_check(request)
 def user_inputbuyticket():
     site_list = db.session.query(Site).filter().all()
     render_args = {'form_data': {},
-                   'site_list': site_list }
+                   'site_list': site_list ,
+                   'user_name': request.cookies.get('customer_name'),
+                   'image_path': 'static/image/' + request.cookies.get('customer_name') + '.jpg'
+                }
     if request.method == 'POST':
         if request.form['submit'] == 'user_inputbuyticket':
             buy_arrival_station = request.form['arrival_station']
@@ -52,13 +58,14 @@ def user_inputbuyticket():
                     'user_id': int(request.cookies.get('customer_id')),
                     'user_name': request.cookies.get('customer_name')
                 }
-                return render_template('user_checkbuyTicket.html', **render_args)
+                return render_template('user_checkbuyTicket.html', **render_args, vall=str(time.time()))
         flash(buy_error, 'query ticket')
-    return render_template('user_buyTicket.html', **render_args)
+    return render_template('user_buyTicket.html', **render_args, vall=str(time.time()))
 
 
 # 购票 插入数据 已购票信息
 @user_bp.route('buyticket', methods=['GET', 'POST'])
+@access_check(request)
 def user_buyticket():
     # 传入参数：用户ID、用户名、票价号
     user_id = int(request.cookies.get('customer_id'))
