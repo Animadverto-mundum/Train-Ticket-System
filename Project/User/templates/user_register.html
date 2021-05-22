@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>注册账号</title>
+    <link rel="manifest" href="static/site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="static/assets/img/favicon.ico">
     <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="static/assets/css/slicknav.css">
@@ -13,52 +15,29 @@
     <link rel="stylesheet" href="static/assets/css/slick.css">
     <link rel="stylesheet" href="static/assets/css/nice-select.css">
     <link rel="stylesheet" href="static/assets/css/style.css">
-    <link rel="stylesheet" href="static/assets/css/register_style.css">
-
-
+    <link rel="stylesheet" href="static/assets/css/login_style.css">
 </head>
 <body>
 <header>
     <!-- Header Start -->
     <div class="header-area">
         <div class="main-header ">
-            <div class="header-top d-none d-lg-block">
-                <div class="container">
-                    <div class="col-xl-12">
-                        <!--  <div class="row d-flex justify-content-between align-items-center">
-                              <div class="header-info-left">
-                                  <ul>
-                                      <li>Phone: +99 (0) 101 0000 888</li>
-                                      <li>Email: noreply@yourdomain.com</li>
-                                  </ul>
-                              </div>
-                              <div class="header-info-right">
-                                  <ul class="header-social">
-                                      <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                      <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                      <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                      <li> <a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                                  </ul>
-                              </div>
-                          </div>-->
-                    </div>
-                </div>
-            </div>
             <div class="header-bottom  header-sticky">
                 <div class="container">
                     <div class="row align-items-center">
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo">
-                                <a href="index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
+                                <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
-                                <!-- Main-menu -->
-
                                 <!-- Header-btn -->
-
+                                <div class="header-right-btn d-none d-lg-block ml-20">
+                                    <br>
+                                    <a href="{{ url_for('manager_bp.manager_auth') }}" class="btn header-btn">管理入口</a>
+                                </div>
                             </div>
                         </div>
                         <!-- Mobile Menu -->

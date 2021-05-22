@@ -50,13 +50,25 @@
                                             <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
 <!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
-                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">
+                                                {% if g.user.user_name %}
+                                                    你好，{{ g.user.user_name }}
+                                                {% else %}
+                                                    你好，游客
+                                                {% endif %}
+                                            </a></li>
                                         </ul>
                                     </nav>
                                 </div>
                                 <!-- Header-btn -->
                                 <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">登出</a>
+                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">
+                                        {% if g.user.user_name %}
+                                            登出
+                                        {% else %}
+                                            登陆
+                                        {% endif %}
+                                    </a>
                                 </div>
                             </div>
                         </div>
