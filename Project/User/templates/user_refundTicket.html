@@ -101,6 +101,7 @@
 </header>
 <main>
 
+
     </script>
     <div class="slider-area ">
         <div class="single-slider hero-overly slider-height2 d-flex align-items-center"
@@ -148,7 +149,15 @@
                             <th>{{cft.line_name}}</th>
                             <th>{{cft.departure_time}}</th>
                             <th>{{cft.seat_type}}</th>
-                            <th>{{cft.money}}</th>
+                            <script>
+                                var szw_user_type_number = {{ user_type|tojson }};
+                                var szw_ticket_fare = {{ cft.money|tojson }};
+                                if(szw_user_type_number==1){
+                                szw_ticket_fare=parseInt(szw_ticket_fare*0.8);
+                                }
+                                 document.write('<th>'+szw_ticket_fare+'</th>');
+                            </script>
+
                             <th>{{cft.seat}}</th>
                             <th>
                                 <a class="genric-btn default radius" type="submit" name="submit"

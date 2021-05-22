@@ -4,6 +4,7 @@ from model import db, User
 from . import user_bp
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
+
 @user_bp.route('/', methods=['GET', 'POST'])
 def user_login():
     # print(request)
@@ -13,15 +14,24 @@ def user_login():
         login_error = None
         login_user = User.query.filter(User.user_name == login_username).first()
 
+        login_userid = login_user.user_ID;
+
         if login_user is None:
             login_error = 'User does not exist!'
-        elif not check_password_hash(login_user.password, login_password):
-            login_error = 'Incorrect password'
+        elif login_username in ('llm', 'zyp', 'wgt', 'yzh', 'szw', 'jjq'):
+            if login_user.password != login_password:
+                login_error = 'Incorrect password'
+        else:
+            if not check_password_hash(login_user.password, login_password):
+                login_error = 'Incorrect password'
         
         if login_error is None:
             session.clear()
             session['user_ID'] = login_user.user_ID
-            return redirect(url_for('user_bp.user_index'))
+            respond = redirect(url_for('user_bp.user_index'))
+            respond.set_cookie('customer_id', str(login_userid))
+            respond.set_cookie('customer_name', login_username)
+            return respond
         flash(login_error, 'login')
     return render_template('user_login.html')
 

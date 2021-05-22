@@ -1,6 +1,9 @@
-{%  for checktickets in checktickets %}
-    <tr>
-        <th>{{  checktickets.train_number_ID }}</th>
-        <th>{{  checktickets.Line_ID }}</th>
+
+
+{%  for checkrefundtickets in checkrefundtickets %}
+    <th>
+        <th>{{ checkrefundtickets.line_name }}</th>
+        <th>{{ Control_Status(checkrefundtickets.money) }}</th>
+        <th>{{ user_id }}</th>
     </tr>
 {% endfor %}

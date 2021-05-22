@@ -6,7 +6,7 @@ USERNAME = 'root'
 
 
 
-PASSWORD = 'wgtwgt0017'
+PASSWORD = 'llm120905'
 
 HOST = '127.0.0.1'
 PORT = '3306'
