@@ -7,6 +7,7 @@ from . import user_bp
 from .user_auth import login_required
 from model import *
 from . import access_check
+import os
 
 
 @user_bp.route('/inputbuyTicket', methods=['GET', 'POST'])
@@ -51,11 +52,16 @@ def user_inputbuyticket():
                     'user_name': request.cookies.get('customer_name')
                 }
 
-                return render_template('user_checkbuyTicket.html', **render_args)
+                return render_template('user_checkbuyTicket.html', **render_args, vall=str(time.time()))
 
         flash(buy_error, 'query ticket')
 
-    return render_template('user_buyTicket.html', user_name=request.cookies.get('customer_name'))
+    render_args = {
+        'user_name':request.cookies.get('customer_name'),
+        'image_path':'static/image/' + request.cookies.get('customer_name') + '.jpg'
+    }
+
+    return render_template('user_buyTicket.html', **render_args, vall=str(time.time()))
 
 
 # 购票 插入数据 已购票信息

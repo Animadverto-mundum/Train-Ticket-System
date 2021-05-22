@@ -35,10 +35,11 @@ def user_checkrefundticket():
         'checkrefundtickets': checkrefundtickets,
         'user_type': current_user.user_type_number,
         'user_id': int(request.cookies.get('customer_id')),
-        'user_name': request.cookies.get('customer_name')
+        'user_name': request.cookies.get('customer_name'),
+        'image_path':'static/image/' + request.cookies.get('customer_name') + '.jpg'
     }
 
-    return render_template('user_refundTicket.html', **render_args)
+    return render_template('user_refundTicket.html', **render_args, vall=str(time.time()))
 
 
 @user_bp.route('refundtickt', methods=['GET', 'POST'])

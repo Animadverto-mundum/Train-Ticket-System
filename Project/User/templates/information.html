@@ -60,7 +60,7 @@
                                             <li><a href="{{ url_for("user_bp.user_buyticket") }}">购买车票</a></li>
                                             <li><a href="{{ url_for("user_bp.user_refundticket") }}">车票退订</a></li>
                                             <li><a href="{{ url_for("user_bp.user_3dshow") }}">3D模型展示</a></li>
-                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
+                                            <img src="{{ image_path + '?_t=' + vall}}" width="48" height="48"/>
                                             <li><a href="{{ url_for("user_bp.user_3dshow") }}">你好，{{ user.user_name }}</a></li>
                                         </ul>
                                     </nav>
@@ -95,9 +95,7 @@
                                <div class="col-lg-12">
                                     <!-- Section Tittle -->
                                     <div class="section-tittle mb-50">
-{#                                        <span>修改个人信息</span>#}
                                         <h2>个人信息</h2>
-                                        <p2>用户名、身份证号、真实姓名不可修改！</p2>
                                     </div>
                                </div>
                             </div>
@@ -108,19 +106,25 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="input-form">
                                             <span>用户名：</span>
-                                            <input type="text" placeholder="用户名" readonly="readonly" value="{{ user_name }}">
+                                            <input type="text" placeholder="{{ user.user_name }}" disabled=true value="{{ user.user_name }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="input-form">
-                                            <span>密码：</span>
-                                            <input type="password" placeholder="密码" name="password">
+                                            <span>新密码：</span>
+                                            <input type="password" placeholder="密码" name="password1" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-form">
+                                            <span>重复密码：</span>
+                                            <input type="password" placeholder="密码" name="password2" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="input-form">
                                             <span>用户类型：</span>
-                                             <input list="browsers" name="browser" placeholder="身份" value={% if user.user_type_number==1 %}'学生'{% else %}'成人'{% endif %}>
+                                             <input list="browsers" name="browser" placeholder="身份" value={% if user.user_type_number==1 %}'学生'{% else %}'成人'{% endif %} required>
                                             <datalist id="browsers">
                                                 <option value="成年">
                                                 <option value="学生">
@@ -129,16 +133,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="input-form">
-                                            <span>电话：</span>
-                                            <input type="text" placeholder="电话" value="15996690628" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
                                             <span>头像</span>
-                                            <img src="{{ g.user.avatar_path }}" width="64" height="64" alt="">
-                                            <p> </p>
-                                            <input type="file" name="avatar" placeholder="点击上传头像">
+                                            <input type="file" name="image" placeholder="点击修改头像">
                                         </div>
                                     </div>
                                     <!-- Button -->

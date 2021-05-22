@@ -1,7 +1,8 @@
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
 from model import db, TrainNumber, FareInformation, Line
 from . import user_bp
-
+import os
+import time
 
 @user_bp.route('/user_checkTicket')
 def user_checkticket():
@@ -12,6 +13,11 @@ def user_checkticket():
                                     FareInformation.money).\
         filter(TrainNumber.train_number_ID == FareInformation.train_number_id,
                TrainNumber.line_ID == Line.line_ID).all()
-    return render_template('user_checkTicket.html', checktickets=checktickets, user_name=user_name)
+    render_args={
+        'user_name':user_name,
+        'checktickets':checktickets,
+        'image_path':'static/image/' + user_name + '.jpg'
+    }
+    return render_template('user_checkTicket.html', **render_args, vall=str(time.time()))
 
 

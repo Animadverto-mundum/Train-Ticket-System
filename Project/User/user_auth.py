@@ -2,6 +2,7 @@ import functools
 from flask import request, redirect, render_template, url_for, session, flash, g
 from model import db, User
 from . import user_bp
+import os
 
 
 @user_bp.route('/', methods=['GET', 'POST'])
@@ -52,6 +53,11 @@ def user_register():
             reg_error = 'User {} is already registered.'.format(reg_username)
 
         if reg_error is None:
+            if request.files:
+                image = request.files['image']
+                basedir = os.path.dirname(__file__)
+                image_path = os.path.join(basedir,'static','image',reg_username+'.jpg')
+                image.save(image_path)
             reg_user = User(user_name=reg_username, password=reg_password1, user_type_number=user_type)
             db.session.add(reg_user)
             db.session.commit()
