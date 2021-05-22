@@ -30,7 +30,7 @@ def user_inputbuyticket():
                 buy_error = 'seat type is required.'
 
             # 票号、车次、线路号、座位类型、出发站、到达站、出发时间、到达时间
-            # 用户ID、票价号
+            # 用户ID、用户名、票价号
             if buy_error is None:
                 checkbuytickets = db.session.query(FareInformation.fare_ID, TrainNumber.train_number_ID,
                                                    Line.line_ID, FareInformation.seat_type,
@@ -42,8 +42,13 @@ def user_inputbuyticket():
                            Line.arrival_station == buy_arrival_station,
                            FareInformation.seat_type == buy_seat_type,
                            TrainNumber.departure_time >= buy_departure_time).all()
+                render_args = {
+                    'checkbuytickets': checkbuytickets,
+                    'user_id': int(request.cookies.get('customer_id')),
+                    'user_name': request.cookies.get('customer_name')
+                }
 
-                return render_template('user_checkbuyTicket.html', checkbuytickets=checkbuytickets)
+                return render_template('user_checkbuyTicket.html', **render_args)
 
         flash(buy_error, 'query ticket')
 
@@ -53,9 +58,9 @@ def user_inputbuyticket():
 # 购票 插入数据 已购票信息
 @user_bp.route('buyticket', methods=['GET', 'POST'])
 def user_buyticket():
-    # 传入参数：用户ID、票价号
-    # 还未考虑用户类型、座位类型
-    # user_id = request.args.get('user_id')
+    # 传入参数：用户ID、用户名、票价号
+    user_id = int(request.cookies.get('customer_id'))
+    user_name = request.cookies.get('customer_name')
     fare_id = request.args['fare_id']
     localtime = time.localtime()
     temp = time.strftime("%Y-%m-%d", localtime)
@@ -68,8 +73,7 @@ def user_buyticket():
             continue
         break
 
-
-    new_ticketsold = TicketsSold(fare_ID=fare_id, user_ID=1, seat=seat, departure_date=current_date)
+    new_ticketsold = TicketsSold(fare_ID=fare_id, user_ID=user_id, seat=seat, departure_date=current_date)
     db.session.add(new_ticketsold)
     db.session.commit()
     return redirect(url_for('user_bp.user_inputbuyticket'))

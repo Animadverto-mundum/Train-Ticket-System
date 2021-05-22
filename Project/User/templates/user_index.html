@@ -45,11 +45,11 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a href="{{ url_for('user_bp.user_index') }}">首页</a></li>
-                                            <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">查询车票</a></li>
-                                            <li><a href="{{ url_for('user_bp.user_buyticket') }}">购买车票</a></li>
-                                            <li><a href="{{ url_for('user_bp.user_refundticket') }}">车票退订</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkticket') }}">车票查询</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
-                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
+<!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
                                             <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
                                         </ul>
                                     </nav>
@@ -94,7 +94,7 @@
                             <span class="flaticon-shipped"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票查询</a></h5>
+                            <h5><a href="{{ url_for('user_bp.user_checkticket') }}">车票查询</a></h5>
                             <p>在这里您可以查询到您感兴趣的车次的信息</p>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                             <span class="flaticon-ship"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="{{ url_for('user_bp.user_buyticket') }}">车票购买</a></h5>
+                            <h5><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></h5>
                             <p>不想排队？在这里，轻点手指，即可完成购票</p>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                             <span class="flaticon-plane"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="{{ url_for('user_bp.user_refundticket') }}">车票退订</a></h5>
+                            <h5><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></h5>
                             <p>临时有事？没关系，我们提供便捷的退票服务</p>
                         </div>
                     </div>

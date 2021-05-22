@@ -31,35 +31,13 @@
     <!-- Header Start -->
     <div class="header-area">
         <div class="main-header ">
-            <div class="header-top d-none d-lg-block">
-                <div class="container">
-                    <div class="col-xl-12">
-                        <div class="row d-flex justify-content-between align-items-center">
-                            <div class="header-info-left">
-                                <ul>
-                                    <li>Phone: +99 (0) 101 0000 888</li>
-                                    <li>Email: noreply@yourdomain.com</li>
-                                </ul>
-                            </div>
-                            <div class="header-info-right">
-                                <ul class="header-social">
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="header-bottom  header-sticky">
                 <div class="container">
                     <div class="row align-items-center">
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo">
-                                <a href="index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
+                                <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10">
@@ -68,23 +46,19 @@
                                 <div class="main-menu d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="user_index.html">首页</a></li>
-                                            <li><a href="user_checkTicket.html">车票查询</a></li>
-                                            <li><a href="user_buyTicket.html">车票购买</a></li>
-                                            <li><a href="user_refundTicket.html">办理退票</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="blog_details.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Element</a></li>
-                                                </ul>
-                                            </li>
-                                            <!--<li><a href="contact.html">Contact</a></li>-->
+                                            <li><a href="{{ url_for('user_bp.user_index') }}">首页</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkticket') }}">车票查询</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
+<!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
+                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                                 <!-- Header-btn -->
                                 <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="user_login.html" class="btn header-btn">登陆</a>
+                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">登出</a>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +75,7 @@
 </header>
 <main>
 
-    </script>
+
     <div class="slider-area ">
         <div class="single-slider hero-overly slider-height2 d-flex align-items-center"
              data-background="static/images/fuxing_bullet_train.jpg">
@@ -174,43 +148,49 @@
     </div>
     </div>
 
-
-</main>
-<footer>
-    <!--? Footer Start-->
-    <div class="footer-area footer-bg">
+    <!-- our info Start -->
+    <div class="our-info-area pt-70 pb-40">
         <div class="container">
-            <div class="footer-top footer-padding">
-                <div class="footer-heading">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-6 col-lg-8 col-md-8">
-                            <div class="wantToWork-caption wantToWork-caption2">
-                                <h2>铁路售票员小组竭诚为您服务!</h2>
-                            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-support"></span>
                         </div>
-                        <div class="col-xl-3 col-lg-4">
-                            <span class="contact-number f-right">+86 400-8208820</span>
+                        <div class="info-caption">
+                            <p>联系我们</p>
+                            <span>+ (86) 400-820-8820</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="row d-flex align-items-center">
-                    <div class="col-lg-12">
-                        <div class="footer-copy-right text-center">
-                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                                All rights reserved | <a href="http://bootstrap.fans/" target="_blank">铁路售票员小组版权所有</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            </p>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-clock"></span>
+                        </div>
+                        <div class="info-caption">
+                            <p>夜间停售</p>
+                            <span> 7.00 - 23.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-place"></span>
+                        </div>
+                        <div class="info-caption">
+                            <p>郫都区</p>
+                            <span>中国, 四川省 - 成都</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Footer End-->
-</footer>
+    <!-- our info End -->
+
+</main>
 
 <div id="back-top">
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
