@@ -38,6 +38,9 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
@@ -49,26 +52,12 @@
                                             <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
                                             <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
-<!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
-                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">
-                                                {% if g.user.user_name %}
-                                                    你好，{{ g.user.user_name }}
-                                                {% else %}
-                                                    你好，游客
-                                                {% endif %}
-                                            </a></li>
+                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
+                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('manager_bp.manager_auth') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">管理入口</a></li>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">
-                                        {% if g.user.user_name %}
-                                            登出
-                                        {% else %}
-                                            登陆
-                                        {% endif %}
-                                    </a>
                                 </div>
                             </div>
                         </div>

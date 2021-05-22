@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Transportation HTML-5 Template </title>
+    <title>退票ing</title>
     <meta name="description" content="">
 
 
@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="static/assets/css/nice-select.css">
     <link rel="stylesheet" href="static/assets/css/style.css">
     <link rel="stylesheet" href="static/assets/css/check_ticket_style.css">
-    <script type="text/javascript" src="static/js/jquery.searchableSelect.js"></script>
-    <link href="static/css/searchableSelect.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/searchableSelect.css" >
 
 </head>
 
@@ -40,6 +40,9 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
@@ -53,17 +56,16 @@
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
 <!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
                                             <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">登出</a></li>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">登出</a>
                                 </div>
                             </div>
                         </div>
                         <!-- Mobile Menu -->
                         <div class="col-12">
+
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
@@ -75,7 +77,6 @@
 </header>
 
 <main>
-
 
     <div class="slider-area ">
         <div class="single-slider hero-overly slider-height2 d-flex align-items-center"
@@ -192,10 +193,9 @@
 
 </main>
 
-
-<div id="back-top">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
+<!--<div id="back-top">-->
+<!--    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>-->
+<!--</div>-->
 
 
 <!-- JS here -->
@@ -204,7 +204,7 @@
         alert("退票成功！");
     }
 </script>
-
+<script type="text/javascript" src="static/js/jquery.searchableSelect.js"></script>
 <!-- All JS Custom Plugins Link Here here -->
 <script src="static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->

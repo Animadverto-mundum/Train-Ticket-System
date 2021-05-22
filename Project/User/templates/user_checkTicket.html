@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Transportation HTML-5 Template </title>
+    <title>查询车票</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
@@ -37,6 +37,9 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
@@ -50,12 +53,10 @@
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
 <!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
                                             <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">登出</a></li>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">登出</a>
                                 </div>
                             </div>
                         </div>
@@ -97,96 +98,42 @@
 
     <div class="whole-wrap">
         <div class="container box_1170">
-            <div class="section-top-border">
-                <div class="row">
-                    <!--<div class="col-lg-8 col-md-8">
-                    <h3 class="mb-30">please input information</h3>
-                    <form action="#">
-                        <div class="input-group-icon mt-10">
-                            <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                            <div class="form-select" id="default-select"
-                            ">
-                            <select>
-                                <option value=" 1">始发站</option>
-                                <option value="1">成都</option>
-                                <option value="1">北京</option>
-                                <option value="1">上海</option>
-                                <option value="1">广州</option>
-                            </select>
-                        </div>
-                        <div class="input-group-icon mt-10">
-                            <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                            <div class="form-select" id="default-select"
-                            ">
-                            <select>
-                                <option value=" 1">终点站</option>
-                                <option value="1">成都</option>
-                                <option value="1">北京</option>
-                                <option value="1">上海</option>
-                                <option value="1">广州</option>
-                            </select>
-                        </div>
-                        <div class="input-group-icon mt-10">
-                            <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                            <div class="form-select" id="default-select"
-                            ">
-                            <select>
-                                <option value=" 1">座位类型</option>
-                                <option value="1">一等座</option>
-                                <option value="1">二等座</option>
-                            </select>
-                        </div>
-                        <div class="input-group-icon mt-10">
-                            <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                            <div class="form-select" id="default-select"
-                            ">
-                            <select>
-                                <option value=" 1">出发时间</option>
-                                <option value="1">13:00</option>
-                                <option value="1">14:00</option>
-                                <option value="1">15:00</option>
-                                <option value="1">16:00</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                    </br>
-                    <a href="" class="genric-btn link radius">查询</a>-->
-                    <!--<div class="section-top-border">-->
+            <br>
+            <br>
+            <h3 class="mb-30">All Tickets</h3>
+            <div class="result-table-wrap">
+                <div class="result-table">
+                    <table class="result-table">
+                        <thead>
+                        <tr>
+                            <th>火车号</th>
+                            <th>线路名</th>
+                            <th>起点站</th>
+                            <th>终点站</th>
+                            <th>出发时间</th>
+                            <th>到达时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ct in checktickets %}
+                        <tr>
+                            <th>{{ct.train_number_ID}}</th>
+                            <th>{{ct.line_name}}</th>
+                            <th>{{ct.departure_station}}</th>
+                            <th>{{ct.arrival_station}}</th>
+                            <th>{{ct.departure_time}}</th>
+                            <th>{{ct.arrival_time}}</th>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-                <h3 class="mb-30">All Tickets</h3>
-                <div class="result-table-wrap">
-                    <div class="result-table">
-                        <table class="result-table">
-                            <thead>
-                            <tr>
-                                <th>火车号</th>
-                                <th>线路名</th>
-                                <th>起点站</th>
-                                <th>终点站</th>
-                                <th>出发时间</th>
-                                <th>到达时间</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for ct in checktickets %}
-                            <tr>
-                                <th>{{ct.train_number_ID}}</th>
-                                <th>{{ct.line_name}}</th>
-                                <th>{{ct.departure_station}}</th>
-                                <th>{{ct.arrival_station}}</th>
-                                <th>{{ct.departure_time}}</th>
-                                <th>{{ct.arrival_time}}</th>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
+        <br>
+        <br>
         </div>
-</div>
+
     <!-- our info Start -->
     <div class="our-info-area pt-70 pb-40">
         <div class="container">
@@ -229,12 +176,7 @@
     </div>
     <!-- our info End -->
 
-
 </main>
-
-<div id="back-top">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
 
 
 <!-- JS here -->

@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=chorme">
     <title>login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="static/site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="static/assets/img/favicon.ico">
+
+    <!-- CSS here -->
     <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="static/assets/css/slicknav.css">
+    <link rel="stylesheet" href="static/assets/css/flaticon.css">
     <link rel="stylesheet" href="static/assets/css/animate.min.css">
     <link rel="stylesheet" href="static/assets/css/magnific-popup.css">
     <link rel="stylesheet" href="static/assets/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="static/assets/css/themify-icons.css">
     <link rel="stylesheet" href="static/assets/css/slick.css">
     <link rel="stylesheet" href="static/assets/css/nice-select.css">
-    <link rel="stylesheet" href="static/assets/css/style.css">
     <link rel="stylesheet" href="static/assets/css/login_style.css">
+    <link rel="stylesheet" href="static/assets/css/style.css">
 </head>
 
 <body>
+
 <header>
     <!-- Header Start -->
     <div class="header-area">
@@ -32,12 +40,26 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <br>
-                                    <a href="{{ url_for('manager_bp.manager_auth') }}" class="btn header-btn">管理入口</a>
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="{{ url_for('user_bp.user_index') }}">首页</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkticket') }}">车票查询</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
+                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
+                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('manager_bp.manager_auth') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">管理入口</a></li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
@@ -52,12 +74,12 @@
     </div>
     <!-- Header End -->
 </header>
+
 <div class="login">
     <h1>Login</h1>
     <form action="" method="post">
         <input type="text" name="user" placeholder="用户名" required="required">
         <input type="password" name="password" placeholder="输入密码" required="required">
-<!--        <font style="font-weight:300;" color="white">点击登录后请对视摄像头采集人脸信息！</font>-->
         <button type="submit">登录</button>
 
         <div class="regsterAccount">
@@ -75,17 +97,42 @@
                 {{ message }}
             {% endfor %}
         </div>
-
-
-
-
-
-
-
     </form>
-   
+
 </div>
 
+    <!-- JS here -->
+
+    <script src="static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="static/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="static/assets/js/popper.min.js"></script>
+    <script src="static/assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="static/assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="static/assets/js/owl.carousel.min.js"></script>
+    <script src="static/assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="static/assets/js/wow.min.js"></script>
+    <script src="static/assets/js/animated.headline.js"></script>
+    <script src="static/assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Nice-select, sticky -->
+    <script src="static/assets/js/jquery.nice-select.min.js"></script>
+    <script src="static/assets/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="static/assets/js/contact.js"></script>
+    <script src="static/assets/js/jquery.form.js"></script>
+    <script src="static/assets/js/jquery.validate.min.js"></script>
+    <script src="static/assets/js/mail-script.js"></script>
+    <script src="static/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="static/assets/js/plugins.js"></script>
+    <script src="static/assets/js/main.js"></script>
 
 </body>
 

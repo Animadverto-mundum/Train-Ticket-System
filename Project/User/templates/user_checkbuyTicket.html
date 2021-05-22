@@ -40,6 +40,9 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
@@ -53,17 +56,16 @@
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
 <!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
                                             <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">登出</a></li>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">登出</a>
                                 </div>
                             </div>
                         </div>
                         <!-- Mobile Menu -->
                         <div class="col-12">
+
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
@@ -74,7 +76,6 @@
     <!-- Header End -->
 </header>
 <main>
-
 
     <div class="slider-area ">
         <div class="single-slider hero-overly slider-height2 d-flex align-items-center"
@@ -96,16 +97,13 @@
             </div>
         </div>
     </div>
+
     <div class="whole-wrap">
         <div class="container box_1170">
-            <div class="section-top-border">
-
-            </div>
             <div class="section-top-border">
                 <h3 class="mb-30">Result</h3>
                 <div class="result-table-wrap">
                     <div class="result-table">
-
                         <table class="result-table">
                             <thead>
                             <tr>
@@ -136,16 +134,12 @@
                                 <th>
                             </tr>
                             {% endfor %}
-                            </thead>
+                            </tbody>
                         </table>
-
-
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- our info Start -->

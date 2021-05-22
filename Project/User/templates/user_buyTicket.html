@@ -7,7 +7,6 @@
     <title>欢迎购买</title>
     <meta name="description" content="">
 
-
     <!-- CSS here -->
     <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
@@ -20,8 +19,10 @@
     <link rel="stylesheet" href="static/assets/css/nice-select.css">
     <link rel="stylesheet" href="static/assets/css/style.css">
     <link rel="stylesheet" href="static/assets/css/check_ticket_style.css">
-    <script type="text/javascript" src="static/js/jquery.searchableSelect.js"></script>
-    <link href="static/css/searchableSelect.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/searchableSelect.css" >
+    <link rel="stylesheet" href="static/assets/css/flaticon.css">
+
 
 </head>
 
@@ -40,6 +41,9 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
@@ -51,18 +55,18 @@
                                             <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
                                             <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
                                             <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
+<!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
                                             <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">登出</a></li>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn">登出</a>
                                 </div>
                             </div>
                         </div>
                         <!-- Mobile Menu -->
                         <div class="col-12">
+
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
@@ -74,11 +78,10 @@
 </header>
 
 <main>
-
-
+    <!-- biaoti -->
     <div class="slider-area ">
         <div class="single-slider hero-overly slider-height2 d-flex align-items-center"
-             data-background="static/images/fuxing_bullet_train.jpg">
+             data-background="static/assets/img/checkTicket/checkTicket1.jpg">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -96,87 +99,86 @@
             </div>
         </div>
     </div>
-    <div class="whole-wrap">
-        <div class="container box_1170">
-            <div class="section-top-border">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <h3 class="mb-30">please input information</h3>
-                        <form action="#" method="post">
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="departure_station"
-                                           list="departure_stations" placeholder="始发站">
-                                    <datalist id="departure_stations" style="display:none;">
-                                        <option value="成都"></option>
-                                        <option value="上海"></option>
-                                        <option value="广州"></option>
-                                    </datalist>
-                                </div>
+    <!-- biaoti end-->
+
+    <section class="contact-form-area section-bg  pt-115 pb-120 fix">
+    <div class="container">
+        <div class="row justify-content-center">
+                <!-- Contact wrapper -->
+                <div class="col-xl-8 col-lg-9">
+                    <div class="contact-form-wrapper">
+                        <!-- From tittle -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Section Tittle -->
+                                <div class="section-tittle mb-50">
+                                    <h2>请输入购票信息</h2>
                                 </div>
                             </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="arrival_station"
-                                           list="arrival_stations" placeholder="终点站">
-                                    <datalist id="arrival_stations" style="display:none;">
-                                        <option value="成都"></option>
-                                        <option value="上海"></option>
-                                        <option value="广州"></option>
-                                    </datalist>
+                        </div>
+                        <!-- form -->
+
+                        <form action="#" method="post" class="contact-form">
+                            <div class="row ">
+                                <div class="col-lg-12">
+                                        <div class="select-items">
+                                        <input type="text" name="departure_station" placeholder="起始站" required="required" {% if site_list %} list='site_list'
+                                               οnfοcus='if(this.value=="终点站"){this.value="{{form_data["site_name"]}}";}; '
+                                               οnblur='if(this.value==""){this.value="终点站";};'{% endif %}>
+                                          {% if site_list %}
+                                            <datalist>
+                                              {% for item in site_list %}
+                                                <option>{{ item.site_name }}</option>
+                                              {% endfor %}
+                                            </datalist>
+                                          {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="select-items">
+                                    <input type="text" name="arrival_station" placeholder="终点站" required="required" {% if site_list %} list='site_list'
+                                           οnfοcus='if(this.value=="终点站"){this.value="{{form_data["site_name"]}}";}; '
+                                           οnblur='if(this.value==""){this.value="终点站";};'{% endif %}>
+                                      {% if site_list %}
+                                        <datalist id='site_list'>
+                                          {% for item in site_list %}
+                                            <option>{{ item.site_name }}</option>
+                                          {% endfor %}
+                                        </datalist>
+                                      {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                <div class="select-items">
+                                <input class="nice-select" type="text" name="seat_type" list="seat_types" placeholder="座位类型">
+                                <datalist id="seat_types" style="display:none;">
+                                    <option value="一等座"></option>
+                                    <option value="二等座"></option>
+                                </datalist>
                                 </div>
                                 </div>
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="seat_type" list="seat_types" placeholder="座位类型">
-                                    <datalist id="seat_types" style="display:none;">
-                                        <option value="一等座"></option>
-                                        <option value="二等座"></option>
-                                    </datalist>
-                                </div>
+                                <div class="col-lg-12">
+                                    <input type="time" value="07:00:01" name="departure_time" value="出发时间" required="required" class="select-items">
                                 </div>
 
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select">
-                                <div class="mt-10">
-                                    <input class="nice-select" type="text" name="departure_time" list="departure_times" placeholder="出发时间">
-                                    <datalist id="departure_times" style="display:none;">
-                                        <option value="13:00"></option>
-                                        <option value="14:00"></option>
-                                        <option value="15:00"></option>
-                                        <option value="16:00"></option>
-                                        <option value="17:00"></option>
-                                    </datalist>
-                                </div>
+
+                                <!-- Button -->
+                                <div class="col-lg-12">
+                                    <button name="submit" type="submit" class="submit-btn" value="user_inputbuyticket">确认信息</button>
+                                    {% for message in get_flashed_messages() %}
+                                    <div class="flash">
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                            </br>
-                            <div class="my_button_style">
-                                <button class="genric-btn default radius" type="submit" name="submit"
-                                        value="user_inputbuyticket">查询
-                                </button>
-                            </div>
-                            {% for message in get_flashed_messages() %}
-                            <div class="flash">{{ message }}</div>
-                            {% endfor %}
                         </form>
+
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-
-
-</main>
+    </section>
 
     <!-- our info Start -->
     <div class="our-info-area pt-70 pb-40">
@@ -220,14 +222,11 @@
     </div>
     <!-- our info End -->
 
-
-<div id="back-top">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
+</main>
 
 
 <!-- JS here -->
-
+<script type="text/javascript" src="static/js/jquery.searchableSelect.js"></script>
 <!-- All JS Custom Plugins Link Here here -->
 <script src="static/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
@@ -260,5 +259,7 @@
 <script src="static/assets/js/plugins.js"></script>
 <script src="static/assets/js/main.js"></script>
 
+
 </body>
+
 </html>

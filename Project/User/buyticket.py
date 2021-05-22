@@ -1,25 +1,31 @@
 import datetime
 import time
 import random
-from flask import request, redirect, render_template, url_for, flash, g
+from flask import request, redirect, render_template, url_for, flash
 # from model import *
 from . import user_bp
 from .user_auth import login_required
-from model import *
+from model import db, FareInformation, TrainNumber, Line, Site, TicketsSold
 
 
 @user_bp.route('/inputbuyTicket', methods=['GET', 'POST'])
 def user_inputbuyticket():
+    site_list = db.session.query(Site).filter().all()
+    render_args = {'form_data': {},
+                   'site_list': site_list }
     if request.method == 'POST':
         if request.form['submit'] == 'user_inputbuyticket':
             buy_arrival_station = request.form['arrival_station']
             buy_departure_station = request.form['departure_station']
             temp = request.form['departure_time']
             buy_departure_time = datetime.datetime.strptime(temp, "%H:%M:%S")
-            buy_seat_type = request.form['seat_type']
+            seat_type = request.form['seat_type']
+            if seat_type == "一等座":
+                buy_seat_type = 1
+            elif seat_type == "二等座":
+                buy_seat_type = 2
             buy_error = None
-            # buy_user_ID = db.session.query(User.user_ID).filter(User.user_name == global_username).first()
-
+            # buy_user_ID = db.session.query(User.user_ID).filter(User.user_name == global_username).first()=
             if buy_arrival_station == '':
                 buy_error = 'arrival station is required.'
             elif buy_departure_station == '':
@@ -28,7 +34,6 @@ def user_inputbuyticket():
                 buy_error = 'departure time is required.'
             elif buy_seat_type == '':
                 buy_error = 'seat type is required.'
-
             # 票号、车次、线路号、座位类型、出发站、到达站、出发时间、到达时间
             # 用户ID、用户名、票价号
             if buy_error is None:
@@ -47,12 +52,9 @@ def user_inputbuyticket():
                     'user_id': int(request.cookies.get('customer_id')),
                     'user_name': request.cookies.get('customer_name')
                 }
-
                 return render_template('user_checkbuyTicket.html', **render_args)
-
         flash(buy_error, 'query ticket')
-
-    return render_template('user_buyTicket.html')
+    return render_template('user_buyTicket.html', **render_args)
 
 
 # 购票 插入数据 已购票信息

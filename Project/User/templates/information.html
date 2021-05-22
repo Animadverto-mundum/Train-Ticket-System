@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="static/assets/css/nice-select.css">
     <link rel="stylesheet" href="static/assets/css/style.css">
 </head>
+
 <body>
 <!--? Preloader Start -->
 <div id="preloader-active">
@@ -39,7 +41,6 @@
     <!-- Header Start -->
     <div class="header-area">
         <div class="main-header ">
-
             <div class="header-bottom  header-sticky">
                 <div class="container">
                     <div class="row align-items-center">
@@ -49,30 +50,32 @@
                                 <a href="user_index.html"><img src="static/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
+                        <!-- Logo -->
+
+                        <!-- Mobile Menu -->
                         <div class="col-xl-10 col-lg-10">
                             <div class="menu-wrapper  d-flex align-items-center justify-content-end">
                                 <!-- Main-menu -->
                                 <div class="main-menu d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="{{ url_for("user_bp.user_index") }}">首页</a></li>
-                                            <li><a href="{{ url_for("user_bp.user_inputbuyticket") }}">查询车票</a></li>
-                                            <li><a href="{{ url_for("user_bp.user_buyticket") }}">购买车票</a></li>
-                                            <li><a href="{{ url_for("user_bp.user_refundticket") }}">车票退订</a></li>
-                                            <li><a href="{{ url_for("user_bp.user_3dshow") }}">3D模型展示</a></li>
-                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">
-                                            <li><a href="{{ url_for("user_bp.user_3dshow") }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_index') }}">首页</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkticket') }}">车票查询</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_inputbuyticket') }}">车票购买</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_checkrefundticket') }}">车票退订</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_3dshow') }}">3D模型展示</a></li>
+<!--                                            <img src="{{ g.user.avatar_path }}" width="48" height="48" alt="">-->
+                                            <li><a href="{{ url_for('user_bp.user_infomation') }}">你好，{{ g.user.user_name }}</a></li>
+                                            <li><a href="{{ url_for('user_bp.user_logout') }}" class="btn header-btn"
+                                                   style="padding: 25px 35px; inline-size: max-content; display: flex;">登出</a></li>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Header-btn -->
-                                <div class="header-right-btn d-none d-lg-block ml-20">
-                                    <a href="{{ url_for("user_bp.user_logout") }}" class="btn header-btn">登出</a>
                                 </div>
                             </div>
                         </div>
                         <!-- Mobile Menu -->
                         <div class="col-12">
+
                             <div class="mobile_menu d-block d-lg-none"></div>
                         </div>
                     </div>
@@ -82,97 +85,91 @@
     </div>
     <!-- Header End -->
 </header>
+
 <main>
- <!--? contact-form start -->
-        <section class="contact-form-area section-bg  pt-115 pb-120 fix" data-background="assets/img/gallery/section_bg02.jpg">
-            <div class="container">
-                <div class="row justify-content-end">
-                    <!-- Contact wrapper -->
-                    <div class="col-xl-8 col-lg-9">
-                        <div class="contact-form-wrapper">
-                            <!-- From tittle -->
-                            <div class="row">
-                               <div class="col-lg-12">
-                                    <!-- Section Tittle -->
-                                    <div class="section-tittle mb-50">
-{#                                        <span>修改个人信息</span>#}
-                                        <h2>个人信息</h2>
-                                        <p2>用户名、身份证号、真实姓名不可修改！</p2>
-                                    </div>
-                               </div>
+
+    <!--? contact-form start -->
+    <section class="contact-form-area section-bg  pt-115 pb-120 fix" data-background="assets/img/gallery/section_bg02.jpg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Contact wrapper -->
+                <div class="col-xl-8 col-lg-9">
+                    <div class="contact-form-wrapper">
+                        <!-- From tittle -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Section Tittle -->
+                                <div class="section-tittle mb-50">
+                                    <span>修改个人信息</span>
+                                    <h2>个人信息</h2>
+                                    <p2>用户名、身份证号、真实姓名不可修改！</p2>
+                                </div>
                             </div>
-                            <!-- form -->
-
-                            <form action="" enctype="multipart/form-data" class="contact-form" method="post">
-                                <br class="row ">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>用户名：</span>
-                                            <input type="text" placeholder="用户名" readonly="readonly" value="{{ g.user.user_name }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>真实姓名：</span>
-                                            <input type="text" placeholder="真实姓名" readonly="readonly" value="{{ g.user.real_name }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>身份证：</span>
-                                            <input type="text" placeholder="身份证" readonly="readonly" value="{{ g.user.id_num}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>密码：</span>
-                                            <input type="password" placeholder="密码" name="password">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>用户类型：</span>
-                                             <input list="browsers" name="browser" placeholder="身份" value="{{ g.user.user_type_number }}">
-                                            <datalist id="browsers">
-                                                <option value="成年人">
-                                                <option value="学生">
-                                                <option value="退役军人/现役军人">
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>电话：</span>
-                                            <input type="text" placeholder="电话" value="15996690628" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-form">
-                                            <span>头像</span>
-                                            <img src="{{ g.user.avatar_path }}" width="64" height="64" alt="">
-                                            <p> </p>
-                                            <input type="file" name="avatar" placeholder="点击上传头像">
-                                        </div>
-                                    </div>
-                                    <!-- Button -->
-                                    <div class="col-lg-6">
-                                        <button name="submit" class="submit-btn">提交修改</button>
-                                    </div>
-
-                                <form action="demo-form.php" method="get">
-                                     <font color="red"  size="5">
-                                    {% for message in get_flashed_messages() %}
-                                    <div class="flash">{{ message }} </div>
-                                    {% endfor %}</font>
-                                </form>
-                            </form>
                         </div>
+                        <!-- form -->
+                        <form action="" enctype="multipart/form-data" class="contact-form" method="post">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                        <input type="text" placeholder="用户名" readonly="readonly" value="{{ g.user.user_name }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                        <input type="text" placeholder="真实姓名" readonly="readonly" value="{{ g.user.real_name }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                        <input type="text" placeholder="身份证" readonly="readonly" value="{{ g.user.id_num}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                        <input type="password" placeholder="密码" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                         <input list="browsers" name="browser" placeholder="身份" value="{{ g.user.user_type_number }}">
+                                        <datalist id="browsers">
+                                            <option value="成年人">
+                                            <option value="学生">
+                                            <option value="退役军人/现役军人">
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                        <input type="text" placeholder="电话" value="15996690628" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-form">
+                                        <img src="{{ g.user.avatar_path }}" width="64" height="64" alt="">
+                                        <p> </p>
+                                        <input type="file" name="avatar" placeholder="点击上传头像">
+                                    </div>
+                                </div>
+                                <!-- Button -->
+                                <div class="col-lg-12">
+                                    <button name="submit" class="submit-btn">提交修改</button>
+                                </div>
+                                <form action="demo-form.php" method="get">
+                                    <font color="red"  size="5">
+                                        {% for message in get_flashed_messages() %}
+                                        <div class="flash">{{ message }} </div>
+                                        {% endfor %}</font>
+                                    </form>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- contact-form end -->
-
+        </div>
+    </section>
+    <!-- contact-form end -->
 
     <div class="our-info-area pt-70 pb-40">
         <div class="container">
@@ -256,4 +253,5 @@
     <script src=" static/assets/js/main.js"></script>
 
 </body>
+
 </html>

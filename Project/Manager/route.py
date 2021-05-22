@@ -65,7 +65,7 @@ def route_edit():
             db.session.commit()
             return redirect(url_for('manager_bp.route_view'))
         flash(error)
-    return render_template('manage_route_form.html', route=route, user_name = request.cookies.get('user_name'))
+    return render_template('manage_route_form.html', route=route, user_name=request.cookies.get('user_name'))
 
 
 @manager_bp.route('route_delete', methods=["GET"])
