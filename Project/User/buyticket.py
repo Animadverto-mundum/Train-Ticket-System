@@ -15,10 +15,11 @@ import os
 def user_inputbuyticket():
     site_list = db.session.query(Site).filter().all()
     render_args = {'form_data': {},
-                   'site_list': site_list ,
+                   'site_list': site_list,
                    'user_name': request.cookies.get('customer_name'),
-                   'image_path': 'static/image/' + request.cookies.get('customer_name') + '.jpg'
-                }
+                   'image_path': 'static/image/' + request.cookies.get('customer_name') + '.jpg',
+                   'user_id': int(request.cookies.get('customer_id'))
+                   }
     if request.method == 'POST':
         if request.form['submit'] == 'user_inputbuyticket':
             buy_arrival_station = request.form['arrival_station']
@@ -53,11 +54,14 @@ def user_inputbuyticket():
                            Line.arrival_station == buy_arrival_station,
                            FareInformation.seat_type == buy_seat_type,
                            TrainNumber.departure_time >= buy_departure_time).all()
-                render_args = {
-                    'checkbuytickets': checkbuytickets,
-                    'user_id': int(request.cookies.get('customer_id')),
-                    'user_name': request.cookies.get('customer_name')
-                }
+                site_list = db.session.query(Site).filter().all()
+                render_args = {'form_data': {},
+                               'site_list': site_list,
+                               'user_name': request.cookies.get('customer_name'),
+                               'image_path': 'static/image/' + request.cookies.get('customer_name') + '.jpg',
+                               'checkbuytickets': checkbuytickets,
+                               'user_id': int(request.cookies.get('customer_id'))
+                               }
                 return render_template('user_checkbuyTicket.html', **render_args, vall=str(time.time()))
         flash(buy_error, 'query ticket')
     return render_template('user_buyTicket.html', **render_args, vall=str(time.time()))
