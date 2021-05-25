@@ -177,11 +177,15 @@
                           <!-- <th>{{ loop.index }}</th> -->
                           <th>{{ user.staff_ID }}</th>
                           <th><a>{{ user.user_name }}</a></th>
-                          <th>{{ identity[user] }}</th>
+                          <th>{{ identity[user.department_type_number] }}</th>
+                          {% if user.department_type_number != 0 %}
                           <th>
                             <a href="{{ url_for('manager_bp.staff_delete') }}?name={{ user.user_name }}">Delete | </a>
                             <a href="{{ url_for('manager_bp.staff_edit_single') }}?name={{ user.user_name }}">Edit</a>
                           </th>
+                          {% else %}
+                          <th>无权限操作</th>
+                          {% endif %}
                         </tr>
                         {% endfor %}
                       </tbody>
