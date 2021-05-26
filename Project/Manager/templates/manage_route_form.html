@@ -49,7 +49,7 @@
                 <img src="static/images/logo.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
+                <span>欢迎您,</span>
                 {% if user_name %}
                   <h2>{{ user_name }}</h2>
                 {% endif %}
@@ -62,50 +62,50 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Manager</h3>
+                <h3>管理员页面</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-circle-thin"></i> Route <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle-thin"></i>线路<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url_for('manager_bp.route_view') }}">View Route</a></li>
-                      <li><a href="{{ url_for('manager_bp.route_add') }}">Add Route</a></li>
+                      <li><a href="{{ url_for('manager_bp.route_view') }}">查看线路</a></li>
+                      <li><a href="{{ url_for('manager_bp.route_add') }}">添加线路</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-circle"></i> Station <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle"></i>车站<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url_for('manager_bp.station_view') }}">View Station</a></li>
-                      <li><a href="{{ url_for('manager_bp.station_add') }}">Add Station</a></li>
+                      <li><a href="{{ url_for('manager_bp.station_view') }}">查看车站</a></li>
+                      <li><a href="{{ url_for('manager_bp.station_add') }}">添加车站</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-circle-thin"></i> Ticket <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle-thin"></i>票务<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url_for('manager_bp.ticket_view') }}">View Ticket</a></li>
-                      <li><a href="{{ url_for('manager_bp.ticket_edit') }}">Add Ticket</a></li>
+                      <li><a href="{{ url_for('manager_bp.ticket_view') }}">查看购票</a></li>
+                      <li><a href="{{ url_for('manager_bp.ticket_edit') }}">进行购票</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-circle"></i> Train <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle"></i>车次<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url_for('manager_bp.train_view') }}">View Train</a></li>
-                      <li><a href="{{ url_for('manager_bp.train_edit') }}">Add Train</a></li>
+                      <li><a href="{{ url_for('manager_bp.train_view') }}">查看车次</a></li>
+                      <li><a href="{{ url_for('manager_bp.train_edit') }}">添加车次</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-circle-thin"></i> User <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle-thin"></i>用户<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url_for('manager_bp.user_view') }}">View User</a></li>
-                      <li><a href="{{ url_for('manager_bp.user_add') }}">Add User</a></li>
+                      <li><a href="{{ url_for('manager_bp.user_view') }}">查看用户</a></li>
+                      <li><a href="{{ url_for('manager_bp.user_add') }}">添加用户</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-circle"></i> Staff <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-circle"></i>管理员<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url_for('manager_bp.staff_view') }}">View Staff</a></li>
-                      <li><a href="{{ url_for('manager_bp.staff_add') }}">Add Staff</a></li>
+                      <li><a href="{{ url_for('manager_bp.staff_view') }}">查看管理员</a></li>
+                      <li><a href="{{ url_for('manager_bp.staff_add') }}">添加管理员</a></li>
                     </ul>
                   </li>
                 </ul>
               </div>
               <div class="menu_section">
-                <h3>USER</h3>
+                <h3>用户端</h3>
                 <ul class="nav side-menu">
-                  <li><a href="{{ url_for('user_bp.user_login') }}"><i class="fa fa-clone"></i> Go To User</a></li>
+                  <li><a href="{{ url_for('user_bp.user_login') }}"><i class="fa fa-clone"></i>转至用户端</a></li>
                 </ul>
               </div>
 
@@ -141,9 +141,9 @@
               <div class="title_left">
                 <h3>
                   {% if route %}
-                    {{ route.line_name }}
+                    正在修改 {{ route.line_name }}
                   {% else %}
-                    Add a new Route
+                    添加新线路
                   {% endif %}
                 </h3>
               </div>
@@ -155,7 +155,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2> Add Route </h2>
+                    <h2> 线路 <small> {{ user_name }} </small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -170,7 +170,7 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="route_name"> route_name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="route_name"> 线路名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           {% if route %}
@@ -181,7 +181,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departure"> Departure <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departure"> 出发时间 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           {% if route %}
@@ -192,7 +192,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> Arrival <span class="required">*</span></label>
+                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> 到达时间 <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           {% if route %}
                             <input type="text" id="arrival" name="arrival" required="required" class="form-control col-md-7 col-xs-12" value={{route.arrival_station}}>
@@ -202,7 +202,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="distance" class="control-label col-md-3 col-sm-3 col-xs-12"> Distance </label>
+                        <label for="distance" class="control-label col-md-3 col-sm-3 col-xs-12"> 实际里程 </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           {% if route %}
                             <input type="text" id="distance" name="distance" required="required" class="form-control col-md-7 col-xs-12" value={{route.line_distance}}>

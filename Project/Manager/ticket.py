@@ -50,14 +50,9 @@ def ticket_add():
         user_operating = db.session.query(User)\
             .filter(User.user_ID == request.form.get("user_certificate")).first()
         
-    if request.form.get("seat_type") == 'on':
-        fare_info = db.session.query(FareInformation)\
-            .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
-            .filter(FareInformation.seat_type == 1).first()
-    else:
-        fare_info = db.session.query(FareInformation)\
-            .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
-            .filter(FareInformation.seat_type == 2).first()
+    fare_info = db.session.query(FareInformation)\
+        .filter(FareInformation.train_number_id == request.form.get("train_number_ID").split('-')[0])\
+        .filter(FareInformation.seat_type == int(request.form.get("seat_type"))).first()
     while True:
         seat = random.randint(1, 1000)
         if len(db.session.query(TicketsSold).filter(TicketsSold.fare_ID==fare_info.fare_ID)\
@@ -86,7 +81,7 @@ def ticket_query():
         .filter(FareInformation.seat_type == int(request.form.get("seat_type"))).first()
     try:
         price = fare_info.money
-        if user_operating.user_type_number == 2:
+        if user_operating.user_type_number == 1:
             price *= 0.8
         price = 'CNY: %d' % price
     except:

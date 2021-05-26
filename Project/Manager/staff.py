@@ -4,16 +4,12 @@ from model import db, User, TicketsSold, FareInformation, Line, TrainNumber, Use
 from werkzeug.security import check_password_hash, generate_password_hash  # 避免数据库中直接存储密码
 
 
-identity_switch = {0:'线路管理', 1:'车站管理', 2:'票务管理', 3:'列车管理', 4:'普通用户管理', 5:'超级管理员'}
-
 @manager_bp.route('/staff_view')
 @access_check(request)
 def staff_view():
     '''查看所有管理員'''
     users = UserStaff.query.filter().all()
-    identity = {}
-    for user in users:
-        identity[user] = identity_switch[user.department_type_number]
+    identity = ['超级管理员','线路管理','车站管理','票务管理','列车管理','普通用户管理']
     render_args = {
         'users': users, 
         'identity': identity

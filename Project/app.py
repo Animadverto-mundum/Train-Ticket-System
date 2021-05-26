@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 from model import db
 from Manager import manager_bp
 from User import user_bp
@@ -22,6 +22,21 @@ def create_app():
 app = create_app()
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    render_args = {
+        'error_code': '404',
+        'error_message': '看来好像找不到你要的东西'
+    }
+    return render_template("error_page.html", **render_args)
+
+@app.errorhandler(500)
+def page_not_found(e):
+    render_args = {
+        'error_code': '500',
+        'error_message': '写的参数是不是有错呢？'
+    }
+    return render_template("error_page.html", **render_args)
 # route
 @app.route('/')
 def hello():
@@ -29,4 +44,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=9000)
+    app.run(debug=True, port=5000)
