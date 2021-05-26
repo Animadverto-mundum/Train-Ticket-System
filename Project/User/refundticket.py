@@ -12,15 +12,16 @@ from . import access_check
 @access_check(request)
 def user_checkrefundticket():
     user_id = int(request.cookies.get('customer_id'))
+    user = User.query.filter(User.user_ID == user_id).first()
     localtime = time.localtime()
     current_time = time.strftime("%H:%M:%S", localtime)
     current_user = db.session.query(User).filter(User.user_ID==user_id).first()
 
-    # ²âÊÔÊ¹ÓÃ ²é¿´ËùÓÐÒÑÂòÆ±
+    # ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ±
     s = datetime.datetime.strptime("00:00:00", '%H:%M:%S').time()
 
-    # Æ±ºÅ ³µ´Î ÏßÂ·Ãû ³ö·¢Õ¾ µ½´ïÕ¾ ³ö·¢Ê±¼ä µ½´ïÊ±¼ä ×ùÎ»ÀàÐÍ Æ±¼Û ×ùÎ»ºÅ
-    # Ç°¶Ë¸ù¾ÝÓÃ»§ÀàÐÍÏÔÊ¾Æ±¼Û
+    # Æ±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ¾ ï¿½ï¿½ï¿½ï¿½Õ¾ ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ Æ±ï¿½ï¿½ ï¿½ï¿½Î»ï¿½ï¿½
+    # Ç°ï¿½Ë¸ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Æ±ï¿½ï¿½
     checkrefundtickets = db.session.query(TicketsSold.tickets_sold_ID, TrainNumber.train_number_ID,
                                           Line.line_name, Line.departure_station, Line.arrival_station,
                                           TrainNumber.departure_time, TrainNumber.arrival_time,
@@ -36,7 +37,7 @@ def user_checkrefundticket():
         'user_type': current_user.user_type_number,
         'user_id': int(request.cookies.get('customer_id')),
         'user_name': request.cookies.get('customer_name'),
-        'image_path':'static/image/' + request.cookies.get('customer_name') + '.jpg'
+        'image_path':user.avatar_path
     }
 
     return render_template('user_refundTicket.html', **render_args, vall=str(time.time()))
@@ -45,7 +46,7 @@ def user_checkrefundticket():
 @user_bp.route('refundtickt', methods=['GET', 'POST'])
 @access_check(request)
 def user_refundticket():
-    # ´«Èë²ÎÊý£ºÆ±ºÅ
+    # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½
     ticketsold_id = request.args['ticketsold_id']
 
     delete_item = db.session.query(TicketsSold).filter(TicketsSold.tickets_sold_ID == ticketsold_id).first()

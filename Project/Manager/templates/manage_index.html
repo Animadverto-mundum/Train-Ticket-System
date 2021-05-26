@@ -131,58 +131,212 @@
             <div class="row top_tiles" style="margin: 10px 0;">
               <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>今日客流量</span>
-                <h2>231,809</h2>
-                <span class="sparkline_one" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-6 tile">
-                <span>今日营收</span>
-                <h2>$ 231,809</h2>
-                <span class="sparkline_one" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-6 tile">
-                <span>季度客流量趋势</span>
-                <h2>231,809</h2>
-                <span class="sparkline_three" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-6 tile">
-                <span>以上数据接口待发开发</span>
-                <h2>敬请期待</h2>
-                <span class="sparkline_one" style="height: 160px;">
-                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                  </span>
+                <h2>{{ ticket_sold_today }}</h2>
               </div>
             </div>
-            <br />
+              <div class="right_col" role="main">
+
+          <div class="">
+
+            <div class="page-title">
+              <div class="title_left">
+                <h3> 数据预测 </h3>
+              </div>
+            </div>
 
 
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="dashboard_graph x_panel">
-                  <div class="row x_title">
-                    <div class="col-md-6">
-                      <h3> 数据预测 <small>开发中···</small></h3>
-                    </div>
-                    <div class="col-md-6">
-                      <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                        <span> May 20, 2021 - May 20, 2022</span> <b class="caret"></b>
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
+                  <div class="form-group">
+                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> 功能选择 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="type" required="required" class="form-control col-md-7 col-xs-12" value="数据预测" readonly="readonly">
+
+                        </div>
                       </div>
-                    </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 车次 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="train_number_ID" required="required" class="form-control col-md-7 col-xs-12" >
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departure"> 预测周期 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="departure" name="periods" required="required" class="form-control col-md-7 col-xs-12" value="3">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> 预测频率 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="arrival" name="freq" required="required" class="form-control col-md-7 col-xs-12" value="1M">
+
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button class="btn btn-primary" type="reset">重置</button>
+                          <button type="submit" class="btn btn-success">提交</button>
+                          <div style="color:#FF0000; float:left">
+                            {% for message in get_flashed_messages() %}
+                              <br>
+                              <em class="flash" style="color: 00f">{{ message }}</em>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+
+                    </form>
+           <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
                   </div>
-                  <div class="x_content" style="margin-bottom: 20px" >
-                    <div class="demo-container" style="height:250px">
-                      <div id="chart_plot_03" class="demo-placeholder"></div>
-                    </div>
+                  <div class="x_content">
+
+                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>时间</th>
+                          <th>预测值</th>
+                          <th>预测下限</th>
+                          <th>预测上限</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                      {% if predict_list %}
+                        {% for route in predict_list %}
+                        <tr>
+                          <th>{{ route["时间"] }}</th>
+                          <th>{{ route.yhat }}</th>
+                          <th>{{ route.yhat_lower }}</th>
+                          <th>{{ route.yhat_upper }}</th>
+                        </tr>
+                        {% endfor %}
+                      {% endif %}
+                      </tbody>
+
+                    </table>
+                  {% if pic %}
+                        <p style="text-align: center;">
+                      <img  style="width:700px" src="data:;base64,{{ pic}}">
+                  {% endif %}
+                      </p>
                   </div>
                 </div>
               </div>
             </div>
+          <div class="page-title">
+              <div class="title_left">
+                <h3> 数据趋势分析 </h3>
+              </div>
+            </div>
+
+          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST">
+                  <div class="form-group">
+                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> 功能选择 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="type" required="required" class="form-control col-md-7 col-xs-12" value="数据趋势分析" readonly="readonly">
+
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 车次 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="train_number_ID" required="required" class="form-control col-md-7 col-xs-12" >
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="departure"> 开始时间 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="departure" name="begin_time" required="required" class="form-control col-md-7 col-xs-12" value="19990101">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="arrival" class="control-label col-md-3 col-sm-3 col-xs-12"> 结束时间 <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="arrival" name="end_time" required="required" class="form-control col-md-7 col-xs-12" value="20210525">
+
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button class="btn btn-primary" type="reset">重置</button>
+                          <button type="submit" class="btn btn-success" >提交</button>
+                          <div style="color:#FF0000; float:left">
+                            {% for message in get_flashed_messages() %}
+                              <br>
+                              <em class="flash" style="color: 00f">{{ message }}</em>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+
+                    </form>
+          <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>记录数量</th>
+                          <th>总人次</th>
+                          <th>平均值</th>
+                          <th>最小值</th>
+                            <th>最大值</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                      {% if describe_list %}
+                        <tr>
+                          <th>{{ describe_list["数值"]["count"] }}</th>
+                          <th>{{ describe_list["数值"]["mean"] }}</th>
+                          <th>{{ describe_list["数值"]["std"]  }}</th>
+                          <th>{{ describe_list["数值"]["min"]  }}</th>
+                            <th>{{ describe_list["数值"]["max"]  }}</th>
+                        </tr>
+                      {% endif %}
+                      </tbody>
+
+                    </table>
+                  {% if pic_trend %}
+                        <p style="text-align: center;">
+                      <img  style="width:700px" src="data:;base64,{{ pic_trend}}">
+                  {% endif %}
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+        </div>
 
 
           </div>

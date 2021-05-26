@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, render_template, url_for, session, flash, g
-from model import db, TrainNumber, FareInformation, Line
+from model import db, TrainNumber, FareInformation, Line ,User
 from . import user_bp
 from . import access_check
 import os
@@ -9,6 +9,7 @@ import time
 @access_check(request)
 def user_checkticket():
     user_name = request.cookies.get('customer_name')
+    user = User.query.filter(User.user_name == user_name).first()
     checktickets = db.session.query(TrainNumber.train_number_ID, Line.line_name,
                                     Line.departure_station, Line.arrival_station,
                                     TrainNumber.departure_time,TrainNumber.arrival_time,
@@ -18,7 +19,7 @@ def user_checkticket():
     render_args={
         'user_name':user_name,
         'checktickets':checktickets,
-        'image_path':'static/image/' + user_name + '.jpg'
+        'image_path':user.avatar_path,
     }
     return render_template('user_checkTicket.html', **render_args, vall=str(time.time()))
 

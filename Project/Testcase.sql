@@ -1,11 +1,11 @@
 use railway;
-insert into user(user_name, password, user_type_number) values
-('llm','llmnb', 0),
-('zyp','zypnb', 0),
-('wgt','wgtnb', 0),
-('jjq','jjqnb', 1),
-('szw','szwnb', 1),
-('yzh','yzhnb', 1);
+insert into user(user_name, password, user_type_number,real_name,id_num,avatar_path) values
+('llm','llmnb', 0,'刘','111','static/image/llm_llm.jpg'),
+('zyp','zypnb', 0,'周','222','static/image/zyp_zyp.jpg'),
+('wgt','wgtnb', 0,'吴','333','static/image/wgt_wgt.jpg'),
+('jjq','jjqnb', 1,'金','444','static/image/jjq_jjq.jpg'),
+('szw','szwnb', 1,'单','555','static/image/szw_szw.jpg'),
+('yzh','yzhnb', 1,'殷','666','static/image/yzh_yzh.jpg');
 -- 1-6 users logged
 
 insert into site(site_name, site_capacity_level, opening_time, closing_time) values
@@ -327,4 +327,4 @@ insert into tickets_sold(fare_ID, user_ID , seat, departure_date) values
 (47, 3, 9317, '2021-01-01'),
 (55, 4, 1213, '2021-03-10'),
 (23, 4, 3033, '2021-02-21');
--- 100 purchase history 
+-- 100 purchase history

@@ -5,7 +5,7 @@ from flask import request, redirect, render_template, url_for, flash
 # from model import *
 from . import user_bp
 from .user_auth import login_required
-from model import db, FareInformation, TrainNumber, Line, Site, TicketsSold
+from model import db, FareInformation, TrainNumber, Line, Site, TicketsSold,User
 from . import access_check
 import os
 
@@ -13,11 +13,13 @@ import os
 @user_bp.route('/inputbuyTicket', methods=['GET', 'POST'])
 @access_check(request)
 def user_inputbuyticket():
+    user_name=request.cookies.get('customer_name')
+    user = User.query.filter(User.user_name == user_name).first()
     site_list = db.session.query(Site).filter().all()
     render_args = {'form_data': {},
                    'site_list': site_list,
                    'user_name': request.cookies.get('customer_name'),
-                   'image_path': 'static/image/' + request.cookies.get('customer_name') + '.jpg',
+                   'image_path':user.avatar_path,
                    'user_id': int(request.cookies.get('customer_id'))
                    }
     if request.method == 'POST':
@@ -34,13 +36,13 @@ def user_inputbuyticket():
             buy_error = None
             # buy_user_ID = db.session.query(User.user_ID).filter(User.user_name == global_username).first()=
             if buy_arrival_station == '':
-                buy_error = 'arrival station is required.'
+                buy_error = '需要填写到达站！'
             elif buy_departure_station == '':
-                buy_error = 'departure station is required.'
+                buy_error = '需要填写出发站！'
             elif buy_departure_time == '':
-                buy_error = 'departure time is required.'
+                buy_error = '需要填写出发时间！'
             elif buy_seat_type == '':
-                buy_error = 'seat type is required.'
+                buy_error = '需要填写座位类型！'
             # 票号、车次、线路号、座位类型、出发站、到达站、出发时间、到达时间
             # 用户ID、用户名、票价号
             if buy_error is None:
