@@ -137,9 +137,55 @@
 
 ![用例图_工作人员](src\用例图\用例图_工作人员.jpg)
 
+------
+
 ### 2.2 类图
 
+------
+
 ### 2.3 顺序图(多补几张)
+
+1. 登录 顺序图
+
+<font color=#808080 size=2>  **传入参数：**用户名(*User_id*)、密码(*password*)</font>
+
+![登录_顺序图](src\顺序图\登录.png)
+
+2. 普通用户 购票、退票 顺序图
+
++ 购票
+
+  <font color=#808080 size=2> **传入参数：**用户ID(*User_id*)、出发站(*departure_station*)、到达站(*arrival_time*)、出发时间(*departure_time*)、到达时间(*arrival_time*)、座位类型(*seat_type*)</font>
+
+  ![普通用户购票_顺序图](src\顺序图\用户购票.png)
+
++ 退票
+
+  <font color=#808080 size=2> **传入参数：**用户ID(*User_id*)</font>
+  
+  ![普通用户退票_顺序图](src\顺序图\用户退票.png)
+  
+3. 管理员用户 添加线路、修改站点、删除车票 顺序图
+
++ 添加线路
+
+  <font color=#808080 size=2> **传入参数：**线路号(*Line_id*)、线路名(*Line_name*)、出发站(*departure_station*)、到达站(*arrival_time*)、线路距离(*Line_distance*)</font>
+
+  ![管理员用户添加线路_顺序图](src\顺序图\管理员添加线路.png)
+
++ 修改站点
+
+  <font color=#808080 size=2> **传入参数：**车站名(*site_name*)、车站等级(*site_type*)</font>
+
+  ![管理员用户修改站点_顺序图](src\顺序图\管理员修改站点.png)
+
++ 删除车票
+
+  <font color=#808080 size=2> **传入参数：**票号(*fare_id*)</font>
+  
+  ![管理员用户删除车票_顺序图](src\顺序图\管理员删除车票.png)
+  
+  -----
 
 ### 2.4 部署图
 
