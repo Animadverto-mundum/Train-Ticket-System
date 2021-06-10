@@ -188,6 +188,8 @@
 
 ### 2.4 部署图
 
+
+
 ## 3.  数据库设计（金）
 
 ### 3.1 表的设计
@@ -484,3 +486,66 @@ Prophet模型由Facebook提出并开源，其是基于非线性关系拟合的�
 
 ## 6. 服务器（吴）
 
+### 6.1 服务器概述
+
+服务器使用腾讯云的轻量应用服务器，配置为1核CPU，2GB内存，40GB系统盘，5Mbps带宽。
+
+![server](src\服务器\server.jpg)
+
+[域名](omysycamre.top)在阿里云注册，已在工信部备案，可以满足日常的简单使用。
+
+### 6.2 服务器配置
+
+#### 6.2.1 服务器本地运行配置
+
+由于服务器需要和远端仓库的代码实现同步，这里选用git工具进行代码，初次运行需要初始化MySQL数据库：
+
+```shell
+git clone https://gitee.com/GuotongWu/train-ticket-system
+python Project/db.py
+```
+
+为了在指定的本地端口（127.0.0.1:8000）运行Flask程序，使用gunicorn来运行进程。gunicorn的作用相当于一个容器，可以对进程的资源进行分配：
+
+```shell
+cd Project
+gunicorn -w 4 -b 127.0.0.1:8000 app:app
+```
+
+#### 6.2.2 Nginx配置
+
+对服务器本地运行的进程，使用Nginx进行反向代理，Nginx反向代理原理如下：
+
+![nginx](src\服务器\nginx.jpg)
+
+使用Nginx需要修改其配置，使其同时监听80（HTTP）和443（HTTPS）端口，同时完成反向代理本地端口127.0.0.1:5000。以443端口为例，大概的配置如下：
+
+```nginx
+server {
+        listen 443 ssl;
+        #配置HTTPS的默认访问端口为443。
+        server_name www.omysycamore.top; #证书绑定的域名。
+    
+        client_max_body_size 10M; #最高上传的文件大小
+
+        root html;
+        index index.html index.htm;
+        ssl_certificate cert/5681214_www.omysycamore.top.pem;  #SSL证书文件
+        ssl_certificate_key cert/5681214_www.omysycamore.top.key; #SSL密钥
+        ssl_session_timeout 5m;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+        #表示使用的加密套件的类型。
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #表示使用的TLS协议的类型。
+        ssl_prefer_server_ciphers on;
+        location / {
+            proxy_pass http://127.0.0.1:8000; #本地端口
+        }
+		
+    	#设置错误页面跳转
+        error_page 404 500 502 503 504 /root/github/train-ticket-system/Project/Manager/templates/manage_404.html;
+        location = /root/github/train-ticket-system/Project/Manager/templates/manage_404.html {
+        }
+    }
+```
+
+注：由于HTTPS需要数字证书进行安全认证，此处选用了阿里云提供的免费SSL证书。
