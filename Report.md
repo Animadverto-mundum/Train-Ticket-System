@@ -2,7 +2,18 @@
 
 # 报告
 
-## 1. 需求分析 （单）
+## 0. 分工安排
+
+|    学号    |  姓名  | 工作内容                                                     |
+| :--------: | :----: | ------------------------------------------------------------ |
+| 2018114228 | 殷子浩 | 参与数据库设计，完成管理员端鉴权、认证、模糊搜索、车次、<br />票务管理模块的前端、后端开发，区分用户身份与坐等，github工作流管理 |
+| 2018115563 | 周依萍 | 参与数据库设计，用户端对页面的前端框架进行二次调整；<br />管理端负责整体页面框架决定与调整，车站、线路模块的前、后端开发 |
+| 2018110753 | 金嘉淇 | 参与数据库设计与实现；ER图；部署图；用户端鉴权、认证；<br />人脸识别扩展；数据分析预测前后端开发；列车3D展示模块前后端开发；GitHub commit最多 |
+| 2018111062 | 单招文 | 参与数据库设计，用户端：前端html框架，css初级美化<br />模糊搜索，js读取后端数据，类图、PPT制作 |
+| 2018112268 | 刘立敏 | 参与数据库设计，用户端后端逻辑功能实现，模糊搜索， 后端实现<br />根据用户类型显示票价，顺序图绘制 |
+| 2018113562 | 吴国桐 |                                                              |
+
+## 1. 需求分析
 
 ### 1.1 登录注册模块
 
@@ -266,11 +277,159 @@
 
 ### 4.1 用户端
 
-#### 4.1.1 登录注册
+#### 4.1.1 首页
+
+本模块为用户系统首页，同时也是整个系统的主页，为默认页
+
+1.默认页代码，默认用户名为游客（html中设置）
+
+```python
+@app.route('/')
+def hello():
+    return redirect(url_for('user_bp.user_index'))
+```
+
+2.界面展示
+
+![search1](./src/user/index1.png)
+
+#### 4.1.2 登录注册
+
+此模块是为普通用户登录注册以及忘记密码等相关功能
+
+##### 4.1.2.1 登陆
+
+首先介绍登录功能主要的逻辑实现
+
+1. 获取前端输入的用户名与密码，并在数据库数据查询
+
+```python
+login_username = request.form['user']
+login_password = request.form['password']
+login_user = User.query.filter(User.user_name == login_username).first()
+```
+
+2. 处理错误抛出异常信息，采用flash在前端渲染
+
+```python
+if login_user is None:
+    login_error = 'User {} does not exist!'.format(login_username)
+elif login_user.password != login_password:
+    login_error = 'Incorrect password!'
+```
+
+3. 若无错误，再次进入主页，但会显示采用设置好的cookie来获取对应用户名
+
+```python
+if login_error is None:
+    session.clear()
+    session['user_ID'] = login_user.user_ID
+    respond = redirect(url_for('user_bp.user_index'))
+    respond.set_cookie('customer_id', str(login_userid))
+    respond.set_cookie('customer_name', login_username)
+```
+
+4. 页面展示
+
+![search1](./src/user/login1.png)
+
+##### 4.1.2.2 注册
+
+1. 获取前端输入的用户名、密码、重复密码、身份与头像信息
+
+```python
+reg_username = request.form.get('user')
+reg_password1 = request.form.get('password1')
+reg_password2 = request.form.get('password2')
+if request.form.get('browser') == '成人':
+  	user_type = 0
+else:
+  	user_type = 1
+```
+
+2. 进行输入信息的简单验证，例如二次密码是否一致等
+
+```python
+if reg_password1 != reg_password2:
+  	reg_error = 'Inconsistent password.'
+elif User.query.filter(User.user_name == reg_username).first() is not None:
+  	reg_error = 'User {} is already registered.'.format(reg_username)
+```
+
+3. 若无错误，则向数据库提交，向用户表添加一条新用户信息
+
+```
+reg_user = User(user_name=reg_username, password=reg_password1, user_type_number=user_type)
+db.session.add(reg_user)
+db.session.commit()
+```
+
+4. 页面展示
+
+![search1](./src/user/register1.png)
+
+##### 4.1.2.3 忘记密码
+
+若进入忘记密码逻辑，可直接输入用户名与新密码，
+
+1. 获取前端输入的用户名、新密码、重复密码
+
+```python
+reg_username = request.form.get('user')
+reg_password1 = request.form.get('password1')
+reg_password2 = request.form.get('password2')
+```
+
+2.页面展示
+
+![search1](./src/user/forgetpassword1.png)
 
 #### 4.1.2 用户信息
 
+本模块为登陆后显示个人信息页面，且可直接修改
+
+1. 采用cookie获取用户名，根据此用户名在数据库查询获取相关信息进行显示
+
+```python
+reg_username = request.cookies.get('customer_name')
+user=User.query.filter(User.user_name == reg_username).first()
+```
+
+2. 页面展示
+
+![search1](./src/user/profile1.png)
+
 #### 4.1.3 购买车票
+
+1. 购票逻辑第一步为输入起始站、终点站、座等与出发时间
+
+```python
+buy_arrival_station = request.form['arrival_station']
+buy_departure_station = request.form['departure_station']
+temp = request.form['departure_time']
+buy_departure_time = datetime.datetime.strptime(temp, "%H:%M:%S")
+seat_type = request.form['seat_type']
+```
+
+2. 购买前置查询页面
+
+![search1](./src/user/buyticket1.png)3. 后端通过cookie获取的用户身份以及输入的数据查询对应车次
+
+```python
+checkbuytickets = db.session.query(FareInformation.fare_ID, TrainNumber.train_number_ID,Line.line_ID, FareInformation.seat_type,
+Line.departure_station, Line.arrival_station,TrainNumber.departure_time, TrainNumber.arrival_time). \
+filter(TrainNumber.train_number_ID == FareInformation.train_number_id,
+       TrainNumber.line_ID == Line.line_ID,
+       Line.departure_station == buy_departure_station,
+       Line.arrival_station == buy_arrival_station,
+       FareInformation.seat_type == buy_seat_type,
+       TrainNumber.departure_time >= buy_departure_time).all()
+site_list = db.session.query(Site).filter().all()
+```
+
+4.购买页面
+
+![search1](./src/user/buyticket2.png)
 
 #### 4.1.4 查询车票
 
@@ -369,30 +528,82 @@ if login_error is None:
 
 #### 4.2.4 线路管理
 
+1. 该模块可供对应权限管理员浏览并编辑，当前铁路数据库所有的线路信息
+
+![image-20210530105517464](src\Manager\route1.png)
+
+2. 可对应进行模糊搜索，例如查看所有含成都站的线路信息
+
+![image-20210530105517464](src\Manager\route2.png)
+
+3. 对应插件可直接对数据进行复制、打印等操作，例如打印
+
+![image-20210530105517464](src\Manager\route3.png)
+
+4. 可通过操作栏进行删除，删除则直接从数据库级联删除
+
+![image-20210530105517464](src\Manager\route4.png)
+
+5. 点击Edit则可进入修改页面，以上图1号线为例，将里程修改为2345
+
+![image-20210530105517464](src\Manager\route5.png)
+
+![image-20210530105517464](src\Manager\route6.png)6.同时也可增添一个新线路，但线路的站点必须存在于车站表，例如接下来演示将Beijing- Chengdu删除后再重新添加
+
+![image-20210530105517464](src\Manager\route6.png)
+
+![image-20210530105517464](src\Manager\route7.png)
+
+![image-20210530105517464](src\Manager\route8.png)
+
+![image-20210530105517464](src\Manager\route9.png)
+
 #### 4.2.5 车站管理
+
+车站模块逻辑功能与线路模块相似，同样可实现增删改查，车站表是更为基础的表项，不依赖于任何外键
+
+1. 查询功能（同样具有模糊查找和插件功能）
+
+![image-20210530105517464](src\Manager\site1.png)
+
+2. 修改功能（修改站点等级）
+
+![image-20210530105517464](src\Manager\site2.png)
+
+3.删除功能（同样位于操作栏），删除后级联删除相关线路
+
+![image-20210530105517464](src\Manager\site3.png)
+
+![image-20210530105517464](src\Manager\site4.png)
+
+4.增加站点
+
+![image-20210530105517464](src\Manager\site5.png)
+
+![image-20210530105517464](src\Manager\site6.png)
 
 #### 4.2.6 票务管理
 
 1. 管理员可以通过本系统的票务模块实现对已购票的查询和查看
 
-![ticket1](/src/manager/ticket1.png)
+![image-20210530105517464](src\Manager\ticket1.png)
 
 管理员可以通过右上角的检索框，根据票号、车次号、线路名称、用户号、用户名等关键词进行模糊搜索
 
 下面以检索用户llm的购买情况为例
 
-![ticket2](/src/manager/ticket2.png)
+![search!](./src/manager/ticket2.png)
 
 也可以通过点按表头，实现根据某一个特殊关键字的排序，例如根据线路关键字排序，并设置页面上能够显示的条目数量。
 
-![ticket3](/src/manager/ticket3.png)
+![search!](./src/manager/ticket3.png)
 
 2. 管理员可以通过点击Action-Delete 按钮实现对一张票进行退票的操作
 3. 管理员能够使用本系统中的票务子系统，实现为用户购票
 
 我们提供根据用户名，用户号两种方式进行购票
 
-![ticket4](/src/manager/ticket4.png)
+![search!](./src/manager/ticket4.png)
 
 车次号提供模糊搜索匹配的下拉框功能，提示管理员用户方便输入
 
